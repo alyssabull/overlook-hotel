@@ -1,13 +1,102 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Webpack Starter Kit</title>
+    <title>Overlook Hotel</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+    <section class="log-in-page">
+      <h1>Overlook Hotel</h1>
+      <article class="enter-credentials">
+        <h4>Username</h4>
+        <input type="text" name="username" class="login-info">
+        <h4>Password</h4>
+        <input type="text" name="password" class="login-info">
+        <button type="button" class="submit-button">Log In</button>
+      </article>
+    </section>
+    <section class="manager-view">
+      <h2>Overlook Hotel</h2>
+      <article class="today-overview">
+        <input type="date">
+        <p>Today's Revenue $--.--</p>
+        <p>Rooms Available Today --</p>
+        <p>Percentage Occupied --%</p>
+      </article>
+      <article class="customer-search">
+        <h3>Search Customers</h3>
+        <input type="text" name="customer search" placeholder="type customer name">
+        <section>
+          <h4><i>customer name</i></h4>
+          <p>Total Spent $--.--</p>
+          <button type="button" class="add-booking">Add Booking</button>
+          <article class="add-customer-booking">
+            <h3>Add Booking for <i>customer name</i></h3>
+            <input type="date" name="add-booking-date">
+            <section class="available-rooms">
+              <p>Available Room Info</p>
+              <button type="button" class="book-button">BOOK</button>
+              <p>Available Room Info</p>
+              <button type="button" class="book-button">BOOK</button>
+              <p>Available Room Info</p>
+              <button type="button" class="book-button">BOOK</button>
+            </section>
+          </article>
+          <article class="customer-bookings">
+            <p>X</p>
+            <img src="https://cdn.bookingexperts.nl/uploads/image/image/130271/cover_DSC_3358-HDR-1.jpg" alt="hotel-suite">
+            <p>Date: 2020/10/22</p>
+            <p>Room Information</p>
+          </article>
+        </section>
+      </article>
+    </section>
+    <section class="customer-view">
+      <h2>Welcome back, <i>customer name</i></h2>
+      <article class="customer-status">
+        <p>Gold Status</p>
+        <p>3,456 points</p>
+        <p>Total Spent: $--.--</p>
+      </article>
+      <button type="button" class="book-room">Book a Room</button>
+      <button type="button" class="view-bookings">View Bookings</button>
+    </section>
+    <section class="book-room-page">
+      <h2>Book a Room</h2>
+      <input type="date" name="room date">
+      <aside class="filter-rooms">
+        <h3>Filter Rooms</h3>
+        <input type="radio" name="residential suite">
+        <label for="residential suite">Residential Suite</label>
+        <input type="radio" name="suite">
+        <label for="suite">Suite</label>
+        <input type="radio" name="junior suite">
+        <label for="junior suite">Junior Suite</label>
+        <input type="radio" name="single room">
+        <label for="single room">Single Room</label>
+      </aside>
+      <article class="available-rooms">
+        <p>Available Room Info</p>
+        <button type="button" class="book-button">BOOK</button>
+        <p>Available Room Info</p>
+        <button type="button" class="book-button">BOOK</button>
+        <p>Available Room Info</p>
+        <button type="button" class="book-button">BOOK</button>
+      </article>
+    </section>
+    <section class="view-bookings-page">
+      <h3><i>customer name's</i>Past Bookings</h3>
+      <article class="room-information">
+        <p>Date</p>
+        <p>Room Information</p>
+      </article>
+      <article class="room-information">
+        <p>Date</p>
+        <p>Room Information</p>
+      </article>
+      <article class="room-information">
+        <p>Date</p>
+        <p>Room Information</p>
+      </article>
+    </section>
   </body>
 </html>
