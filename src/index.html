@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-US">
+<link href="https://fonts.googleapis.com/css2?family=Spectral+SC:wght@200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
   <head>
     <title>Overlook Hotel</title>
   </head>
   <body>
     <section class="log-in-page">
-      <h1>Overlook Hotel</h1>
+      <header>
+        <img src="https://i.etsystatic.com/18252946/r/il/dd8a9e/1629665033/il_570xN.1629665033_pyzn.jpg" alt="overlook hotel crest" class="hotel-crest">
+        <h1>Overlook Hotel</h1>
+      </header>
+      <section>
+        <p class="hotel-info">1744 Peck Court, Laguna Beach CA 92651 | (949) 464 - 8038 | bookings@overlookhotel.net</p>
+      </section>
       <article class="enter-credentials">
         <h4>Username</h4>
         <input type="text" name="username" class="login-info">
@@ -14,7 +22,7 @@
         <button type="button" class="submit-button">Log In</button>
       </article>
     </section>
-    <section class="manager-view">
+    <section class="manager-view hidden">
       <h2>Overlook Hotel</h2>
       <article class="today-overview">
         <input type="date">
@@ -50,7 +58,7 @@
         </section>
       </article>
     </section>
-    <section class="customer-view">
+    <section class="customer-view hidden">
       <h2>Welcome back, <i>customer name</i></h2>
       <article class="customer-status">
         <p>Gold Status</p>
@@ -59,7 +67,6 @@
       </article>
       <button type="button" class="book-room">Book a Room</button>
       <button type="button" class="view-bookings">View Bookings</button>
-    </section>
     <section class="book-room-page">
       <h2>Book a Room</h2>
       <input type="date" name="room date">
@@ -97,6 +104,7 @@
         <p>Date</p>
         <p>Room Information</p>
       </article>
+    </section>
     </section>
   </body>
 </html>

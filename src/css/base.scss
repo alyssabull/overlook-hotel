@@ -1,7 +1,48 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+// $primary-background:
+// ;
 
 body {
-  background: $primary-background;
+  background: url('https://www.telegraph.co.uk/content/dam/Travel/hotels/hotel-wishlist/the-lanesborough-suite-london.jpg');
+  background-size: 100%;
+}
+
+// Banner
+
+header {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border-radius: 5px;
+}
+
+h1 {
+  display: flex;
+  font-family: 'Spectral SC', serif;
+  font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.hotel-crest {
+  display: flex;
+  height: 100px;
+  width: 100px;
+}
+
+.hotel-info {
+  display: flex;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  background-color: white;
+  margin-top: 0px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+
+
+
+.hidden {
+  display: none;
 }
