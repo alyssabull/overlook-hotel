@@ -136,16 +136,16 @@ h5 {
 }
 
 .view-information {
-  height: 100px;
+  height: 150px;
   overflow: scroll;
 }
 
-::-webkit-scrollbar {
+.view-information::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
 }
 
-::-webkit-scrollbar-thumb {
+.view-information::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgba(0, 0, 0, .5);
   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
@@ -167,7 +167,7 @@ h5 {
 }
 
 .room-type {
-  font-size: 35px;
+  font-size: 30px;
   margin-bottom: 0px;
   margin-top: 5px;
 }
