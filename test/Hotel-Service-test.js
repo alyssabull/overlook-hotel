@@ -216,6 +216,28 @@ describe('Hotel Service', () => {
 
       expect(hotelService.calculateTotalSpent(user)).to.deep.equal(613.39)
     });
+
+    it('should be able to add a booking for the current user', () => {
+      const user = new User(sampleUserData[0]);
+      const booking1 = new Booking('hf729dj19385hj', 1, '2020/25/11', 2, []);
+      hotelService.addBookings();
+      hotelService.addUserBookings(user);
+      hotelService.addBooking(user, booking1);
+
+      expect(user.bookings.length).to.equal(3);
+      expect(user.bookings[user.bookings.length - 1]).to.deep.equal(booking1);
+    });
+
+    it('should be able to delete a booking for the current user', () => {
+      const user = new User(sampleUserData[0]);
+      const booking1 = sampleBookingData[0];
+      hotelService.addBookings();
+      hotelService.addUserBookings(user);
+      hotelService.deleteBooking(user, booking1);
+
+      expect(user.bookings.length).to.equal(1);
+      expect(user.bookings).to.deep.equal([sampleBookingData[1]]);
+    });
   })
 
 });
