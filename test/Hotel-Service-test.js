@@ -153,6 +153,13 @@ describe('Hotel Service', () => {
 
       expect(hotelService.findAvailableRooms('2020/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
     });
+
+    it('should be able to filter available rooms by day', () => {
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.calculatePercentageOccupied('2020/10/10')).to.deep.equal('33.3')
+    });
   })
 
 });
