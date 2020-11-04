@@ -20,7 +20,7 @@ describe('Booking', () => {
       expect(Booking).to.be.a('function');
     });
 
-    it('should be an instance of Room', () => {
+    it('should be an instance of Booking', () => {
       expect(booking).to.be.an.instanceof(Booking);
     });
 
