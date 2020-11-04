@@ -64,8 +64,14 @@ describe('Hotel Service', () => {
       },{
         id: 'qewrgu7i7345hl6dz',
         userID: 3,
-        date: '2020/11/10',
+        date: '2020/10/10',
         roomNumber: 3,
+        roomServiceCharges: []
+      },{
+        id: 'q67dhkjf7345hl6dz',
+        userID: 2,
+        date: '2020/10/10',
+        roomNumber: 1,
         roomServiceCharges: []
       }
     ];
@@ -130,8 +136,19 @@ describe('Hotel Service', () => {
       const booking1 = new Booking(sampleBookingData[0]);
       const booking2 = new Booking(sampleBookingData[1]);
       const booking3 = new Booking(sampleBookingData[2]);
+      const booking4 = new Booking(sampleBookingData[3]);
 
-      expect(hotelService.allBookings).to.deep.equal([booking1, booking2, booking3]);
+      expect(hotelService.allBookings).to.deep.equal([booking1, booking2, booking3, booking4]);
+    });
+
+    it('should create an array of bookings for the current user', () => {
+      const user = new User(sampleUserData[0]);
+      const booking1 = new Booking(sampleBookingData[0]);
+      const booking2 = new Booking(sampleBookingData[1]);
+      hotelService.addBookings();
+      hotelService.addUserBookings(user);
+
+      expect(user.bookings).to.deep.equal([booking1, booking2]);
     });
 
     it('should be able to find room details', () => {
@@ -147,18 +164,57 @@ describe('Hotel Service', () => {
       expect(hotelService.filterRoomByType(sampleRoomData,'residential suite')).to.deep.equal([sampleRoomData[0]])
     });
 
-    it('should be able to filter available rooms by day', () => {
+    it('should be able to find the number of available rooms by day', () => {
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.calculateNumberAvailableRooms('2020/04/22')).to.deep.equal(2)
+    });
+
+    it('should return 0 if no rooms are available', () => {
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.calculateNumberAvailableRooms('2020/10/10')).to.deep.equal(0)
+    });
+
+    it('should be able to find available rooms by day', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
       expect(hotelService.findAvailableRooms('2020/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
     });
 
+    it('should receive an apology message if no rooms are available', () => {
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.findAvailableRooms('2020/10/10')).to.deep.equal('Sorry, there are no available rooms for the selected date. We sincerely apologize. Please select a different date and try again.')
+    });
+
     it('should be able to filter available rooms by day', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.calculatePercentageOccupied('2020/10/10')).to.deep.equal('33.3')
+      expect(hotelService.calculatePercentageOccupied('2020/04/22')).to.deep.equal('33.3')
+    });
+
+    it('should be able to calculate the total revenue by day', () => {
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.calculateTotalRevenue('2020/10/10')).to.deep.equal('800.09')
+    });
+
+    it('should be able to calculate the total spent by the current user', () => {
+      const user = new User(sampleUserData[0]);
+      const booking1 = new Booking(sampleBookingData[0]);
+      const booking2 = new Booking(sampleBookingData[1]);
+      hotelService.addBookings();
+      hotelService.addRooms();
+      hotelService.addUserBookings(user);
+
+      expect(hotelService.calculateTotalSpent(user)).to.deep.equal(613.39)
     });
   })
 
