@@ -2,9 +2,9 @@ import chai from 'chai';
 const expect = chai.expect;
 
 import HotelService from '../src/Hotel-Service.js';
-import Booking from '../src/Booking.js';
-import Room from '../src/Room.js';
 import User from '../src/User.js';
+import Room from '../src/Room.js';
+import Booking from '../src/Booking.js';
 
 describe('Hotel Service', () => {
   let sampleUserData;
@@ -19,6 +19,9 @@ describe('Hotel Service', () => {
       },{
         id: 2,
         name: 'Alyssa Bull'
+      },{
+        id: 3,
+        name: 'Kara Caputo'
       }
     ];
     sampleRoomData = [
@@ -36,6 +39,13 @@ describe('Hotel Service', () => {
         bedSize: 'twin',
         numBeds: 1,
         costPerNight: 254.99
+      },{
+        number: 3,
+        roomType: 'single room',
+        bidet: false,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 186.7
       }
     ];
     sampleBookingData = [
@@ -50,6 +60,12 @@ describe('Hotel Service', () => {
         userID: 1,
         date: '2020/10/10',
         roomNumber: 2,
+        roomServiceCharges: []
+      },{
+        id: 'qewrgu7i7345hl6dz',
+        userID: 3,
+        date: '2020/11/10',
+        roomNumber: 3,
         roomServiceCharges: []
       }
     ];
@@ -87,6 +103,35 @@ describe('Hotel Service', () => {
 
     it('should start with no bookings', () => {
       expect(hotelService.allBookings).to.deep.equal([]);
+    });
+  })
+
+  describe('Methods', () => {
+    it('should create an array of users', () => {
+      hotelService.addUsers();
+      const user1 = new User(sampleUserData[0]);
+      const user2 = new User(sampleUserData[1]);
+      const user3 = new User(sampleUserData[2]);
+
+      expect(hotelService.allUsers).to.deep.equal([user1, user2, user3]);
+    });
+
+    it('should create an array of rooms', () => {
+      hotelService.addRooms();
+      const room1 = new Room(sampleRoomData[0]);
+      const room2 = new Room(sampleRoomData[1]);
+      const room3 = new Room(sampleRoomData[2]);
+
+      expect(hotelService.allRooms).to.deep.equal([room1, room2, room3]);
+    });
+
+    it('should create an array of bookings', () => {
+      hotelService.addBookings();
+      const booking1 = new Booking(sampleBookingData[0]);
+      const booking2 = new Booking(sampleBookingData[1]);
+      const booking3 = new Booking(sampleBookingData[2]);
+
+      expect(hotelService.allBookings).to.deep.equal([booking1, booking2, booking3]);
     });
   })
 
