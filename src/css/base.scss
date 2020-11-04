@@ -111,6 +111,89 @@ input[type="password"]
   margin-top: 20px;
 }
 
+.customer-search-bar {
+  display: flex;
+  margin-top: 20px;
+}
+
+h3 {
+  font-family: 'Spectral SC', serif;
+  margin-left: 30px;
+}
+
+.search-customer-name {
+  margin: 20px;
+  width: 400px;
+}
+
+h5 {
+  font-family: 'Spectral SC', serif;
+  font-size: 35px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.today-booking-card {
+  display: flex;
+  border: solid black 1px;
+  border-radius: 5px;
+  margin-left: 13%;
+  margin-right: 13%;
+  font-family: 'Spectral SC', serif;
+}
+
+.booking-info {
+  flex-direction: column;
+  width: 75%;
+  padding-left: 20px;
+}
+
+.room-type {
+  font-size: 35px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+.room-number {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.room-price {
+  font-family: 'Spectral SC', serif;
+  font-size: 35px;
+}
+
+.stay-date {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.customer-name {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.confirmation-number {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.delete-booking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 30px;
+  border-left: black solid 1px;
+}
+
+.delete-booking-button {
+  font-family: 'Spectral SC', serif;
+  margin: 0px 10px 10px 10px;
+}
+
 
 // .awards-section {
 //   background-color: white;
