@@ -133,6 +133,26 @@ describe('Hotel Service', () => {
 
       expect(hotelService.allBookings).to.deep.equal([booking1, booking2, booking3]);
     });
+
+    it('should be able to find room details', () => {
+      const room = new Room(sampleRoomData[0])
+      hotelService.addRooms();
+
+      expect(hotelService.findRoomDetails(1)).to.deep.equal(room)
+    });
+
+    it('should be able to filter room by type', () => {
+      hotelService.addRooms();
+
+      expect(hotelService.filterRoomByType(sampleRoomData,'residential suite')).to.deep.equal([sampleRoomData[0]])
+    });
+
+    it('should be able to filter available rooms by day', () => {
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.findAvailableRooms('2020/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
+    });
   })
 
 });
