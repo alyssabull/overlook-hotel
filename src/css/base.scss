@@ -3,7 +3,7 @@
 // ;
 
 body {
-  background: url('https://www.impressionsphotography.org/wp-content/uploads/luxury-hotel-and-luxury-villa-photography-scaled.jpg');
+  background: url('https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/h-PooSFA.jpeg');
   background-size: 100%;
 }
 
@@ -87,6 +87,30 @@ input[type="password"]
 {
   -webkit-text-security: disc;
 }
+
+// Manager View
+
+.manager-view {
+  background-color: white;
+  opacity: 0.8;
+  border-radius: 5px;
+}
+
+.hotel-overview-date {
+  margin: 20px;
+}
+
+.today-overview {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: solid black 1px;
+}
+
+.overview {
+  font-family: 'Spectral SC', serif;
+  margin-top: 20px;
+}
+
 
 // .awards-section {
 //   background-color: white;
