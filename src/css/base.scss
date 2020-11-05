@@ -109,13 +109,23 @@ input[type="password"]
 
 .today-overview {
   display: flex;
-  justify-content: space-around;
+  // width: 80%;
+  align-items: flex-start;
   border-bottom: solid black 1px;
 }
 
-.overview {
+.overview-default {
+  display: flex;
+  justify-content: space-around;
   font-family: 'Spectral SC', serif;
   margin-top: 20px;
+}
+
+.overview {
+  display: flex;
+  justify-content: space-around;
+  font-family: 'Spectral SC', serif;
+  // margin: 10px;
 }
 
 .customer-search-bar {
