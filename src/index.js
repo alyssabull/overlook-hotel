@@ -37,7 +37,6 @@ function fetchAllData() {
 
 function loadData() {
   hotelService.start();
-  console.log(hotelService)
 }
 
 function validateCredentials() {
@@ -45,11 +44,24 @@ function validateCredentials() {
     enterCredentials.classList.add('hidden');
     managerView.classList.remove('hidden');
   } else if (usernameInput.value.includes('customer') && passwordInput.value === 'overlook2020') {
-    enterCredentials.classList.add('hidden');
-    customerView.classList.remove('hidden');
+    let findUserID = usernameInput.value.split(/(\d+)/);
+    let userID = findUserID[1];
+    hotelService.allUsers.forEach(user => {
+      if(user.id == userID) {
+        enterCredentials.classList.add('hidden');
+        customerView.classList.remove('hidden');
+      } else {
+        alertLogInError();
+      }
+    })
   } else {
-    usernameInput.value = '';
-    passwordInput.value = '';
-    alert('The username and/or password you recognized was not recognized. Please try again.')
+    alertLogInError();
   }
+}
+
+function alertLogInError() {
+  usernameInput.value = '';
+  passwordInput.value = '';
+  let errorMessage = `<p class="error-message">The username and/or password you recognized was not recognized. Please try again.</p>`
+  enterCredentials.insertAdjacentHTML('beforeend', errorMessage);
 }
