@@ -12,6 +12,12 @@ export default class HotelService {
     this.allBookings = [];
   }
 
+  start() {
+    this.addUsers();
+    this.addRooms();
+    this.addBookings();
+  }
+
   addUsers() {
     return this.rawUserData.map(data => {
       let user = new User(data);

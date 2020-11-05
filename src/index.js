@@ -16,14 +16,28 @@ submitButton.addEventListener('click', validateCredentials);
 let hotelService;
 
 function fetchAllData() {
-  debugger
-  let userPromise = apiCalls.fetchUserData();
-  let roomPromise = apiCalls.fetchRoomData();
-  let bookingPromise = apiCalls.fetchBookingData();
+  let userPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
+    .then(response => response.json())
+    .then(data => data.users)
+    .catch(err => console.log(err))
+  let roomPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
+    .then(response => response.json())
+    .then(data => data.rooms)
+    .catch(err => console.log(err))
+  let bookingPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
+    .then(response => response.json())
+    .then(data => data.bookings)
+    .catch(err => console.log(err))
 
   Promise.all([userPromise, roomPromise, bookingPromise])
     .then(data => hotelService = new HotelService(data[0], data[1], data[2]))
+    .then(() => loadData())
     .catch(err => console.log(err))
+}
+
+function loadData() {
+  hotelService.start();
+  console.log(hotelService)
 }
 
 function validateCredentials() {
