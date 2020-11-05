@@ -41,12 +41,12 @@ describe('Room', () => {
       expect(room.bedSize).to.equal('queen');
     });
 
-    it('should have a bedSize', () => {
+    it('should have a number of beds', () => {
       expect(room.numBeds).to.equal(1);
     });
 
     it('should have a cost per night', () => {
-      expect(room.costPerNight).to.equal('358.40');
+      expect(room.costPerNight).to.equal(358.4);
     });
   })
 
