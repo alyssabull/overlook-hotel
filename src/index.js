@@ -12,11 +12,13 @@ let submitButton = document.querySelector('.submit-button');
 let hotelOverviewDate = document.querySelector('.hotel-overview-date');
 let overviewInfo = document.querySelector('#overview-info');
 let viewBookingInfo = document.querySelector('.view-information');
+let searchCustomerButton = document.querySelector('#search-customer-button');
 
 window.onload = fetchAllData();
 
 let hotelService;
 let todayDate;
+let userID;
 
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
@@ -25,7 +27,8 @@ hotelOverviewDate.addEventListener('change', (event) => {
   todayDate = formatDate.join('/');
   displayHotelOverview(todayDate);
   displayTodayBookings(todayDate);
-})
+});
+searchCustomerButton.addEventListener('click', displayCustomerInfo);
 
 function fetchAllData() {
   let userPromise =
@@ -58,7 +61,7 @@ function validateCredentials() {
     managerView.classList.remove('hidden');
   } else if (usernameInput.value.includes('customer') && passwordInput.value === 'overlook2020') {
     let findUserID = usernameInput.value.split(/(\d+)/);
-    let userID = findUserID[1];
+    userID = findUserID[1];
     hotelService.allUsers.forEach(user => {
       if(user.id == userID) {
         enterCredentials.classList.add('hidden');
@@ -116,5 +119,8 @@ function displayTodayBookings(date) {
   } else {
     viewBookingInfo.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
   }
+}
+
+displayCustomerInfo() {
 
 }
