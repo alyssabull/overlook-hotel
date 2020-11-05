@@ -179,10 +179,10 @@ export default class HotelService {
     }, 0).toFixed(2)
   }
 
-  calculateTotalSpent(currentUser) {
+  calculateTotalSpent(id) {
     let userRoomNumbers = [];
     this.allBookings.forEach(booking => {
-      if (booking.userID === currentUser.id) {
+      if (booking.userID === id) {
         userRoomNumbers.push(booking.roomNumber);
       }
     })

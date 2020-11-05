@@ -100,6 +100,7 @@ function displayHotelOverview(date) {
 
 function displayTodayBookings(date) {
   viewBookingInfo.innerHTML = '';
+  searchTitle.innerHTML = '';
   let bookings = hotelService.findBookings(date);
   if (typeof bookings !== 'string') {
     let todaysBookingInfo = bookings.map(booking => {
@@ -146,7 +147,9 @@ function displayCustomerInfo() {
         </article>`
       }).join(' ')
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
+      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID)}`)
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
       viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
