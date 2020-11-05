@@ -147,7 +147,7 @@ function displayCustomerInfo() {
         </article>`
       }).join(' ')
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID)}`)
+      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID)} <br><button class="add-booking-button">ADD BOOKING</button>`)
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
 
     } else {

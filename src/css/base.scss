@@ -220,10 +220,22 @@ h5 {
 
 #total-spent {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   font-family: 'Spectral SC', serif;
   font-size: 20px;
   margin-top: 0px;
+}
+
+.add-booking-button {
+  font-family: 'Spectral SC', serif;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  width: 200px;
+}
+
+.add-booking-button:hover {
+  cursor: pointer;
 }
 
 .room-type {
@@ -274,9 +286,12 @@ h5 {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   margin: 50px;
-
 }
 
+.footer {
+  height: 60px;
+  opacity: 0.8;
+}
 
 // .awards-section {
 //   background-color: white;
