@@ -3,6 +3,7 @@ import apiCalls from './apiCalls.js';
 import HotelService from './Hotel-Service.js';
 
 let enterCredentials = document.querySelector('.enter-credentials');
+let errorMessage = document.querySelector('.error-message');
 let managerView = document.querySelector('.manager-view');
 let customerView = document.querySelector('.customer-view');
 let usernameInput = document.querySelector('.username');
@@ -12,6 +13,7 @@ let submitButton = document.querySelector('.submit-button')
 window.onload = fetchAllData();
 
 submitButton.addEventListener('click', validateCredentials);
+usernameInput.addEventListener('input', clearErrorMessage);
 
 let hotelService;
 
@@ -62,6 +64,10 @@ function validateCredentials() {
 function alertLogInError() {
   usernameInput.value = '';
   passwordInput.value = '';
-  let errorMessage = `<p class="error-message">The username and/or password you recognized was not recognized. Please try again.</p>`
-  enterCredentials.insertAdjacentHTML('beforeend', errorMessage);
+  let message = `<b>The username and/or password you recognized was not recognized. Please try again.</b>`
+  errorMessage.insertAdjacentHTML('beforeend', message);
+}
+
+function clearErrorMessage() {
+  errorMessage.innerText = '';
 }
