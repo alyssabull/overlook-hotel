@@ -8,14 +8,23 @@ let managerView = document.querySelector('.manager-view');
 let customerView = document.querySelector('.customer-view');
 let usernameInput = document.querySelector('.username');
 let passwordInput = document.querySelector('.password');
-let submitButton = document.querySelector('.submit-button')
+let submitButton = document.querySelector('.submit-button');
+let hotelOverviewDate = document.querySelector('.hotel-overview-date');
+let overviewInfo = document.querySelector('#overview-info');
 
 window.onload = fetchAllData();
 
+let hotelService;
+let todayDate;
+
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
-
-let hotelService;
+hotelOverviewDate.addEventListener('change', (event) => {
+  let formatDate = `${event.target.value}`.split('-');
+  todayDate = formatDate.join('/');
+  console.log(todayDate);
+  displayHotelOverview();
+})
 
 function fetchAllData() {
   let userPromise =
@@ -71,4 +80,14 @@ function alertLogInError() {
 
 function clearErrorMessage() {
   errorMessage.innerText = '';
+}
+
+function displayHotelOverview() {
+  let availableRooms = hotelService.calculateNumberAvailableRooms(todayDate);
+  let percentOccupied = hotelService.calculatePercentageOccupied(todayDate);
+  let todayRevenue = hotelService.calculateTotalRevenue(todayDate);
+  let overview = `<p class="overview">Today's Revenue $${todayRevenue}</p>
+  <p class="overview">Rooms Available Today ${availableRooms}</p>
+  <p class="overview">Percentage Occupied ${percentOccupied}%</p>`;
+  overviewInfo.innerHTML = overview;
 }
