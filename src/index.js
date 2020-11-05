@@ -8,14 +8,24 @@ let managerView = document.querySelector('.manager-view');
 let customerView = document.querySelector('.customer-view');
 let usernameInput = document.querySelector('.username');
 let passwordInput = document.querySelector('.password');
-let submitButton = document.querySelector('.submit-button')
+let submitButton = document.querySelector('.submit-button');
+let hotelOverviewDate = document.querySelector('.hotel-overview-date');
+let overviewInfo = document.querySelector('#overview-info');
+let viewBookingInfo = document.querySelector('.view-information');
 
 window.onload = fetchAllData();
 
+let hotelService;
+let todayDate;
+
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
-
-let hotelService;
+hotelOverviewDate.addEventListener('change', (event) => {
+  let formatDate = `${event.target.value}`.split('-');
+  todayDate = formatDate.join('/');
+  displayHotelOverview(todayDate);
+  displayTodayBookings(todayDate);
+})
 
 function fetchAllData() {
   let userPromise =
@@ -71,4 +81,40 @@ function alertLogInError() {
 
 function clearErrorMessage() {
   errorMessage.innerText = '';
+}
+
+function displayHotelOverview(date) {
+  let todayRevenue = hotelService.calculateTotalRevenue(date);
+  let availableRooms = hotelService.calculateNumberAvailableRooms(date);
+  let percentOccupied = hotelService.calculatePercentageOccupied(date);
+  let overview = `Today's Revenue $${todayRevenue} &nbsp;&nbsp;&nbsp;&nbsp;
+  Rooms Available Today ${availableRooms} &nbsp;&nbsp;&nbsp;&nbsp;
+  Percentage Occupied ${percentOccupied}%`;
+  overviewInfo.innerHTML = overview;
+}
+
+function displayTodayBookings(date) {
+  viewBookingInfo.innerHTML = '';
+  let bookings = hotelService.findBookings(date);
+  if (typeof bookings !== 'string') {
+    let todaysBookingInfo = bookings.map(booking => {
+      return `<article class="today-booking-card">
+      <section class="booking-info">
+        <p class="room-type">${booking.roomType}</p>
+        <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
+        <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
+        <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
+        <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
+      </section>
+      <section class="delete-booking">
+        <p class="room-price">$${booking.costPerNight}</p>
+        <button type="button" class="delete-booking-button">DELETE BOOKING</button>
+      </section>
+      </article>`
+    }).join(' ')
+    viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+  } else {
+    viewBookingInfo.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
+  }
+
 }

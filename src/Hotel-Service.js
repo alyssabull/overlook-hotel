@@ -93,6 +93,32 @@ export default class HotelService {
     }
   }
 
+  findBookings(date) {
+    let todayBookings = this.allBookings.reduce((todayBookings, booking) => {
+      if (booking.date === date) {
+        this.allRooms.forEach(room => {
+          if (room.number === booking.roomNumber) {
+            booking.roomType = room.roomType;
+            booking.costPerNight = room.costPerNight;
+          }
+        })
+        this.allUsers.forEach(user => {
+          if (user.id === booking.userID) {
+            booking.guestName = user.name;
+          }
+        })
+        todayBookings.push(booking);
+      }
+      return todayBookings;
+    }, [])
+
+    if (todayBookings.length > 0) {
+      return todayBookings;
+    } else {
+      return 'No bookings for the selected date.'
+    }
+  }
+
   calculatePercentageOccupied(date) {
     let dateBookings = this.allBookings.filter(booking => {
       return booking.date === date;

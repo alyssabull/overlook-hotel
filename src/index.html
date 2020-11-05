@@ -11,7 +11,7 @@
       <h1>Overlook Hotel</h1>
     </header>
     <p class="hotel-info">1744 Aspen Drive, Spareeholm Sweden | +0157-8447132 | bookings@overlookhotel.net</p>
-    <section class="enter-credentials">
+    <section class="enter-credentials hidden">
         <h2>Please Log In</h2>
         <h4>Username</h4>
         <input type="text" name="username" class="username login-info">
@@ -20,46 +20,18 @@
         <button type="button" class="submit-button">ENTER</button>
         <p class="error-message"></p>
     </section>
-    <section class="manager-view hidden">
+    <section class="manager-view">
       <article class="today-overview">
         <input type="date" class="hotel-overview-date">
-        <p class="overview">Today's Revenue $--.--</p>
-        <p class="overview">Rooms Available Today --</p>
-        <p class="overview">Percentage Occupied --%</p>
+          <p class="overview-default" id="overview-info">Please select a date to see the hotel overview.</p>
       </article>
       <article class="customer-search">
         <section class="customer-search-bar">
         <h3>Search Customers</h3>
         <input type="text" name="customer search" placeholder="type customer name to view their bookings" class="search-customer-name">
-        </section>
+      </section>
         <h5>Bookings for Today</h5>
         <section class="view-information">
-          <article class="today-booking-card">
-            <section class="booking-info">
-              <p class="room-type">Residential Suite</p>
-              <p class="confirmation-number"><b>Confirmation:</b> 5fwrgu4i7k55hl6sz</p>
-              <p class="room-number"><b>Room Number:</b> #21</p>
-              <p class="stay-date"><b>Date Booked:</b> 2020/11/04</p>
-              <p class="customer-name"><b>Guest Name:</b> Kara Caputo</p>
-            </section>
-            <section class="delete-booking">
-              <p class="room-price">$275.14</p>
-              <button type="button" class="delete-booking-button">DELETE BOOKING</button>
-            </section>
-          </article>
-          <article class="today-booking-card">
-            <section class="booking-info">
-              <p class="room-type">Suite</p>
-              <p class="confirmation-number"><b>Confirmation:</b> 3efwrgudfd1ss3z</p>
-              <p class="room-number"><b>Room Number:</b> #7</p>
-              <p class="stay-date"><b>Date Booked:</b> 2020/11/04</p>
-              <p class="customer-name"><b>Guest Name:</b> Alyssa Bull</p>
-            </section>
-            <section class="delete-booking">
-              <p class="room-price">$194.50</p>
-              <button type="button" class="delete-booking-button">DELETE BOOKING</button>
-            </section>
-          </article>
         </section>
           <p>Total Spent $--.--</p>
           <button type="button" class="add-booking">Add Booking</button>
