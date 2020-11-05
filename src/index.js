@@ -94,22 +94,27 @@ function displayHotelOverview(date) {
 }
 
 function displayTodayBookings(date) {
+  viewBookingInfo.innerHTML = '';
   let bookings = hotelService.findBookings(date);
-  console.log(bookings);
-  let todaysBookingInfo = bookings.map(booking => {
-    return `<article class="today-booking-card">
-    <section class="booking-info">
-      <p class="room-type">XXXX</p>
-      <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
-      <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
-      <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
-      <p class="customer-name"><b>Guest Name:</b> XXXXX</p>
-    </section>
-    <section class="delete-booking">
-      <p class="room-price">$XXXXX</p>
-      <button type="button" class="delete-booking-button">DELETE BOOKING</button>
-    </section>
-    </article>`
-  }).join(' ')
-  viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+  if (typeof bookings !== 'string') {
+    let todaysBookingInfo = bookings.map(booking => {
+      return `<article class="today-booking-card">
+      <section class="booking-info">
+        <p class="room-type">${booking.roomType}</p>
+        <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
+        <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
+        <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
+        <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
+      </section>
+      <section class="delete-booking">
+        <p class="room-price">$${booking.costPerNight}</p>
+        <button type="button" class="delete-booking-button">DELETE BOOKING</button>
+      </section>
+      </article>`
+    }).join(' ')
+    viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+  } else {
+    viewBookingInfo.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
+  }
+
 }
