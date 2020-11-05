@@ -148,6 +148,12 @@ describe('Hotel Service', () => {
       expect(hotelService.findUserName(username)).to.deep.equal('Ellis Joyner');
     });
 
+    it('should be able to find the user id given a name', () => {
+      hotelService.addUsers();
+
+      expect(hotelService.findUserId('Ellis Joyner')).to.deep.equal(1);
+    })
+
     it('should be able to find room details', () => {
       const room = new Room(sampleRoomData[0])
       hotelService.addRooms();
@@ -182,11 +188,19 @@ describe('Hotel Service', () => {
       expect(hotelService.findAvailableRooms('2021/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
     });
 
+    it('should be able to retrieve customer bookings', () => {
+      hotelService.addUsers();
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.findCustomerBookings(1)).to.be.an('array')
+    });
+
     it('should be able to find bookings for a given day', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.findBookings('2020/10/10')).to.deep.equal([sampleBookingData[1], sampleBookingData[2], sampleBookingData[3]])
+      expect(hotelService.findBookings('2020/10/10')).to.be.an('array')
     });
 
     it('should return a message if there are no bookings', () => {

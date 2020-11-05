@@ -103,13 +103,19 @@ input[type="password"]
   border-radius: 5px;
 }
 
+.overview-title {
+  font-family: 'Spectral SC', serif;
+  display: flex;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
 .hotel-overview-date {
   margin: 20px;
 }
 
 .today-overview {
   display: flex;
-  // width: 80%;
   align-items: flex-start;
   border-bottom: solid black 1px;
 }
@@ -130,6 +136,23 @@ input[type="password"]
 .customer-search-bar {
   display: flex;
   margin-top: 20px;
+}
+
+.search-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-button {
+  font-family: 'Spectral SC', serif;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100px;
+}
+
+.search-button:hover{
+  cursor: pointer;
 }
 
 h3 {
@@ -195,6 +218,14 @@ h5 {
   margin-top: 10%;
 }
 
+#total-spent {
+  display: flex;
+  justify-content: center;
+  font-family: 'Spectral SC', serif;
+  font-size: 20px;
+  margin-top: 0px;
+}
+
 .room-type {
   font-size: 30px;
   margin-bottom: 0px;
@@ -237,6 +268,13 @@ h5 {
 .delete-booking-button {
   font-family: 'Spectral SC', serif;
   margin: 0px 10px 10px 10px;
+}
+
+.customer-error-message {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  margin: 50px;
+
 }
 
 

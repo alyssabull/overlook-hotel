@@ -19,7 +19,6 @@ export default class HotelService {
   }
 
   addUsers() {
-    console.log(this.rawUserData)
     return this.rawUserData.map(data => {
       let user = new User(data);
       this.allUsers.push(user);
@@ -47,6 +46,18 @@ export default class HotelService {
       return user.id === userID;
     })
     return findName.name;
+  }
+
+  findUserId(name) {
+    let findName = this.allUsers.find(user => {
+      return user.name === name;
+    })
+    if (findName) {
+      return findName.id;
+    } else {
+      return 'We have no record of the user searched. Please search for another user.'
+    }
+
   }
 
   findRoomDetails(roomNumber) {
@@ -91,6 +102,27 @@ export default class HotelService {
     } else {
       return 'Sorry, there are no available rooms for the selected date. We sincerely apologize. Please select a different date and try again.'
     }
+  }
+
+  findCustomerBookings(id) {
+    return this.allBookings.reduce((allUserBookings, booking) => {
+      if (booking.userID === id) {
+        this.allRooms.forEach(room => {
+          if (room.number === booking.roomNumber) {
+            booking.roomType = room.roomType;
+            booking.costPerNight = room.costPerNight;
+          }
+        })
+        this.allUsers.forEach(user => {
+          if (user.id === booking.userID) {
+            booking.guestName = user.name;
+          }
+        })
+        allUserBookings.push(booking);
+        console.log(allUserBookings)
+      }
+      return allUserBookings;
+    }, [])
   }
 
   findBookings(date) {
@@ -147,10 +179,10 @@ export default class HotelService {
     }, 0).toFixed(2)
   }
 
-  calculateTotalSpent(currentUser) {
+  calculateTotalSpent(id) {
     let userRoomNumbers = [];
     this.allBookings.forEach(booking => {
-      if (booking.userID === currentUser.id) {
+      if (booking.userID === id) {
         userRoomNumbers.push(booking.roomNumber);
       }
     })

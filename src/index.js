@@ -12,11 +12,15 @@ let submitButton = document.querySelector('.submit-button');
 let hotelOverviewDate = document.querySelector('.hotel-overview-date');
 let overviewInfo = document.querySelector('#overview-info');
 let viewBookingInfo = document.querySelector('.view-information');
+let searchTitle = document.querySelector('.search-title');
+let searchCustomerInput = document.querySelector('.search-customer-name');
+let searchCustomerButton = document.querySelector('#search-customer-button');
 
 window.onload = fetchAllData();
 
 let hotelService;
 let todayDate;
+let userID;
 
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
@@ -25,7 +29,8 @@ hotelOverviewDate.addEventListener('change', (event) => {
   todayDate = formatDate.join('/');
   displayHotelOverview(todayDate);
   displayTodayBookings(todayDate);
-})
+});
+searchCustomerButton.addEventListener('click', displayCustomerInfo);
 
 function fetchAllData() {
   let userPromise =
@@ -58,7 +63,7 @@ function validateCredentials() {
     managerView.classList.remove('hidden');
   } else if (usernameInput.value.includes('customer') && passwordInput.value === 'overlook2020') {
     let findUserID = usernameInput.value.split(/(\d+)/);
-    let userID = findUserID[1];
+    userID = findUserID[1];
     hotelService.allUsers.forEach(user => {
       if(user.id == userID) {
         enterCredentials.classList.add('hidden');
@@ -95,6 +100,7 @@ function displayHotelOverview(date) {
 
 function displayTodayBookings(date) {
   viewBookingInfo.innerHTML = '';
+  searchTitle.innerHTML = '';
   let bookings = hotelService.findBookings(date);
   if (typeof bookings !== 'string') {
     let todaysBookingInfo = bookings.map(booking => {
@@ -113,8 +119,39 @@ function displayTodayBookings(date) {
       </article>`
     }).join(' ')
     viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+    searchTitle.innerText = `Bookings for ${date}`;
   } else {
+    searchTitle.innerText = 'Bookings for --';
     viewBookingInfo.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
   }
-
 }
+
+function displayCustomerInfo() {
+  viewBookingInfo.innerHTML = '';
+  let userID = hotelService.findUserId(searchCustomerInput.value);
+  let bookings = hotelService.findCustomerBookings(userID);
+    if (bookings.length > 0) {
+      let todaysBookingInfo = bookings.map(booking => {
+        return `<article class="today-booking-card">
+        <section class="booking-info">
+          <p class="room-type">${booking.roomType}</p>
+          <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
+          <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
+          <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
+          <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
+        </section>
+        <section class="delete-booking">
+          <p class="room-price">$${booking.costPerNight}</p>
+          <button type="button" class="delete-booking-button">DELETE BOOKING</button>
+        </section>
+        </article>`
+      }).join(' ')
+      searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
+      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID)}`)
+      viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+
+    } else {
+      searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
+      viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
+    }
+  }
