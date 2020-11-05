@@ -22,8 +22,8 @@ usernameInput.addEventListener('input', clearErrorMessage);
 hotelOverviewDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   todayDate = formatDate.join('/');
-  console.log(todayDate);
-  displayHotelOverview();
+  displayHotelOverview(todayDate);
+  displayTodayBookings(todayDate);
 })
 
 function fetchAllData() {
@@ -82,12 +82,16 @@ function clearErrorMessage() {
   errorMessage.innerText = '';
 }
 
-function displayHotelOverview() {
-  let availableRooms = hotelService.calculateNumberAvailableRooms(todayDate);
-  let percentOccupied = hotelService.calculatePercentageOccupied(todayDate);
-  let todayRevenue = hotelService.calculateTotalRevenue(todayDate);
+function displayHotelOverview(date) {
+  let todayRevenue = hotelService.calculateTotalRevenue(date);
+  let availableRooms = hotelService.calculateNumberAvailableRooms(date);
+  let percentOccupied = hotelService.calculatePercentageOccupied(date);
   let overview = `Today's Revenue $${todayRevenue} &nbsp;&nbsp;&nbsp;&nbsp;
   Rooms Available Today ${availableRooms} &nbsp;&nbsp;&nbsp;&nbsp;
   Percentage Occupied ${percentOccupied}%`;
   overviewInfo.innerHTML = overview;
+}
+
+function displayTodayBookings(date) {
+
 }

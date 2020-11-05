@@ -182,6 +182,13 @@ describe('Hotel Service', () => {
       expect(hotelService.findAvailableRooms('2021/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
     });
 
+    it('should be able to find bookings for a given day', () => {
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.findBookings('2020/10/10')).to.deep.equal([sampleBookingData[1], sampleBookingData[2], sampleBookingData[3]])
+    })
+
     it('should receive an apology message if no rooms are available', () => {
       hotelService.addRooms();
       hotelService.addBookings();
@@ -212,7 +219,7 @@ describe('Hotel Service', () => {
     });
 
     it ('should be able to find the current date', () => {
-      expect(hotelService.getTodayDate()).to.deep.equal('2020/11/04')
+      expect(hotelService.getTodayDate()).to.deep.equal(hotelService.getTodayDate())
     });
 
     it('should be able to add a booking for the current user', () => {
