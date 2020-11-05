@@ -95,6 +95,7 @@ function displayHotelOverview(date) {
 
 function displayTodayBookings(date) {
   let bookings = hotelService.findBookings(date);
+  console.log(bookings);
   let todaysBookingInfo = bookings.map(booking => {
     return `<article class="today-booking-card">
     <section class="booking-info">
@@ -109,6 +110,6 @@ function displayTodayBookings(date) {
       <button type="button" class="delete-booking-button">DELETE BOOKING</button>
     </section>
     </article>`
-  }).join(',')
+  }).join(' ')
   viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
 }
