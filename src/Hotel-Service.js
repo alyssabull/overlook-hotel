@@ -94,12 +94,18 @@ export default class HotelService {
   }
 
   findBookings(date) {
-    return this.allBookings.reduce((todayBookings, booking) => {
+    let todayBookings = this.allBookings.reduce((todayBookings, booking) => {
       if (booking.date === date) {
         todayBookings.push(booking);
       }
       return todayBookings;
     }, [])
+
+    if (todayBookings.length > 0) {
+      return todayBookings;
+    } else {
+      return 'No bookings for the selected date.'
+    }
   }
 
   calculatePercentageOccupied(date) {

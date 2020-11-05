@@ -187,7 +187,14 @@ describe('Hotel Service', () => {
       hotelService.addBookings();
 
       expect(hotelService.findBookings('2020/10/10')).to.deep.equal([sampleBookingData[1], sampleBookingData[2], sampleBookingData[3]])
-    })
+    });
+
+    it('should return a message if there are no bookings', () => {
+      hotelService.addRooms();
+      hotelService.addBookings();
+
+      expect(hotelService.findBookings('2020/10/11')).to.deep.equal('No bookings for the selected date.')
+    });
 
     it('should receive an apology message if no rooms are available', () => {
       hotelService.addRooms();
