@@ -225,22 +225,19 @@ describe('Hotel Service', () => {
     });
 
     it('should be able to delete a booking for the current user', () => {
-      const user = new User(sampleUserData[0]);
       const booking1 = sampleBookingData[0];
       hotelService.addBookings();
-      hotelService.deleteBooking(user, booking1);
+      hotelService.deleteBooking(booking1);
 
       expect(hotelService.allBookings.length).to.equal(3);
     });
 
     it('should not be able to delete a booking from the past', () => {
-      const user = new User(sampleUserData[0]);
       const booking1 = sampleBookingData[1];
       hotelService.addBookings();
-      hotelService.deleteBooking(user, booking1);
 
       expect(hotelService.allBookings.length).to.equal(4);
-      expect(hotelService.deleteBooking(user, booking1)).to.equal('Oops! You cannot delete a booking from the past. Select another booking and try again.');
+      expect(hotelService.deleteBooking(booking1)).to.equal('Oops! You cannot delete a booking from the past. Select another booking and try again.');
     });
   })
 
