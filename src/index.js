@@ -18,7 +18,8 @@ usernameInput.addEventListener('input', clearErrorMessage);
 let hotelService;
 
 function fetchAllData() {
-  let userPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
+  let userPromise =
+  fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
     .then(response => response.json())
     .then(data => data.users)
     .catch(err => console.log(err))

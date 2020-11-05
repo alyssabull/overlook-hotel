@@ -19,6 +19,7 @@ export default class HotelService {
   }
 
   addUsers() {
+    console.log(this.rawUserData)
     return this.rawUserData.map(data => {
       let user = new User(data);
       this.allUsers.push(user);
