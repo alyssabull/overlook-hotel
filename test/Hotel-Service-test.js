@@ -52,7 +52,7 @@ describe('Hotel Service', () => {
       {
         id: '5fwrgu4i7k55hl6sz',
         userID: 1,
-        date: '2020/04/22',
+        date: '2021/04/22',
         roomNumber: 1,
         roomServiceCharges: []
       },{
@@ -141,14 +141,11 @@ describe('Hotel Service', () => {
       expect(hotelService.allBookings).to.deep.equal([booking1, booking2, booking3, booking4]);
     });
 
-    it('should create an array of bookings for the current user', () => {
-      const user = new User(sampleUserData[0]);
-      const booking1 = new Booking(sampleBookingData[0]);
-      const booking2 = new Booking(sampleBookingData[1]);
-      hotelService.addBookings();
-      hotelService.addUserBookings(user);
+    it('should be able to find the name of the current user', () => {
+      hotelService.addUsers();
+      const username = 'customer1';
 
-      expect(user.bookings).to.deep.equal([booking1, booking2]);
+      expect(hotelService.findUserName(username)).to.deep.equal('Ellis Joyner');
     });
 
     it('should be able to find room details', () => {
@@ -168,7 +165,7 @@ describe('Hotel Service', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.calculateNumberAvailableRooms('2020/04/22')).to.deep.equal(2)
+      expect(hotelService.calculateNumberAvailableRooms('2021/04/22')).to.deep.equal(2)
     });
 
     it('should return 0 if no rooms are available', () => {
@@ -182,7 +179,7 @@ describe('Hotel Service', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.findAvailableRooms('2020/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
+      expect(hotelService.findAvailableRooms('2021/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
     });
 
     it('should receive an apology message if no rooms are available', () => {
@@ -192,11 +189,11 @@ describe('Hotel Service', () => {
       expect(hotelService.findAvailableRooms('2020/10/10')).to.deep.equal('Sorry, there are no available rooms for the selected date. We sincerely apologize. Please select a different date and try again.')
     });
 
-    it('should be able to filter available rooms by day', () => {
+    it('should be able to calculate percentage occupied by day', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.calculatePercentageOccupied('2020/04/22')).to.deep.equal('33.3')
+      expect(hotelService.calculatePercentageOccupied('2021/04/22')).to.deep.equal('33.3')
     });
 
     it('should be able to calculate the total revenue by day', () => {
@@ -208,35 +205,42 @@ describe('Hotel Service', () => {
 
     it('should be able to calculate the total spent by the current user', () => {
       const user = new User(sampleUserData[0]);
-      const booking1 = new Booking(sampleBookingData[0]);
-      const booking2 = new Booking(sampleBookingData[1]);
       hotelService.addBookings();
       hotelService.addRooms();
-      hotelService.addUserBookings(user);
 
       expect(hotelService.calculateTotalSpent(user)).to.deep.equal(613.39)
     });
 
+    it ('should be able to find the current date', () => {
+      expect(hotelService.getTodayDate()).to.deep.equal('2020/11/04')
+    });
+
     it('should be able to add a booking for the current user', () => {
       const user = new User(sampleUserData[0]);
-      const booking1 = new Booking('hf729dj19385hj', 1, '2020/25/11', 2, []);
+      const booking1 = new Booking('hf729dj19385hj', 1, '2020/11/25', 2, []);
       hotelService.addBookings();
-      hotelService.addUserBookings(user);
       hotelService.addBooking(user, booking1);
 
-      expect(user.bookings.length).to.equal(3);
-      expect(user.bookings[user.bookings.length - 1]).to.deep.equal(booking1);
+      expect(hotelService.allBookings.length).to.equal(5);
     });
 
     it('should be able to delete a booking for the current user', () => {
       const user = new User(sampleUserData[0]);
       const booking1 = sampleBookingData[0];
       hotelService.addBookings();
-      hotelService.addUserBookings(user);
       hotelService.deleteBooking(user, booking1);
 
-      expect(user.bookings.length).to.equal(1);
-      expect(user.bookings).to.deep.equal([sampleBookingData[1]]);
+      expect(hotelService.allBookings.length).to.equal(3);
+    });
+
+    it('should not be able to delete a booking from the past', () => {
+      const user = new User(sampleUserData[0]);
+      const booking1 = sampleBookingData[1];
+      hotelService.addBookings();
+      hotelService.deleteBooking(user, booking1);
+
+      expect(hotelService.allBookings.length).to.equal(4);
+      expect(hotelService.deleteBooking(user, booking1)).to.equal('Oops! You cannot delete a booking from the past. Select another booking and try again.');
     });
   })
 

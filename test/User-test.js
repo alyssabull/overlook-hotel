@@ -28,10 +28,6 @@ describe('User', () => {
     it('should have a name', () => {
       expect(user.name).to.equal('Ellis Joyner');
     });
-
-    it('should start with no bookings', () => {
-      expect(user.bookings).to.deep.equal([]);
-    });
   })
 
 });
