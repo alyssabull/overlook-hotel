@@ -148,6 +148,6 @@ function displayCustomerInfo() {
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-      viewBookingInfo.innerHTML = `<p class="customer-error-message">We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</p>`;
+      viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
     }
   }
