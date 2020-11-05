@@ -103,6 +103,13 @@ input[type="password"]
   border-radius: 5px;
 }
 
+.overview-title {
+  font-family: 'Spectral SC', serif;
+  display: flex;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
 .hotel-overview-date {
   margin: 20px;
 }
@@ -129,6 +136,17 @@ input[type="password"]
 .customer-search-bar {
   display: flex;
   margin-top: 20px;
+}
+
+.search-button {
+  font-family: 'Spectral SC', serif;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100px;
+}
+
+.search-button:hover{
+  cursor: pointer;
 }
 
 h3 {

@@ -118,7 +118,9 @@ function displayTodayBookings(date) {
       </article>`
     }).join(' ')
     viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+    searchTitle.innerText = `Bookings for ${date}`;
   } else {
+    searchTitle.innerText = 'Bookings for --';
     viewBookingInfo.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
   }
 }
@@ -127,7 +129,6 @@ function displayCustomerInfo() {
   viewBookingInfo.innerHTML = '';
   let userID = hotelService.findUserId(searchCustomerInput.value);
   let bookings = hotelService.findCustomerBookings(userID);
-  console.log(typeof bookings)
     if (bookings.length > 0) {
       let todaysBookingInfo = bookings.map(booking => {
         return `<article class="today-booking-card">
