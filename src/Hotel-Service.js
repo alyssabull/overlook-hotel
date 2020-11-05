@@ -52,7 +52,12 @@ export default class HotelService {
     let findName = this.allUsers.find(user => {
       return user.name === name;
     })
-    return findName.id;
+    if (findName) {
+      return findName.id;
+    } else {
+      return 'We have no record of the user searched. Please search for another user.'
+    }
+
   }
 
   findRoomDetails(roomNumber) {
@@ -100,7 +105,7 @@ export default class HotelService {
   }
 
   findCustomerBookings(id) {
-    let todayBookings = this.allBookings.reduce((todayBookings, booking) => {
+    return this.allBookings.reduce((allUserBookings, booking) => {
       if (booking.userID === id) {
         this.allRooms.forEach(room => {
           if (room.number === booking.roomNumber) {
@@ -113,16 +118,11 @@ export default class HotelService {
             booking.guestName = user.name;
           }
         })
-        todayBookings.push(booking);
+        allUserBookings.push(booking);
+        console.log(allUserBookings)
       }
-      return todayBookings;
+      return allUserBookings;
     }, [])
-
-    if (todayBookings.length > 0) {
-      return todayBookings;
-    } else {
-      return 'No bookings for the selected date.'
-    }
   }
 
   findBookings(date) {
