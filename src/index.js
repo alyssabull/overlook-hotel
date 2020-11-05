@@ -1,10 +1,20 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+let enterCredentials = document.querySelector('.enter-credentials');
+let managerView = document.querySelector('.manager-view');
+let usernameInput = document.querySelector('.username');
+let passwordInput = document.querySelector('.password');
+let submitButton = document.querySelector('.submit-button')
 
-console.log('This is the JavaScript entry file - your code begins here.');
+submitButton.addEventListener('click', validateCredentials);
+
+function validateCredentials() {
+  if (usernameInput.value === 'manager' && passwordInput.value === 'overlook2020') {
+    enterCredentials.classList.add('hidden');
+    managerView.classList.remove('hidden');
+  } else {
+    usernameInput.value = '';
+    passwordInput.value = '';
+    alert('The username and/or password you recognized was not recognized. Please try again.')
+  }
+}
