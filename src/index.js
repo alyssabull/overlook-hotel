@@ -159,6 +159,8 @@ function displayCustomerInfo() {
   }
 
   function createModal(id) {
+    let availableRooms = hotelService.findAvailableRooms('2020/10/05');
+    console.log(availableRooms)
     let bookingModal = `<div class="modal" id="add-booking-modal">
     <div class="modal-content flex-column">
       <div class="modal-header">
@@ -166,29 +168,35 @@ function displayCustomerInfo() {
         <input type="date" class="modal-date">
       </div>
       <div class="modal-body flex-column">
-      <div class="modal-header-text flex-row">
-        <h1></h1>
-      </div>
-        <div class="flex-row">
-        <div class="card-effect">
+      <div class="modal-header-text flex-row">`
 
-          <p class="ingredients-display"></p>
-          <p><b>Total Cost of Ingredients</b></p>
-          <p class="ingredients-display"></p>
-        </div>
-          <div class="card-effect"
-            <h2>How To Cook This</h2>
-            <p><p>
-          </div>
-        </div>
-      </div>
-     </div>
-   </div>`
+    // let allRooms = availableRooms.map(booking => {
+    //     return `
+    //     <article class="modal-body">
+    //     <section class="booking-info">
+    //       <p class="room-type">${booking.roomType}</p>
+    //       <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
+    //       <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
+    //       <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
+    //       <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
+    //     </section>
+    //     <section class="delete-booking">
+    //       <p class="room-price">$${booking.costPerNight}</p>
+    //       <button type="button" class="delete-booking-button">DELETE BOOKING</button>
+    //     </section>
+    //     </article>
+    //     </div>`
+    //   })
+
    return bookingModal;
   }
 
+  function updateModalBookings(date) {
+    console.log(date)
+  }
+
+
   function openModal(event) {
-    console.log('modal!')
     if (event.target.classList.contains('add-booking-button')) {
       modal = document.querySelector(`#add-booking-modal`);
       modal.style.display = 'block';
@@ -198,5 +206,5 @@ function displayCustomerInfo() {
   function closeModal(event) {
     if (event.target === modal) {
     modal.style.display = 'none';
-  }
+    }
   }
