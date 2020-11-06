@@ -196,7 +196,23 @@ function displayCustomerInfo() {
   function handleModal(event) {
     if (event.target.classList.contains('book-room')) {
       let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[2]);
+      postNewBooking(newBooking);
     } else if (event.target === modal) {
       modal.style.display = 'none';
     }
+  }
+
+  function postNewBooking(newBooking) {
+    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newBooking)
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json);
+    })
+    .catch(err => console.log(err))
   }
