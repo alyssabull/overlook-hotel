@@ -205,6 +205,18 @@ export default class HotelService {
     }, 0)
   }
 
+  sortBookingsByDate(bookings) {
+    return bookings.sort((a,b) => {
+      return new Date(b.date) - new Date(a.date);
+    })
+  }
+
+  sortBookingsByRoomNumber(bookings) {
+    return bookings.sort((a,b) => {
+      return a.roomNumber - b.roomNumber;
+    })
+  }
+
   getTodayDate() {
     let today = new Date();
     let dd = today.getDate();
@@ -222,15 +234,19 @@ export default class HotelService {
   }
 
   addNewBooking(userID, date, roomNumber) {
-    let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
-      if (room.number == roomNumber) {
-        bookingDetails.userID = userID;
-        bookingDetails.date = date;
-        bookingDetails.roomNumber = room.number;
-      }
-      return bookingDetails;
-    }, {})
-    return bookingInfo;
+    if (date > this.getTodayDate()) {
+      let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
+        if (room.number == roomNumber) {
+          bookingDetails.userID = userID;
+          bookingDetails.date = date;
+          bookingDetails.roomNumber = room.number;
+        }
+        return bookingDetails;
+      }, {})
+      return bookingInfo;
+    } else {
+      return 'Oops! The date you selected for a booking is in the future. Please select another date until time travel exists!'
+    }
   }
 
   deleteBooking(deleteBooking) {

@@ -114,7 +114,8 @@ function displayTodayBookings(date) {
   searchTitle.innerHTML = '';
   let bookings = hotelService.findBookings(date);
   if (typeof bookings !== 'string') {
-    let todaysBookingInfo = bookings.map(booking => {
+    let sortedBookings = hotelService.sortBookingsByRoomNumber(bookings);
+    let todaysBookingInfo = sortedBookings.map(booking => {
       return `<article class="today-booking-card">
       <section class="booking-info">
         <p class="room-type">${booking.roomType}</p>
@@ -141,8 +142,10 @@ function displayCustomerInfo() {
   viewBookingInfo.innerHTML = '';
   userID = hotelService.findUserId(searchCustomerInput.value);
   let bookings = hotelService.findCustomerBookings(userID);
-    if (bookings.length > 0) {
-      let todaysBookingInfo = bookings.map(booking => {
+  let sortedBookings = hotelService.sortBookingsByDate(bookings);
+  console.log(sortedBookings);
+    if (sortedBookings.length > 0) {
+      let todaysBookingInfo = sortedBookings.map(booking => {
         return `<article class="today-booking-card">
         <section class="booking-info">
           <p class="room-type">${booking.roomType}</p>
@@ -168,7 +171,8 @@ function displayCustomerInfo() {
 
   function displayAvailableRooms(date) {
     let availableRooms = hotelService.findAvailableRooms(date);
-    let allRooms = availableRooms.map(room => {
+    let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
+    let allRooms = sortedAvailableRooms.map(room => {
       return `<article class="today-booking-card">
       <section class="booking-info">
         <p class="room-type">${room.roomType}</p>
@@ -177,7 +181,7 @@ function displayCustomerInfo() {
         <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
       </section>
       <section class="delete-booking">
-        <p class="room-price">$${room.costPerNight}</p>
+        <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
         <button type="button" class="delete-booking-button book-room ${room.number}">BOOK ROOM</button>
       </section>
       </article>`
@@ -212,7 +216,7 @@ function displayCustomerInfo() {
     })
     .then(response => response.json())
     .then(json => {
-      console.log(json);
+      fetchAllData();
     })
     .catch(err => console.log(err))
   }
