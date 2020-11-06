@@ -19,7 +19,7 @@ let modalDate = document.querySelector('#add-booking-modal');
 let modalContent = document.querySelector('#modal-content');
 
 window.onload = fetchAllData();
-window.addEventListener('click', closeModal);
+window.addEventListener('click', handleModal);
 
 let hotelService;
 let todayDate;
@@ -178,7 +178,7 @@ function displayCustomerInfo() {
       </section>
       <section class="delete-booking">
         <p class="room-price">$${room.costPerNight}</p>
-        <button type="button" class="delete-booking-button">BOOK ROOM</button>
+        <button type="button" class="delete-booking-button book-room ${room.number}">BOOK ROOM</button>
       </section>
       </article>`
     }).join(' ')
@@ -193,8 +193,10 @@ function displayCustomerInfo() {
     }
   }
 
-  function closeModal(event) {
-    if (event.target === modal) {
-    modal.style.display = 'none';
+  function handleModal(event) {
+    if (event.target.classList.contains('book-room')) {
+      console.log(event.target.classList[2])
+    } else if (event.target === modal) {
+      modal.style.display = 'none';
     }
   }

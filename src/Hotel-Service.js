@@ -94,7 +94,7 @@ export default class HotelService {
       }
       return roomNums;
     }, [])
-    console.log('booked rooms', roomsBooked)
+
     let rooms = [...this.allRooms];
     if (roomsBooked.length < rooms.length) {
       roomsBooked.forEach(roomNum => {
@@ -104,7 +104,6 @@ export default class HotelService {
             console.log('room number', room.number)
             let index = rooms.indexOf(room);
             rooms.splice(index, 1);
-            // console.log('avail rooms', rooms)
           }
         })
       })
@@ -222,8 +221,16 @@ export default class HotelService {
     return today = yyyy+'/'+mm+'/'+dd;
   }
 
-  addBooking(newBooking) {
-    this.allBookings.push(newBooking);
+  addNewBooking(userID, date, roomNumber) {
+    let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
+      if (room.number === roomNumber) {
+        bookingDetails.userID = userID;
+        bookingDetails.date = date;
+        bookingDetails.roomNumber = roomNumber;
+      }
+      return bookingDetails;
+    }, {})
+    return bookingInfo;
   }
 
   deleteBooking(deleteBooking) {
