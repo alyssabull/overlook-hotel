@@ -207,16 +207,21 @@ function displayCustomerInfo() {
   }
 
   function postNewBooking(newBooking) {
-    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newBooking)
-    })
-    .then(response => response.json())
-    .then(json => {
-      fetchAllData();
-    })
-    .catch(err => console.log(err))
+    if (typeof newBooking !== 'string') {
+      return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newBooking)
+      })
+      .then(response => response.json())
+      .then(json => {
+        fetchAllData();
+      })
+      .catch(err => console.log(err))
+    } else {
+      modalContent.innerHTML = '';
+      modalContent.insertAdjacentHTML('beforeend', `<p class="error-message">${newBooking}</p>`);
+    }
   }
