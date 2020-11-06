@@ -48,6 +48,13 @@ export default class HotelService {
     return findName.name;
   }
 
+  findNameFromID(id) {
+    let findName = this.allUsers.find(user => {
+      return user.id === id;
+    })
+    return findName.name;
+  }
+
   findUserId(name) {
     let findName = this.allUsers.find(user => {
       return user.name === name;
@@ -57,7 +64,6 @@ export default class HotelService {
     } else {
       return 'We have no record of the user searched. Please search for another user.'
     }
-
   }
 
   findRoomDetails(roomNumber) {

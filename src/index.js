@@ -16,6 +16,7 @@ let searchTitle = document.querySelector('.search-title');
 let searchCustomerInput = document.querySelector('.search-customer-name');
 let searchCustomerButton = document.querySelector('#search-customer-button');
 let modalDate = document.querySelector('#add-booking-modal');
+let modalContent = document.querySelector('#modal-content');
 
 window.onload = fetchAllData();
 window.addEventListener('click', closeModal);
@@ -39,6 +40,7 @@ modalDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   todayDate = formatDate.join('/');
   console.log(todayDate);
+  displayAvailableRooms(todayDate);
 });
 
 function fetchAllData() {
@@ -137,7 +139,7 @@ function displayTodayBookings(date) {
 
 function displayCustomerInfo() {
   viewBookingInfo.innerHTML = '';
-  let userID = hotelService.findUserId(searchCustomerInput.value);
+  userID = hotelService.findUserId(searchCustomerInput.value);
   let bookings = hotelService.findCustomerBookings(userID);
     if (bookings.length > 0) {
       let todaysBookingInfo = bookings.map(booking => {
@@ -156,7 +158,7 @@ function displayCustomerInfo() {
         </article>`
       }).join(' ')
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>${createModal(userID)}`)
+      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>`)
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
@@ -164,36 +166,25 @@ function displayCustomerInfo() {
     }
   }
 
-  function createModal(id) {
-    let availableRooms = hotelService.findAvailableRooms('2020/10/05');
-    console.log(availableRooms)
-    let bookingModal = ``
+  function displayAvailableRooms(date) {
+    let availableRooms = hotelService.findAvailableRooms(date);
+    let allRooms = availableRooms.map(room => {
+      return `<article class="today-booking-card">
+      <section class="booking-info">
+        <p class="room-type">${room.roomType}</p>
+        <p class="room-number"><b>Room Number:</b> ${room.number}</p>
+        <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
+        <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
+      </section>
+      <section class="delete-booking">
+        <p class="room-price">$${room.costPerNight}</p>
+        <button type="button" class="delete-booking-button">BOOK ROOM</button>
+      </section>
+      </article>`
+    }).join(' ')
 
-    // let allRooms = availableRooms.map(booking => {
-    //     return `
-    //     <article class="modal-body">
-    //     <section class="booking-info">
-    //       <p class="room-type">${booking.roomType}</p>
-    //       <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
-    //       <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
-    //       <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
-    //       <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
-    //     </section>
-    //     <section class="delete-booking">
-    //       <p class="room-price">$${booking.costPerNight}</p>
-    //       <button type="button" class="delete-booking-button">DELETE BOOKING</button>
-    //     </section>
-    //     </article>
-    //     </div>`
-    //   })
-
-   return bookingModal;
+   modalContent.insertAdjacentHTML('afterbegin', allRooms);
   }
-
-  function updateModalBookings(date) {
-    console.log(date)
-  }
-
 
   function openModal(event) {
     if (event.target.classList.contains('add-booking-button')) {
