@@ -195,7 +195,7 @@ function displayCustomerInfo() {
 
   function handleModal(event) {
     if (event.target.classList.contains('book-room')) {
-      console.log(event.target.classList[2])
+      let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[2]);
     } else if (event.target === modal) {
       modal.style.display = 'none';
     }

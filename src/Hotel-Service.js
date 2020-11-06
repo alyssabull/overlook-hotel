@@ -223,10 +223,10 @@ export default class HotelService {
 
   addNewBooking(userID, date, roomNumber) {
     let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
-      if (room.number === roomNumber) {
+      if (room.number == roomNumber) {
         bookingDetails.userID = userID;
         bookingDetails.date = date;
-        bookingDetails.roomNumber = roomNumber;
+        bookingDetails.roomNumber = room.number;
       }
       return bookingDetails;
     }, {})
