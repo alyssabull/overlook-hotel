@@ -162,17 +162,16 @@ function displayCustomerInfo() {
     let bookingModal = `<div class="modal" id="add-booking-modal">
     <div class="modal-content flex-column">
       <div class="modal-header">
-        <div>
-
-        </div>
+        <h3 class="modal-title">Available Rooms</h3>
+        <input type="date" class="modal-date">
       </div>
       <div class="modal-body flex-column">
       <div class="modal-header-text flex-row">
         <h1></h1>
       </div>
         <div class="flex-row">
-        <div class="card-effect"
-          <h2>Ingredients</h2>
+        <div class="card-effect">
+
           <p class="ingredients-display"></p>
           <p><b>Total Cost of Ingredients</b></p>
           <p class="ingredients-display"></p>
