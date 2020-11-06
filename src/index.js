@@ -17,10 +17,12 @@ let searchCustomerInput = document.querySelector('.search-customer-name');
 let searchCustomerButton = document.querySelector('#search-customer-button');
 
 window.onload = fetchAllData();
+window.addEventListener('click', closeModal);
 
 let hotelService;
 let todayDate;
 let userID;
+let modal;
 
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
@@ -31,6 +33,7 @@ hotelOverviewDate.addEventListener('change', (event) => {
   displayTodayBookings(todayDate);
 });
 searchCustomerButton.addEventListener('click', displayCustomerInfo);
+searchTitle.addEventListener('click', openModal);
 
 function fetchAllData() {
   let userPromise =
@@ -147,11 +150,54 @@ function displayCustomerInfo() {
         </article>`
       }).join(' ')
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID)} <br><button class="add-booking-button">ADD BOOKING</button>`)
+      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID)} <br><button class="add-booking-button">ADD BOOKING</button>${createModal(userID)}`)
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
-
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
       viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
     }
+  }
+
+  function createModal(id) {
+    let bookingModal = `<div class="modal" id="add-booking-modal">
+    <div class="modal-content flex-column">
+      <div class="modal-header">
+        <div>
+
+        </div>
+      </div>
+      <div class="modal-body flex-column">
+      <div class="modal-header-text flex-row">
+        <h1></h1>
+      </div>
+        <div class="flex-row">
+        <div class="card-effect"
+          <h2>Ingredients</h2>
+          <p class="ingredients-display"></p>
+          <p><b>Total Cost of Ingredients</b></p>
+          <p class="ingredients-display"></p>
+        </div>
+          <div class="card-effect"
+            <h2>How To Cook This</h2>
+            <p><p>
+          </div>
+        </div>
+      </div>
+     </div>
+   </div>`
+   return bookingModal;
+  }
+
+  function openModal(event) {
+    console.log('modal!')
+    if (event.target.classList.contains('add-booking-button')) {
+      modal = document.querySelector(`#add-booking-modal`);
+      modal.style.display = 'block';
+    }
+  }
+
+  function closeModal(event) {
+    if (event.target === modal) {
+    modal.style.display = 'none';
+  }
   }

@@ -119,7 +119,6 @@ export default class HotelService {
           }
         })
         allUserBookings.push(booking);
-        console.log(allUserBookings)
       }
       return allUserBookings;
     }, [])
