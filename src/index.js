@@ -15,6 +15,7 @@ let viewBookingInfo = document.querySelector('.view-information');
 let searchTitle = document.querySelector('.search-title');
 let searchCustomerInput = document.querySelector('.search-customer-name');
 let searchCustomerButton = document.querySelector('#search-customer-button');
+let modalDate = document.querySelector('#add-booking-modal');
 
 window.onload = fetchAllData();
 window.addEventListener('click', closeModal);
@@ -34,6 +35,11 @@ hotelOverviewDate.addEventListener('change', (event) => {
 });
 searchCustomerButton.addEventListener('click', displayCustomerInfo);
 searchTitle.addEventListener('click', openModal);
+modalDate.addEventListener('change', (event) => {
+  let formatDate = `${event.target.value}`.split('-');
+  todayDate = formatDate.join('/');
+  console.log(todayDate);
+});
 
 function fetchAllData() {
   let userPromise =
@@ -150,7 +156,7 @@ function displayCustomerInfo() {
         </article>`
       }).join(' ')
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID)} <br><button class="add-booking-button">ADD BOOKING</button>${createModal(userID)}`)
+      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>${createModal(userID)}`)
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
@@ -161,14 +167,7 @@ function displayCustomerInfo() {
   function createModal(id) {
     let availableRooms = hotelService.findAvailableRooms('2020/10/05');
     console.log(availableRooms)
-    let bookingModal = `<div class="modal" id="add-booking-modal">
-    <div class="modal-content flex-column">
-      <div class="modal-header">
-        <h3 class="modal-title">Available Rooms</h3>
-        <input type="date" class="modal-date">
-      </div>
-      <div class="modal-body flex-column">
-      <div class="modal-header-text flex-row">`
+    let bookingModal = ``
 
     // let allRooms = availableRooms.map(booking => {
     //     return `
