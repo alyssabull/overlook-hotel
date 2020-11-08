@@ -15,12 +15,16 @@ let viewBookingInfo = document.querySelector('.view-information');
 let searchTitle = document.querySelector('.search-title');
 let searchCustomerInput = document.querySelector('.search-customer-name');
 let searchCustomerButton = document.querySelector('#search-customer-button');
+let modalDate = document.querySelector('#add-booking-modal');
+let modalContent = document.querySelector('#modal-content');
 
 window.onload = fetchAllData();
+window.addEventListener('click', handleModal);
 
 let hotelService;
 let todayDate;
 let userID;
+let modal;
 
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
@@ -31,6 +35,12 @@ hotelOverviewDate.addEventListener('change', (event) => {
   displayTodayBookings(todayDate);
 });
 searchCustomerButton.addEventListener('click', displayCustomerInfo);
+searchTitle.addEventListener('click', openModal);
+modalDate.addEventListener('change', (event) => {
+  let formatDate = `${event.target.value}`.split('-');
+  todayDate = formatDate.join('/');
+  displayAvailableRooms(todayDate);
+});
 
 function fetchAllData() {
   let userPromise =
@@ -103,7 +113,8 @@ function displayTodayBookings(date) {
   searchTitle.innerHTML = '';
   let bookings = hotelService.findBookings(date);
   if (typeof bookings !== 'string') {
-    let todaysBookingInfo = bookings.map(booking => {
+    let sortedBookings = hotelService.sortBookingsByRoomNumber(bookings);
+    let todaysBookingInfo = sortedBookings.map(booking => {
       return `<article class="today-booking-card">
       <section class="booking-info">
         <p class="room-type">${booking.roomType}</p>
@@ -128,10 +139,11 @@ function displayTodayBookings(date) {
 
 function displayCustomerInfo() {
   viewBookingInfo.innerHTML = '';
-  let userID = hotelService.findUserId(searchCustomerInput.value);
+  userID = hotelService.findUserId(searchCustomerInput.value);
   let bookings = hotelService.findCustomerBookings(userID);
-    if (bookings.length > 0) {
-      let todaysBookingInfo = bookings.map(booking => {
+  let sortedBookings = hotelService.sortBookingsByDate(bookings);
+    if (sortedBookings.length > 0) {
+      let todaysBookingInfo = sortedBookings.map(booking => {
         return `<article class="today-booking-card">
         <section class="booking-info">
           <p class="room-type">${booking.roomType}</p>
@@ -147,11 +159,68 @@ function displayCustomerInfo() {
         </article>`
       }).join(' ')
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID)}`)
+      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>`)
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
-
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
       viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
+    }
+  }
+
+  function displayAvailableRooms(date) {
+    let availableRooms = hotelService.findAvailableRooms(date);
+    let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
+    let allRooms = sortedAvailableRooms.map(room => {
+      return `<article class="today-booking-card">
+      <section class="booking-info">
+        <p class="room-type">${room.roomType}</p>
+        <p class="room-number"><b>Room Number:</b> ${room.number}</p>
+        <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
+        <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
+        <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
+      </section>
+      <section class="delete-booking">
+        <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
+        <button type="button" class="delete-booking-button book-room ${room.number}">BOOK ROOM</button>
+      </section>
+      </article>`
+    }).join(' ')
+
+   modalContent.insertAdjacentHTML('afterbegin', allRooms);
+  }
+
+  function openModal(event) {
+    if (event.target.classList.contains('add-booking-button')) {
+      modal = document.querySelector(`#add-booking-modal`);
+      modal.style.display = 'block';
+    }
+  }
+
+  function handleModal(event) {
+    if (event.target.classList.contains('book-room')) {
+      let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[2]);
+      postNewBooking(newBooking);
+    } else if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+  function postNewBooking(newBooking) {
+    if (typeof newBooking !== 'string') {
+      return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newBooking)
+      })
+      .then(response => response.json())
+      .then(json => {
+        fetchAllData();
+      })
+      .catch(err => console.log(err))
+    } else {
+      modalContent.innerHTML = '';
+      modalContent.insertAdjacentHTML('beforeend', `<p class="error-message">${newBooking}</p>`);
     }
   }

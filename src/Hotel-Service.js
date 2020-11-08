@@ -48,6 +48,13 @@ export default class HotelService {
     return findName.name;
   }
 
+  findNameFromID(id) {
+    let findName = this.allUsers.find(user => {
+      return user.id === id;
+    })
+    return findName.name;
+  }
+
   findUserId(name) {
     let findName = this.allUsers.find(user => {
       return user.name === name;
@@ -57,7 +64,6 @@ export default class HotelService {
     } else {
       return 'We have no record of the user searched. Please search for another user.'
     }
-
   }
 
   findRoomDetails(roomNumber) {
@@ -76,6 +82,7 @@ export default class HotelService {
     if (typeof this.findAvailableRooms(date) === 'string') {
       return 0;
     } else {
+      // console.log(this.findAvailableRooms(date))
       return this.findAvailableRooms(date).length
     }
   }
@@ -90,9 +97,11 @@ export default class HotelService {
 
     let rooms = [...this.allRooms];
     if (roomsBooked.length < rooms.length) {
-      rooms.forEach(room => {
-        roomsBooked.forEach(roomNum => {
+      roomsBooked.forEach(roomNum => {
+        rooms.forEach(room => {
           if (roomNum === room.number) {
+            console.log('roomNum', roomNum);
+            console.log('room number', room.number)
             let index = rooms.indexOf(room);
             rooms.splice(index, 1);
           }
@@ -119,7 +128,6 @@ export default class HotelService {
           }
         })
         allUserBookings.push(booking);
-        console.log(allUserBookings)
       }
       return allUserBookings;
     }, [])
@@ -197,6 +205,18 @@ export default class HotelService {
     }, 0)
   }
 
+  sortBookingsByDate(bookings) {
+    return bookings.sort((a,b) => {
+      return new Date(b.date) - new Date(a.date);
+    })
+  }
+
+  sortBookingsByRoomNumber(bookings) {
+    return bookings.sort((a,b) => {
+      return a.roomNumber - b.roomNumber;
+    })
+  }
+
   getTodayDate() {
     let today = new Date();
     let dd = today.getDate();
@@ -213,8 +233,20 @@ export default class HotelService {
     return today = yyyy+'/'+mm+'/'+dd;
   }
 
-  addBooking(newBooking) {
-    this.allBookings.push(newBooking);
+  addNewBooking(userID, date, roomNumber) {
+    if (date > this.getTodayDate()) {
+      let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
+        if (room.number == roomNumber) {
+          bookingDetails.userID = userID;
+          bookingDetails.date = date;
+          bookingDetails.roomNumber = room.number;
+        }
+        return bookingDetails;
+      }, {})
+      return bookingInfo;
+    } else {
+      return 'Oops! The date you selected for a booking is in the future. Please select another date until time travel exists!'
+    }
   }
 
   deleteBooking(deleteBooking) {

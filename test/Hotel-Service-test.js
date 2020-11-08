@@ -236,7 +236,7 @@ describe('Hotel Service', () => {
       hotelService.addBookings();
       hotelService.addRooms();
 
-      expect(hotelService.calculateTotalSpent(user)).to.deep.equal(613.39)
+      expect(hotelService.calculateTotalSpent(user.id)).to.deep.equal(613.39)
     });
 
     it ('should be able to find the current date', () => {
@@ -245,11 +245,11 @@ describe('Hotel Service', () => {
 
     it('should be able to add a booking for the current user', () => {
       const user = new User(sampleUserData[0]);
-      const booking1 = new Booking('hf729dj19385hj', 1, '2020/11/25', 2, []);
-      hotelService.addBookings();
-      hotelService.addBooking(user, booking1);
+      const roomNumber = 1;
+      const result = {userID: 1, date: '2020/11/25', roomNumber: 1};
+      hotelService.addRooms();
 
-      expect(hotelService.allBookings.length).to.equal(5);
+      expect(hotelService.addNewBooking(1, '2020/11/25', 1)).to.deep.equal(result);
     });
 
     it('should be able to delete a booking for the current user', () => {

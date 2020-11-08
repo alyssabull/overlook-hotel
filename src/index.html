@@ -31,30 +31,19 @@
         <input type="text" name="customer search" placeholder="type customer name to view their bookings" class="search-customer-name">
         <button type="button" class="search-button" id="search-customer-button">SEARCH</button>
       </section>
-        <h5 class="search-title">Bookings for --</h5>
-        <section class="view-information">
-        </section>
-          <p>Total Spent $--.--</p>
-          <button type="button" class="add-booking">Add Booking</button>
-          <article class="add-customer-booking">
-            <h3>Add Booking for <i>customer name</i></h3>
-            <input type="date" name="add-booking-date">
-            <section class="available-rooms">
-              <p>Available Room Info</p>
-              <button type="button" class="book-button">BOOK</button>
-              <p>Available Room Info</p>
-              <button type="button" class="book-button">BOOK</button>
-              <p>Available Room Info</p>
-              <button type="button" class="book-button">BOOK</button>
-            </section>
-          </article>
-          <article class="customer-bookings">
-            <p>X</p>
-            <p>Date: 2020/10/22</p>
-            <p>Room Information</p>
-          </article>
-        </section>
-    </section>
+      <h5 class="search-title">Bookings for --</h5>
+      <section class="view-information">
+      </section>
+      <section class="footer">
+      </section>
+        <div class="modal hidden" id="add-booking-modal">
+          <div class="modal-content flex-column">
+            <div class="modal-header">
+              <h3 class="modal-title">Available Rooms</h3>
+              <input type="date" class="modal-date">
+            </div>
+          <div id="modal-content">
+          </div>
     <section class="customer-view hidden">
       <h2>Welcome back, <i>customer name</i></h2>
       <article class="customer-status">
