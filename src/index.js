@@ -39,7 +39,6 @@ searchTitle.addEventListener('click', openModal);
 modalDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   todayDate = formatDate.join('/');
-  console.log(todayDate);
   displayAvailableRooms(todayDate);
 });
 
@@ -143,7 +142,6 @@ function displayCustomerInfo() {
   userID = hotelService.findUserId(searchCustomerInput.value);
   let bookings = hotelService.findCustomerBookings(userID);
   let sortedBookings = hotelService.sortBookingsByDate(bookings);
-  console.log(sortedBookings);
     if (sortedBookings.length > 0) {
       let todaysBookingInfo = sortedBookings.map(booking => {
         return `<article class="today-booking-card">
@@ -179,6 +177,7 @@ function displayCustomerInfo() {
         <p class="room-number"><b>Room Number:</b> ${room.number}</p>
         <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
         <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
+        <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
       </section>
       <section class="delete-booking">
         <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
