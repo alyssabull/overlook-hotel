@@ -245,7 +245,7 @@ export default class HotelService {
       }, {})
       return bookingInfo;
     } else {
-      return 'Oops! The date you selected for a booking is in the future. Please select another date until time travel exists!'
+      return 'Oops! The date you selected for a booking is in the past. Please select another date until time travel exists!'
     }
   }
 

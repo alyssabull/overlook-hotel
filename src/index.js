@@ -41,6 +41,7 @@ modalDate.addEventListener('change', (event) => {
   todayDate = formatDate.join('/');
   displayAvailableRooms(todayDate);
 });
+viewBookingInfo.addEventListener('click', deleteBooking);
 
 function fetchAllData() {
   let userPromise =
@@ -154,7 +155,7 @@ function displayCustomerInfo() {
         </section>
         <section class="delete-booking">
           <p class="room-price">$${booking.costPerNight}</p>
-          <button type="button" class="delete-booking-button">DELETE BOOKING</button>
+          <button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>
         </section>
         </article>`
       }).join(' ')
@@ -222,5 +223,28 @@ function displayCustomerInfo() {
     } else {
       modalContent.innerHTML = '';
       modalContent.insertAdjacentHTML('beforeend', `<p class="error-message">${newBooking}</p>`);
+    }
+  }
+
+  function deleteBooking(event) {
+    let deleteBody;
+    if (event.target.classList[2] === 'number') {
+      deleteBody = {id: parseInt(event.target.classList[1])}
+    } else {
+      deleteBody = {id: event.target.classList[1]};
+    }
+    if (event.target.classList.contains('delete-booking-button')) {
+      return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(deleteBody)
+      })
+      .then(response => response.json())
+      .then(json => {
+        console.log('json', json);
+      })
+      .catch(err => console.log(err))
     }
   }
