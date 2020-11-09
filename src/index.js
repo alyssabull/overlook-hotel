@@ -339,7 +339,7 @@ function displayCustomerInfo() {
       let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
       let allRooms = sortedAvailableCustRooms.map(room => {
         return `<article class="today-booking-card">
-        <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="booking-card-img">
+        <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="room picture" class="booking-card-img">
         <section class="booking-info">
           <p class="room-type">${room.roomType}</p>
           <p class="room-number"><b>Room Number:</b> ${room.number}</p>

@@ -226,8 +226,8 @@ h5 {
   display: flex;
   border: solid black 1px;
   border-radius: 5px;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
   margin-top: 10px;
   margin-bottom: 10px;
   font-family: 'Spectral SC', serif;
@@ -274,7 +274,7 @@ h5 {
 
 .room-number {
   margin-bottom: 0px;
-  margin-top: 0px;
+  margin-top: 10px;
 }
 
 .room-price {
@@ -453,7 +453,7 @@ h5 {
   height: 30px;
   margin: 18px 0px 0px 0px;
   display: flex;
-  color: #dca570;
+  color: white;
   background-color: #cd7f32;
   padding: 0px 40px 0px 40px;
   border: solid 1px;
@@ -503,7 +503,7 @@ h5 {
   border-radius: 50%;
   outline: none;
   border: none;
-  // display: none;
+  display: none;
 }
 
 .tag-image {
@@ -556,7 +556,7 @@ input[type=radio]:checked + label {
   font-family: 'Spectral SC', serif;
   background-color: white;
   opacity: 0.8;
-  margin: 20px 20px 5px 20px;
+  margin: 20px 0px 5px 20px;
   border-radius: 5px;
   width: 75%;
   font-size: 35px;
@@ -566,7 +566,7 @@ input[type=radio]:checked + label {
 }
 
 .book-room-date {
-  width: 175px;
+  width: 150px;
   margin-bottom: 20px;
 }
 
