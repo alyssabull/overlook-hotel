@@ -24,6 +24,7 @@ let customerWelcome = document.querySelector('.customer-welcome');
 let customerStatus = document.querySelector('.customer-status');
 let bookRoomDate = document.querySelector('.book-room-date');
 let customerRooms = document.querySelector('.display-customer-rooms');
+let bookARoom = document.querySelector('.book-a-room');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -55,6 +56,7 @@ bookRoomDate.addEventListener('change', (event) => {
   todayDate = formatDate.join('/');
   displayCustomerRooms(todayDate);
 });
+bookARoom.addEventListener('click', customerBookings)
 
 function fetchAllData() {
   let userPromise =
@@ -324,10 +326,17 @@ function displayCustomerInfo() {
       </section>
       <section class="customer-booking">
         <p class="customer-price">$${room.costPerNight.toFixed(2)}</p>
-        <button type="button" class="book-room ${room.number} customer-book-button">BOOK ROOM</button>
+        <button type="button" class="customer-book-button ${room.number}">BOOK ROOM</button>
       </section>
       </article>`
     }).join(' ')
 
    customerRooms.insertAdjacentHTML('afterbegin', allRooms);
-  }
+ }
+
+ function customerBookings(event) {
+   if (event.target.classList.contains('customer-book-button')) {
+     let newBooking = hotelService.addNewBooking(1, todayDate, event.target.classList[1]);
+     postNewBooking(newBooking);
+   }
+ }

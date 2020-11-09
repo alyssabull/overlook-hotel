@@ -575,6 +575,7 @@ input[type=radio]:checked + label {
 .customer-booking {
   border-left: solid black 1px;
   width: 30%;
+  margin-left: 20px;
 }
 
 .customer-price {
@@ -583,6 +584,16 @@ input[type=radio]:checked + label {
   display: flex;
   justify-content: center;
   margin-top: 50px;
+}
+
+.customer-book-button {
+  font-family: 'Spectral SC', serif;
+  margin: 20px;
+  width: 100px;
+}
+
+.customer-book-button:hover {
+  cursor: pointer;
 }
 
 // .awards-section {
