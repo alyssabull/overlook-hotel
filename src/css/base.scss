@@ -559,8 +559,30 @@ input[type=radio]:checked + label {
 .display-customer-rooms {
   background-color: #fefefe;
   width: 90%;
-  // height: 30%;
   font-size: 16px;
+}
+
+.booking-card-img {
+  height: 150px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.customer-booking {
+  border-left: solid black 1px;
+  width: 30%;
+}
+
+.customer-price {
+  font-family: 'Spectral SC', serif;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
 
 // .awards-section {

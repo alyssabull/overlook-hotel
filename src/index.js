@@ -277,7 +277,7 @@ function displayCustomerInfo() {
         },
         body: JSON.stringify(newBooking)
       })
-      .then(response => response.json())
+      .then(response => console.log(response.json()))
       .then(json => {
         fetchAllData();
       })
@@ -314,6 +314,7 @@ function displayCustomerInfo() {
     let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
     let allRooms = sortedAvailableRooms.map(room => {
       return `<article class="today-booking-card">
+      <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="booking-card-img">
       <section class="booking-info">
         <p class="room-type">${room.roomType}</p>
         <p class="room-number"><b>Room Number:</b> ${room.number}</p>
@@ -321,9 +322,9 @@ function displayCustomerInfo() {
         <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
         <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
       </section>
-      <section class="delete-booking">
-        <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
-        <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
+      <section class="customer-booking">
+        <p class="customer-price">$${room.costPerNight.toFixed(2)}</p>
+        <button type="button" class="book-room ${room.number} customer-book-button">BOOK ROOM</button>
       </section>
       </article>`
     }).join(' ')
