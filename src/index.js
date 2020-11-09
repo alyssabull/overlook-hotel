@@ -29,6 +29,7 @@ let viewBookingsButton = document.querySelector('.view-bookings-button');
 let bookRoomHeader = document.querySelector('.book-room-header');
 let filterStatus = document.querySelector('.filter-status');
 let backToBooking = document.querySelector('.back-to-booking');
+let filterButton = document.querySelector('.filter-button');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -37,6 +38,7 @@ let hotelService;
 let todayDate;
 let userID;
 let modal;
+let sortedAvailableCustRooms;
 
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
@@ -63,6 +65,7 @@ bookRoomDate.addEventListener('change', (event) => {
 bookARoom.addEventListener('click', customerAddBookings)
 viewBookingsButton.addEventListener('click', displayCustomerBookings);
 backToBooking.addEventListener('click', backToCustomerBooking);
+filterButton.addEventListener('click', getFilterValue);
 
 function fetchAllData() {
   let userPromise =
@@ -319,8 +322,8 @@ function displayCustomerInfo() {
 
   function displayCustomerRooms(date) {
     let availableRooms = hotelService.findAvailableRooms(date);
-    let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
-    let allRooms = sortedAvailableRooms.map(room => {
+    sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
+    let allRooms = sortedAvailableCustRooms.map(room => {
       return `<article class="today-booking-card">
       <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="booking-card-img">
       <section class="booking-info">
@@ -366,7 +369,6 @@ function displayCustomerBookings() {
         </section>
         <section class="delete-booking">
           <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
-          <button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>
         </section>
         </article>`
       }).join(' ')
@@ -378,5 +380,37 @@ function backToCustomerBooking() {
   customerRooms.innerHTML = '';
   bookRoomDate.classList.remove('hidden');
   bookRoomHeader.innerText = 'Book a Room';
-  backToBooking.classList.add('hidden');
+  backToBooking.innerHTML = '';
+}
+
+function getFilterValue() {
+  if (document.getElementById('residential-suite').value) {
+    let residentialSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'residential suite');
+    displayFilteredRooms(residentialSuites);
+    console.log(residentialSuites)
+  }
+  // clearFormValues();
+}
+
+function displayFilteredRooms(rooms) {
+  customerRooms.innerHTML = '';
+  let sortedFilteredRooms = hotelService.sortBookingsByDate(rooms);
+  let allRooms = sortedFilteredRooms.map(room => {
+    return `<article class="today-booking-card">
+    <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="booking-card-img">
+    <section class="booking-info">
+      <p class="room-type">${room.roomType}</p>
+      <p class="room-number"><b>Room Number:</b> ${room.number}</p>
+      <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
+      <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
+      <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
+    </section>
+    <section class="customer-booking">
+      <p class="customer-price">$${room.costPerNight.toFixed(2)}</p>
+      <button type="button" class="customer-book-button ${room.number}">BOOK ROOM</button>
+    </section>
+    </article>`
+  }).join(' ')
+
+ customerRooms.insertAdjacentHTML('afterbegin', allRooms);
 }

@@ -420,6 +420,7 @@ h5 {
   border: solid 1px;
   border-radius: 5px;
   height: 30px;
+  outline: none;
 }
 
 .view-bookings-button:hover {
@@ -603,6 +604,7 @@ input[type=radio]:checked + label {
   font-family: 'Spectral SC', serif;
   margin: 20px;
   width: 100px;
+  outline: none;
 }
 
 .customer-book-button:hover {
@@ -614,6 +616,11 @@ input[type=radio]:checked + label {
   margin: 0px;
   width: 200px;
   height: 30px;
+  outline: none;
+}
+
+.back-to-book-button:hover {
+  cursor: pointer;
 }
 
 // .awards-section {
