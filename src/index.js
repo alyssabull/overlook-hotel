@@ -386,14 +386,35 @@ function backToCustomerBooking() {
 }
 
 function getFilterValue() {
-  if (document.getElementById('residential-suite').value) {
+  if (document.getElementById('residential suite').value) {
     let residentialSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'residential suite');
     displayFilteredRooms(residentialSuites);
     bookRoomHeader.innerText = `Available Residential Suites`;
     filterRefreshButton.classList.remove('hidden');
-    console.log(document.getElementById('residential-suite').checked)
+  } else if (document.getElementById('suite').value) {
+    let suites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'suite');
+    displayFilteredRooms(suites);
+    bookRoomHeader.innerText = `Available Suites`;
+    filterRefreshButton.classList.remove('hidden');
+  } else if (document.getElementById('junior-suite').value) {
+    let juniorSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'suite');
+    displayFilteredRooms(juniorSuites);
+    bookRoomHeader.innerText = `Available Junior Suites`;
+    filterRefreshButton.classList.remove('hidden');
+  } else if (document.getElementById('single-room').value) {
+    let singleRooms = hotelService.filterRoomByType(sortedAvailableCustRooms, 'single-room');
+    displayFilteredRooms(singleRooms);
+    bookRoomHeader.innerText = `Available Single Rooms`;
+    filterRefreshButton.classList.remove('hidden');
   }
-  // clearFormValues();
+  clearFormValues();
+}
+
+function clearFormValues() {
+  let tagButtons = document.querySelectorAll('.tag-button');
+  tagButtons.forEach(button => {
+    button.checked = false;
+  })
 }
 
 function displayFilteredRooms(rooms) {
