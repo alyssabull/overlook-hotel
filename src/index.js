@@ -322,27 +322,31 @@ function displayCustomerInfo() {
   }
 
   function displayCustomerRooms(date) {
-    bookRoomHeader.innerText = `All Available Rooms`;
-    let availableRooms = hotelService.findAvailableRooms(date);
-    sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
-    let allRooms = sortedAvailableCustRooms.map(room => {
-      return `<article class="today-booking-card">
-      <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="booking-card-img">
-      <section class="booking-info">
-        <p class="room-type">${room.roomType}</p>
-        <p class="room-number"><b>Room Number:</b> ${room.number}</p>
-        <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
-        <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
-        <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
-      </section>
-      <section class="customer-booking">
-        <p class="customer-price">$${room.costPerNight.toFixed(2)}</p>
-        <button type="button" class="customer-book-button ${room.number}">BOOK ROOM</button>
-      </section>
-      </article>`
-    }).join(' ')
+    if (date > hotelService.getTodayDate()) {
+      bookRoomHeader.innerText = `All Available Rooms`;
+      let availableRooms = hotelService.findAvailableRooms(date);
+      sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
+      let allRooms = sortedAvailableCustRooms.map(room => {
+        return `<article class="today-booking-card">
+        <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="booking-card-img">
+        <section class="booking-info">
+          <p class="room-type">${room.roomType}</p>
+          <p class="room-number"><b>Room Number:</b> ${room.number}</p>
+          <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
+          <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
+          <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
+        </section>
+        <section class="customer-booking">
+          <p class="customer-price">$${room.costPerNight.toFixed(2)}</p>
+          <button type="button" class="customer-book-button ${room.number}">BOOK ROOM</button>
+        </section>
+        </article>`
+      }).join(' ')
 
-   customerRooms.insertAdjacentHTML('afterbegin', allRooms);
+     customerRooms.insertAdjacentHTML('afterbegin', allRooms);
+   } else {
+     customerRooms.innerText = 'Oops! The date you selected is in the past. Please select a date in the future to make a booking!'
+   }
  }
 
  function customerAddBookings(event) {
