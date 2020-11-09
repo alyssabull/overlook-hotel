@@ -25,6 +25,10 @@ let customerStatus = document.querySelector('.customer-status');
 let bookRoomDate = document.querySelector('.book-room-date');
 let customerRooms = document.querySelector('.display-customer-rooms');
 let bookARoom = document.querySelector('.book-a-room');
+let viewBookingsButton = document.querySelector('.view-bookings-button');
+let bookRoomHeader = document.querySelector('.book-room-header');
+let filterStatus = document.querySelector('.filter-status');
+let backToBooking = document.querySelector('.back-to-booking');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -56,7 +60,9 @@ bookRoomDate.addEventListener('change', (event) => {
   todayDate = formatDate.join('/');
   displayCustomerRooms(todayDate);
 });
-bookARoom.addEventListener('click', customerBookings)
+bookARoom.addEventListener('click', customerAddBookings)
+viewBookingsButton.addEventListener('click', displayCustomerBookings);
+backToBooking.addEventListener('click', backToCustomerBooking);
 
 function fetchAllData() {
   let userPromise =
@@ -334,9 +340,43 @@ function displayCustomerInfo() {
    customerRooms.insertAdjacentHTML('afterbegin', allRooms);
  }
 
- function customerBookings(event) {
+ function customerAddBookings(event) {
    if (event.target.classList.contains('customer-book-button')) {
      let newBooking = hotelService.addNewBooking(1, todayDate, event.target.classList[1]);
      postNewBooking(newBooking);
    }
  }
+
+function displayCustomerBookings() {
+  customerRooms.innerHTML = '';
+  bookRoomDate.classList.add('hidden');
+  bookRoomHeader.innerText = 'Your Bookings';
+  backToBooking.insertAdjacentHTML('beforeend', `<button class="back-to-book-button">Book a Room</button>`);
+  let bookings = hotelService.findCustomerBookings(1);
+  let sortedBookings = hotelService.sortBookingsByDate(bookings);
+    if (sortedBookings.length > 0) {
+      let todaysBookingInfo = sortedBookings.map(booking => {
+        return `<article class="today-booking-card">
+        <section class="booking-info">
+          <p class="room-type">${booking.roomType}</p>
+          <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
+          <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
+          <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
+          <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
+        </section>
+        <section class="delete-booking">
+          <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
+          <button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>
+        </section>
+        </article>`
+      }).join(' ')
+      customerRooms.insertAdjacentHTML('beforeend', todaysBookingInfo);
+    }
+}
+
+function backToCustomerBooking() {
+  customerRooms.innerHTML = '';
+  bookRoomDate.classList.remove('hidden');
+  bookRoomHeader.innerText = 'Book a Room';
+  backToBooking.classList.add('hidden');
+}

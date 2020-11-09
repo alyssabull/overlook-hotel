@@ -413,6 +413,19 @@ h5 {
   font-size: 18px;
 }
 
+.view-bookings-button {
+  margin: 18px 0px 0px 0px ;
+  display: flex;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+  height: 30px;
+}
+
+.view-bookings-button:hover {
+  cursor: pointer;
+}
+
 .gold {
   margin-top: 0px;
   display: flex;
@@ -594,6 +607,13 @@ input[type=radio]:checked + label {
 
 .customer-book-button:hover {
   cursor: pointer;
+}
+
+.back-to-book-button {
+  font-family: 'Spectral SC', serif;
+  margin: 0px;
+  width: 200px;
+  height: 30px;
 }
 
 // .awards-section {
