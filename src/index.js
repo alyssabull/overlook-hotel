@@ -244,6 +244,7 @@ function displayCustomerInfo() {
     if (sortedBookings.length > 0) {
       let todaysBookingInfo = sortedBookings.map(booking => {
         return `<article class="today-booking-card">
+        <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
         <section class="booking-info">
           <p class="room-type">${booking.roomType}</p>
           <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
@@ -406,11 +407,12 @@ function displayCustomerBookings(event) {
       if (sortedBookings.length > 0) {
         let todaysBookingInfo = sortedBookings.map(booking => {
           return `<article class="today-booking-card">
+          <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
           <section class="booking-info">
             <p class="room-type">${booking.roomType}</p>
-            <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
             <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
             <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
+            <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
           </section>
           <section class="delete-booking">
             <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
@@ -480,7 +482,7 @@ function displayFilteredRooms(rooms) {
   let sortedFilteredRooms = hotelService.sortBookingsByDate(rooms);
   let allRooms = sortedFilteredRooms.map(room => {
     return `<article class="today-booking-card">
-    <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="booking-card-img">
+    <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
     <section class="booking-info">
       <p class="room-type">${room.roomType}</p>
       <p class="room-number"><b>Room Number:</b> ${room.number}</p>
