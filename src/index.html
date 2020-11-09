@@ -9,9 +9,10 @@
     <header>
       <img src="https://i.etsystatic.com/18252946/r/il/dd8a9e/1629665033/il_570xN.1629665033_pyzn.jpg" alt="overlook hotel crest" class="hotel-crest">
       <h1>Overlook Hotel</h1>
+      <button type="button" class="signout-button hidden">SIGN OUT</button>
     </header>
     <p class="hotel-info">1744 Aspen Drive, Spareeholm Sweden | +0157-8447132 | bookings@overlookhotel.net</p>
-    <section class="enter-credentials hidden">
+    <section class="enter-credentials">
         <h2>Please Log In</h2>
         <h4>Username</h4>
         <input type="text" name="username" class="username login-info">
@@ -20,17 +21,17 @@
         <button type="button" class="submit-button">ENTER</button>
         <p class="error-message"></p>
     </section>
-    <section class="manager-view">
+    <section class="manager-view hidden">
       <article class="today-overview">
         <p class="overview-title"><b>Hotel Overview for</b></p>
         <input type="date" class="hotel-overview-date">
-          <p class="overview-default" id="overview-info">Please select a date to see the hotel overview.</p>
+          <p class="overview-default" id="overview-info">Please select a date.</p>
+          <section class="customer-search-bar">
+          <h3 class="search-customers">Search Customers</h3>
+          <input type="text" name="customer search" placeholder="type customer name to view their bookings" class="search-customer-name">
+          <button type="button" class="search-button" id="search-customer-button">SEARCH</button>
+        </section>
       </article>
-        <section class="customer-search-bar">
-        <h3>Search Customers</h3>
-        <input type="text" name="customer search" placeholder="type customer name to view their bookings" class="search-customer-name">
-        <button type="button" class="search-button" id="search-customer-button">SEARCH</button>
-      </section>
       <h5 class="search-title">Bookings for --</h5>
       <section class="view-information">
       </section>
@@ -42,8 +43,10 @@
               <h3 class="modal-title">Available Rooms</h3>
               <input type="date" class="modal-date">
             </div>
-          <div id="modal-content">
+          <div id="modal-content" class="confirmation-message">
           </div>
+          <div class="modal hidden" id="delete-booking-confirmation">
+
     <section class="customer-view hidden">
       <h2>Welcome back, <i>customer name</i></h2>
       <article class="customer-status">

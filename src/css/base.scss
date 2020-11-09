@@ -97,6 +97,14 @@ input[type="password"]
 
 // Manager View
 
+.signout-button {
+  position: absolute;
+  left: 90%;
+  top: 3%;
+  width: 100px;
+  font-family: 'Spectral SC', serif;
+}
+
 .manager-view {
   background-color: white;
   opacity: 0.8;
@@ -105,13 +113,12 @@ input[type="password"]
 
 .overview-title {
   font-family: 'Spectral SC', serif;
-  display: flex;
-  margin-left: 20px;
-  margin-top: 20px;
+  display: inline-block;
+  margin: 40px 5px 40px 20px;
 }
 
 .hotel-overview-date {
-  margin: 20px;
+  margin: 40px 20px 40px 20px;
 }
 
 .today-overview {
@@ -122,9 +129,21 @@ input[type="password"]
 
 .overview-default {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   font-family: 'Spectral SC', serif;
-  margin-top: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-right: 100px;
+}
+
+.hotel-summary {
+  margin-right: 60px;
+  font-family: 'Spectral SC', serif;
+}
+
+#overview-info {
+  display: flex;
+  flex-direction: column;
 }
 
 .overview {
@@ -135,19 +154,28 @@ input[type="password"]
 
 .customer-search-bar {
   display: flex;
-  margin-top: 20px;
+  margin-top: 0px;
+  font-size: 15px;
+  border-left: solid black 1px;
+  height: 110px;
 }
 
 .search-title {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 40px;
+}
+
+.search-customers {
+  margin-left: 40px;
+  margin-top: 40px;
 }
 
 .search-button {
   font-family: 'Spectral SC', serif;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   width: 100px;
 }
 
@@ -161,8 +189,8 @@ h3 {
 }
 
 .search-customer-name {
-  margin: 20px;
-  width: 400px;
+  margin: 40px 20px 40px 20px;
+  width: 300px;
 }
 
 h5 {
@@ -282,6 +310,11 @@ h5 {
   margin: 0px 10px 10px 10px;
 }
 
+.book-room {
+  font-family: 'Spectral SC', serif;
+  margin: 0px 10px 10px 10px;
+}
+
 .customer-error-message {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
@@ -303,7 +336,7 @@ h5 {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 10px;
   border: 1px solid #888;
   border-radius: 5px;
@@ -343,6 +376,10 @@ h5 {
 .footer {
   height: 60px;
   opacity: 0.8;
+}
+
+.confirmation-message {
+  font-family: 'Spectral SC', serif;
 }
 
 // .awards-section {

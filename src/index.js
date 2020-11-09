@@ -9,14 +9,17 @@ let customerView = document.querySelector('.customer-view');
 let usernameInput = document.querySelector('.username');
 let passwordInput = document.querySelector('.password');
 let submitButton = document.querySelector('.submit-button');
+let signOutButton = document.querySelector('.signout-button');
 let hotelOverviewDate = document.querySelector('.hotel-overview-date');
 let overviewInfo = document.querySelector('#overview-info');
 let viewBookingInfo = document.querySelector('.view-information');
 let searchTitle = document.querySelector('.search-title');
 let searchCustomerInput = document.querySelector('.search-customer-name');
 let searchCustomerButton = document.querySelector('#search-customer-button');
-let modalDate = document.querySelector('#add-booking-modal');
+let bookingModal = document.querySelector('#add-booking-modal');
 let modalContent = document.querySelector('#modal-content');
+let modalDate = document.querySelector('.modal-date');
+let modalTitle = document.querySelector('.modal-title');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -35,12 +38,14 @@ hotelOverviewDate.addEventListener('change', (event) => {
   displayTodayBookings(todayDate);
 });
 searchCustomerButton.addEventListener('click', displayCustomerInfo);
-searchTitle.addEventListener('click', openModal);
-modalDate.addEventListener('change', (event) => {
+window.addEventListener('click', openModal);
+bookingModal.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   todayDate = formatDate.join('/');
   displayAvailableRooms(todayDate);
 });
+viewBookingInfo.addEventListener('click', deleteBooking);
+signOutButton.addEventListener('click', signOut);
 
 function fetchAllData() {
   let userPromise =
@@ -71,6 +76,9 @@ function validateCredentials() {
   if (usernameInput.value === 'manager' && passwordInput.value === 'overlook2020') {
     enterCredentials.classList.add('hidden');
     managerView.classList.remove('hidden');
+    signOutButton.classList.remove('hidden');
+    usernameInput.value = '';
+    passwordInput.value = '';
   } else if (usernameInput.value.includes('customer') && passwordInput.value === 'overlook2020') {
     let findUserID = usernameInput.value.split(/(\d+)/);
     userID = findUserID[1];
@@ -78,6 +86,9 @@ function validateCredentials() {
       if(user.id == userID) {
         enterCredentials.classList.add('hidden');
         customerView.classList.remove('hidden');
+        signOutButton.classList.remove('hidden');
+        usernameInput.value = '';
+        passwordInput.value = '';
       } else {
         alertLogInError();
       }
@@ -98,13 +109,21 @@ function clearErrorMessage() {
   errorMessage.innerText = '';
 }
 
+function signOut() {
+  signOutButton.classList.add('hidden');
+  managerView.classList.add('hidden');
+  enterCredentials.classList.remove('hidden');
+}
+
 function displayHotelOverview(date) {
   let todayRevenue = hotelService.calculateTotalRevenue(date);
   let availableRooms = hotelService.calculateNumberAvailableRooms(date);
   let percentOccupied = hotelService.calculatePercentageOccupied(date);
-  let overview = `Today's Revenue $${todayRevenue} &nbsp;&nbsp;&nbsp;&nbsp;
-  Rooms Available Today ${availableRooms} &nbsp;&nbsp;&nbsp;&nbsp;
-  Percentage Occupied ${percentOccupied}%`;
+  let overview = `Revenue &nbsp; $${todayRevenue} <br>
+  Rooms Available &nbsp; ${availableRooms} <br>
+  Percentage Occupied &nbsp; ${percentOccupied}%`;
+  overviewInfo.classList.remove('overview-default');
+  overviewInfo.classList.add('hotel-summary');
   overviewInfo.innerHTML = overview;
 }
 
@@ -124,8 +143,8 @@ function displayTodayBookings(date) {
         <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
       </section>
       <section class="delete-booking">
-        <p class="room-price">$${booking.costPerNight}</p>
-        <button type="button" class="delete-booking-button">DELETE BOOKING</button>
+        <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
+        <button type="button" class="delete-booking-button delete" data-confirm="Are you sure you want to delete this booking?">DELETE BOOKING</button>
       </section>
       </article>`
     }).join(' ')
@@ -153,8 +172,8 @@ function displayCustomerInfo() {
           <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
         </section>
         <section class="delete-booking">
-          <p class="room-price">$${booking.costPerNight}</p>
-          <button type="button" class="delete-booking-button">DELETE BOOKING</button>
+          <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
+          <button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>
         </section>
         </article>`
       }).join(' ')
@@ -181,7 +200,7 @@ function displayCustomerInfo() {
       </section>
       <section class="delete-booking">
         <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
-        <button type="button" class="delete-booking-button book-room ${room.number}">BOOK ROOM</button>
+        <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
       </section>
       </article>`
     }).join(' ')
@@ -191,15 +210,27 @@ function displayCustomerInfo() {
 
   function openModal(event) {
     if (event.target.classList.contains('add-booking-button')) {
-      modal = document.querySelector(`#add-booking-modal`);
+      modal = bookingModal;
+      modal.style.display = 'block';
+      modalDate.classList.remove('hidden');
+      modalTitle.innerText = 'Available Rooms';
+      modalContent.innerText = '';
+    } else if (event.target.classList.contains('delete-booking-button')) {
+      modal = bookingModal;
+      modalDate.classList.add('hidden');
+      modalTitle.innerText = 'Confirmation';
+      modalContent.innerText = 'Your booking has successfully been deleted. Please refresh the page to update the bookings.';
       modal.style.display = 'block';
     }
   }
 
   function handleModal(event) {
     if (event.target.classList.contains('book-room')) {
-      let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[2]);
+      let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[1]);
       postNewBooking(newBooking);
+      modalDate.classList.add('hidden');
+      modalTitle.innerText = 'Success';
+      modalContent.innerText = 'The booking has successfully been added. Please refresh the page to see the updated bookings.';
     } else if (event.target === modal) {
       modal.style.display = 'none';
     }
@@ -222,5 +253,26 @@ function displayCustomerInfo() {
     } else {
       modalContent.innerHTML = '';
       modalContent.insertAdjacentHTML('beforeend', `<p class="error-message">${newBooking}</p>`);
+    }
+  }
+
+  function deleteBooking(event) {
+    let deleteBody;
+    if (event.target.classList[2] === 'number') {
+      deleteBody = {id: parseInt(event.target.classList[1])}
+    } else {
+      deleteBody = {id: event.target.classList[1]};
+    }
+    if (event.target.classList.contains('delete-booking-button')) {
+      return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(deleteBody)
+      })
+      .then(response => response.json())
+      .then(json => fetchAllData())
+      .catch(err => console.log(err))
     }
   }
