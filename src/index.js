@@ -1,5 +1,29 @@
 import './css/base.scss';
-import apiCalls from './apiCalls.js';
+import './images/room0.jpg'
+import './images/room1.jpg'
+import './images/room2.jpg'
+import './images/room3.jpg'
+import './images/room4.jpg'
+import './images/room5.jpg'
+import './images/room6.jpg'
+import './images/room7.jpg'
+import './images/room8.jpg'
+import './images/room9.jpg'
+import './images/room10.jpg'
+import './images/room11.jpg'
+import './images/room12.jpg'
+import './images/room13.jpg'
+import './images/room14.jpg'
+import './images/room15.jpg'
+import './images/room16.jpg'
+// import './images/room17.jpg'
+// import './images/room18.jpg'
+// import './images/room19.jpg'
+// import './images/room20.jpg'
+// import './images/room21.jpg'
+// import './images/room22.jpg'
+// import './images/room23.jpg'
+// import './images/room24.jpg'
 import HotelService from './Hotel-Service.js';
 
 let enterCredentials = document.querySelector('.enter-credentials');
@@ -67,6 +91,10 @@ backToBooking.addEventListener('click', backToCustomerBooking);
 filterSubmitButton.addEventListener('click', getFilterValue);
 filterSection.addEventListener('click', refreshFilter);
 customerStatus.addEventListener('click', displayCustomerBookings)
+
+function getRandomIndex() {
+  return Math.floor(Math.random() * 10);
+};
 
 function fetchAllData() {
   let userPromise =
@@ -339,7 +367,7 @@ function displayCustomerInfo() {
       let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
       let allRooms = sortedAvailableCustRooms.map(room => {
         return `<article class="today-booking-card">
-        <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="room picture" class="booking-card-img">
+        <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
         <section class="booking-info">
           <p class="room-type">${room.roomType}</p>
           <p class="room-number"><b>Room Number:</b> ${room.number}</p>
