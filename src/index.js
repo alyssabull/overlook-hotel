@@ -20,6 +20,8 @@ let bookingModal = document.querySelector('#add-booking-modal');
 let modalContent = document.querySelector('#modal-content');
 let modalDate = document.querySelector('.modal-date');
 let modalTitle = document.querySelector('.modal-title');
+let customerWelcome = document.querySelector('.customer-welcome');
+let customerStatus = document.querySelector('.customer-status');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -87,6 +89,7 @@ function validateCredentials() {
         enterCredentials.classList.add('hidden');
         customerView.classList.remove('hidden');
         signOutButton.classList.remove('hidden');
+        loadCustomerInfo();
         usernameInput.value = '';
         passwordInput.value = '';
       } else {
@@ -113,6 +116,27 @@ function signOut() {
   signOutButton.classList.add('hidden');
   managerView.classList.add('hidden');
   enterCredentials.classList.remove('hidden');
+}
+
+function loadCustomerInfo() {
+  let status;
+  customerWelcome.innerText = `Welcome Back, ${hotelService.findUserName(userID)}!`
+  let totalSpent = hotelService.calculateTotalSpent(userID);
+  let numStays = hotelService.calculateNumberOfStays(userID);
+  if (totalSpent > 10000) {
+    status = 'Gold';
+  } else if (totalSpent < 10000 && totalSpent > 8000) {
+    status = 'Silver';
+  } else if (totalSpent < 8000 && totalSpent > 5000) {
+    status = 'Bronze';
+  } else {
+    status = 'Blue';
+  }
+  let statusInfo = `
+  <p class="${status}"><b>${status} Status</b></p>
+  <p>Total Spent: $${totalSpent}</p>
+  <p>Number of Stays: ${numStays}</p>`
+  customerStatus.insertAdjacentHTML('afterbegin', statusInfo);
 }
 
 function displayHotelOverview(date) {
@@ -184,6 +208,7 @@ function displayCustomerInfo() {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
       viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
     }
+    searchCustomerInput.value = '';
   }
 
   function displayAvailableRooms(date) {

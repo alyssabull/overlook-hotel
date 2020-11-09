@@ -184,14 +184,23 @@ export default class HotelService {
     }, 0).toFixed(2)
   }
 
-  calculateTotalSpent(id) {
+  calculateNumberOfStays(id) {
     let userRoomNumbers = [];
     this.allBookings.forEach(booking => {
-      if (booking.userID === id) {
+      if (booking.userID == id) {
         userRoomNumbers.push(booking.roomNumber);
       }
     })
+    return userRoomNumbers.length;
+  }
 
+  calculateTotalSpent(id) {
+    let userRoomNumbers = [];
+    this.allBookings.forEach(booking => {
+      if (booking.userID == id) {
+        userRoomNumbers.push(booking.roomNumber);
+      }
+    })
     return this.allRooms.reduce((totalSpent, room) => {
       userRoomNumbers.forEach(roomNum => {
         if (roomNum === room.number) {

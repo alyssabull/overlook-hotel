@@ -382,6 +382,77 @@ h5 {
   font-family: 'Spectral SC', serif;
 }
 
+// ** Customer view-bookings
+
+.customer-welcome {
+  background-color: white;
+  opacity: 0.8;
+  height: 50px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 35px;
+  font-family: 'Spectral SC', serif;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.customer-status {
+  font-family: 'Spectral SC', serif;
+  background-color: white;
+  opacity: 0.8;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 18px;
+}
+
+.gold {
+  margin-top: 0px;
+  display: flex;
+  color: goldenrod;
+  background-color: #FFDF00;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.silver {
+  margin-top: 0px;
+  display: flex;
+  color: whitesmoke;
+  background-color: darkgrey;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.bronze {
+  margin-top: 0px;
+  display: flex;
+  color: #dca570;
+  background-color: #cd7f32;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.blue {
+  margin-top: 0px;
+  display: flex;
+  color: darkblue;
+  background-color: royalblue;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
 // .awards-section {
 //   background-color: white;
 //   opacity: 0.8;
