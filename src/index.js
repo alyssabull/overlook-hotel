@@ -422,6 +422,7 @@ function displayCustomerBookings(event) {
         customerRooms.insertAdjacentHTML('beforeend', todaysBookingInfo);
       }
   }
+    document.querySelector('.view-bookings-button').disabled = true;
 }
 
 function backToCustomerBooking() {
@@ -429,6 +430,7 @@ function backToCustomerBooking() {
   bookRoomDate.classList.remove('hidden');
   bookRoomHeader.innerText = 'Book a Room';
   backToBooking.innerHTML = '';
+  document.querySelector('.view-bookings-button').disabled = false;
 }
 
 function getFilterValue() {
