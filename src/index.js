@@ -27,9 +27,9 @@ let customerRooms = document.querySelector('.display-customer-rooms');
 let bookARoom = document.querySelector('.book-a-room');
 let viewBookingsButton = document.querySelector('.view-bookings-button');
 let bookRoomHeader = document.querySelector('.book-room-header');
-let filterStatus = document.querySelector('.filter-status');
+let filterRefreshButton = document.querySelector('.filter-status');
 let backToBooking = document.querySelector('.back-to-booking');
-let filterButton = document.querySelector('.filter-button');
+let filterSubmitButton = document.querySelector('.filter-button');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -65,7 +65,8 @@ bookRoomDate.addEventListener('change', (event) => {
 bookARoom.addEventListener('click', customerAddBookings)
 viewBookingsButton.addEventListener('click', displayCustomerBookings);
 backToBooking.addEventListener('click', backToCustomerBooking);
-filterButton.addEventListener('click', getFilterValue);
+filterSubmitButton.addEventListener('click', getFilterValue);
+filterRefreshButton.addEventListener('click', refreshFilter);
 
 function fetchAllData() {
   let userPromise =
@@ -321,6 +322,7 @@ function displayCustomerInfo() {
   }
 
   function displayCustomerRooms(date) {
+    bookRoomHeader.innerText = `All Available Rooms`;
     let availableRooms = hotelService.findAvailableRooms(date);
     sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
     let allRooms = sortedAvailableCustRooms.map(room => {
@@ -387,7 +389,9 @@ function getFilterValue() {
   if (document.getElementById('residential-suite').value) {
     let residentialSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'residential suite');
     displayFilteredRooms(residentialSuites);
-    console.log(residentialSuites)
+    bookRoomHeader.innerText = `Available Residential Suites`;
+    filterRefreshButton.classList.remove('hidden');
+    console.log(document.getElementById('residential-suite').checked)
   }
   // clearFormValues();
 }
@@ -413,4 +417,9 @@ function displayFilteredRooms(rooms) {
   }).join(' ')
 
  customerRooms.insertAdjacentHTML('afterbegin', allRooms);
+}
+
+function refreshFilter() {
+  filterRefreshButton.classList.add('hidden');
+  displayCustomerRooms(todayDate);
 }
