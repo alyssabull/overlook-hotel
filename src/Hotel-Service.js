@@ -239,6 +239,22 @@ export default class HotelService {
     return today = yyyy+'/'+mm+'/'+dd;
   }
 
+  getDashedTodayDate() {
+    let today = new Date();
+    let dd = today.getDate();
+
+    let mm = today.getMonth()+1;
+    let yyyy = today.getFullYear();
+
+    if(dd < 10) {
+      dd ='0'+ dd;
+    }
+    if(mm < 10){
+      mm ='0'+ mm;
+    }
+    return today = yyyy+'-'+mm+'-'+dd;
+  }
+
   addNewBooking(userID, date, roomNumber) {
     if (date > this.getTodayDate()) {
       let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {

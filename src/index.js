@@ -91,6 +91,7 @@ function fetchAllData() {
 
 function loadData() {
   hotelService.start();
+  todayDate = hotelService.getTodayDate()
 }
 
 function validateCredentials() {
@@ -108,6 +109,10 @@ function validateCredentials() {
         enterCredentials.classList.add('hidden');
         customerView.classList.remove('hidden');
         signOutButton.classList.remove('hidden');
+        filterCategories.classList.add('hidden');
+        filterSubmitButton.classList.add('hidden');
+        todayDate = hotelService.getDashedTodayDate();
+        bookRoomDate.setAttribute('value', todayDate);
         loadCustomerInfo();
         usernameInput.value = '';
         passwordInput.value = '';
@@ -327,6 +332,8 @@ function displayCustomerInfo() {
 
   function displayCustomerRooms(date) {
     if (date > hotelService.getTodayDate()) {
+      filterCategories.classList.remove('hidden');
+      filterSubmitButton.classList.remove('hidden');
       bookRoomHeader.innerText = `All Available Rooms`;
       let availableRooms = hotelService.findAvailableRooms(date);
       let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
@@ -434,17 +441,10 @@ function getFilterValue() {
 }
 
 function clearFormValues() {
-  // let tagButtons = document.querySelectorAll('.tag-button');
-  // console.log(tagButtons);
-  // tagButtons.forEach(button => {
-  //   button.checked = false;
-  // })
-
   filterCategories.elements['residential'].checked = false;
   filterCategories.elements['suite'].checked = false;
   filterCategories.elements['junior'].checked = false;
   filterCategories.elements['single'].checked = false;
-  console.log(filterCategories.elements['residential'].checked)
 }
 
 function displayFilteredRooms(rooms) {
