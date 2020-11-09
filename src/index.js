@@ -22,6 +22,8 @@ let modalDate = document.querySelector('.modal-date');
 let modalTitle = document.querySelector('.modal-title');
 let customerWelcome = document.querySelector('.customer-welcome');
 let customerStatus = document.querySelector('.customer-status');
+let bookRoomDate = document.querySelector('.book-room-date');
+let customerRooms = document.querySelector('.display-customer-rooms');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -44,10 +46,15 @@ window.addEventListener('click', openModal);
 bookingModal.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   todayDate = formatDate.join('/');
-  displayAvailableRooms(todayDate);
+  displayManagerRooms(todayDate);
 });
 viewBookingInfo.addEventListener('click', deleteBooking);
 signOutButton.addEventListener('click', signOut);
+bookRoomDate.addEventListener('change', (event) => {
+  let formatDate = `${event.target.value}`.split('-');
+  todayDate = formatDate.join('/');
+  displayCustomerRooms(todayDate);
+});
 
 function fetchAllData() {
   let userPromise =
@@ -211,7 +218,7 @@ function displayCustomerInfo() {
     searchCustomerInput.value = '';
   }
 
-  function displayAvailableRooms(date) {
+  function displayManagerRooms(date) {
     let availableRooms = hotelService.findAvailableRooms(date);
     let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
     let allRooms = sortedAvailableRooms.map(room => {
@@ -300,4 +307,26 @@ function displayCustomerInfo() {
       .then(json => fetchAllData())
       .catch(err => console.log(err))
     }
+  }
+
+  function displayCustomerRooms(date) {
+    let availableRooms = hotelService.findAvailableRooms(date);
+    let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
+    let allRooms = sortedAvailableRooms.map(room => {
+      return `<article class="today-booking-card">
+      <section class="booking-info">
+        <p class="room-type">${room.roomType}</p>
+        <p class="room-number"><b>Room Number:</b> ${room.number}</p>
+        <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
+        <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
+        <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
+      </section>
+      <section class="delete-booking">
+        <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
+        <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
+      </section>
+      </article>`
+    }).join(' ')
+
+   customerRooms.insertAdjacentHTML('afterbegin', allRooms);
   }

@@ -529,6 +529,40 @@ input[type=radio]:checked + label {
   font-style: normal;
 }
 
+.view-available-rooms {
+  display: flex;
+  flex-direction: row;
+}
+
+.book-a-room {
+  font-family: 'Spectral SC', serif;
+  background-color: white;
+  opacity: 0.8;
+  margin: 20px 20px 5px 20px;
+  border-radius: 5px;
+  width: 75%;
+  font-size: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-room-date {
+  width: 175px;
+}
+
+.filter-status {
+  font-family: 'Spectral SC', serif;
+  font-size: 15px;
+}
+
+.display-customer-rooms {
+  background-color: #fefefe;
+  width: 90%;
+  // height: 30%;
+  font-size: 16px;
+}
+
 // .awards-section {
 //   background-color: white;
 //   opacity: 0.8;
