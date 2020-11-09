@@ -282,6 +282,11 @@ h5 {
   margin: 0px 10px 10px 10px;
 }
 
+.book-room {
+  font-family: 'Spectral SC', serif;
+  margin: 0px 10px 10px 10px;
+}
+
 .customer-error-message {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
@@ -303,7 +308,7 @@ h5 {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 10px;
   border: 1px solid #888;
   border-radius: 5px;
@@ -343,6 +348,10 @@ h5 {
 .footer {
   height: 60px;
   opacity: 0.8;
+}
+
+.confirmation-message {
+  font-family: 'Spectral SC', serif;
 }
 
 // .awards-section {

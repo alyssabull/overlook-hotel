@@ -15,8 +15,10 @@ let viewBookingInfo = document.querySelector('.view-information');
 let searchTitle = document.querySelector('.search-title');
 let searchCustomerInput = document.querySelector('.search-customer-name');
 let searchCustomerButton = document.querySelector('#search-customer-button');
-let modalDate = document.querySelector('#add-booking-modal');
+let bookingModal = document.querySelector('#add-booking-modal');
 let modalContent = document.querySelector('#modal-content');
+let modalDate = document.querySelector('.modal-date');
+let modalTitle = document.querySelector('.modal-title');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -35,8 +37,8 @@ hotelOverviewDate.addEventListener('change', (event) => {
   displayTodayBookings(todayDate);
 });
 searchCustomerButton.addEventListener('click', displayCustomerInfo);
-searchTitle.addEventListener('click', openModal);
-modalDate.addEventListener('change', (event) => {
+window.addEventListener('click', openModal);
+bookingModal.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   todayDate = formatDate.join('/');
   displayAvailableRooms(todayDate);
@@ -126,7 +128,7 @@ function displayTodayBookings(date) {
       </section>
       <section class="delete-booking">
         <p class="room-price">$${booking.costPerNight}</p>
-        <button type="button" class="delete-booking-button">DELETE BOOKING</button>
+        <button type="button" class="delete-booking-button delete" data-confirm="Are you sure you want to delete this booking?">DELETE BOOKING</button>
       </section>
       </article>`
     }).join(' ')
@@ -154,7 +156,7 @@ function displayCustomerInfo() {
           <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
         </section>
         <section class="delete-booking">
-          <p class="room-price">$${booking.costPerNight}</p>
+          <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
           <button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>
         </section>
         </article>`
@@ -182,7 +184,7 @@ function displayCustomerInfo() {
       </section>
       <section class="delete-booking">
         <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
-        <button type="button" class="delete-booking-button book-room ${room.number}">BOOK ROOM</button>
+        <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
       </section>
       </article>`
     }).join(' ')
@@ -192,15 +194,27 @@ function displayCustomerInfo() {
 
   function openModal(event) {
     if (event.target.classList.contains('add-booking-button')) {
-      modal = document.querySelector(`#add-booking-modal`);
+      modal = bookingModal;
+      modal.style.display = 'block';
+      modalDate.classList.remove('hidden');
+      modalTitle.innerText = 'Available Rooms';
+      modalContent.innerText = '';
+    } else if (event.target.classList.contains('delete-booking-button')) {
+      modal = bookingModal;
+      modalDate.classList.add('hidden');
+      modalTitle.innerText = 'Confirmation';
+      modalContent.innerText = 'Your booking has successfully been deleted. Please refresh the page to update the bookings.';
       modal.style.display = 'block';
     }
   }
 
   function handleModal(event) {
     if (event.target.classList.contains('book-room')) {
-      let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[2]);
+      let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[1]);
       postNewBooking(newBooking);
+      modalDate.classList.add('hidden');
+      modalTitle.innerText = 'Success';
+      modalContent.innerText = 'The booking has successfully been added. Please refresh the page to see the updated bookings.';
     } else if (event.target === modal) {
       modal.style.display = 'none';
     }
@@ -242,9 +256,7 @@ function displayCustomerInfo() {
         body: JSON.stringify(deleteBody)
       })
       .then(response => response.json())
-      .then(json => {
-        console.log('json', json);
-      })
+      .then(json => fetchAllData())
       .catch(err => console.log(err))
     }
   }
