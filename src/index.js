@@ -105,9 +105,11 @@ function displayHotelOverview(date) {
   let todayRevenue = hotelService.calculateTotalRevenue(date);
   let availableRooms = hotelService.calculateNumberAvailableRooms(date);
   let percentOccupied = hotelService.calculatePercentageOccupied(date);
-  let overview = `Today's Revenue $${todayRevenue} &nbsp;&nbsp;&nbsp;&nbsp;
-  Rooms Available Today ${availableRooms} &nbsp;&nbsp;&nbsp;&nbsp;
+  let overview = `Revenue $${todayRevenue} <br>
+  Rooms Available ${availableRooms} <br>
   Percentage Occupied ${percentOccupied}%`;
+  overviewInfo.classList.remove('overview-default');
+  overviewInfo.classList.add('hotel-summary');
   overviewInfo.innerHTML = overview;
 }
 
