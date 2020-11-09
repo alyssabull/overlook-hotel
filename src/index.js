@@ -29,6 +29,8 @@ let bookRoomHeader = document.querySelector('.book-room-header');
 let backToBooking = document.querySelector('.back-to-booking');
 let filterSubmitButton = document.querySelector('.filter-button');
 let filterSection = document.querySelector('.filter-rooms');
+let filterCategories = document.getElementById('filter-categories');
+let filterRefreshButton = document.querySelector('.filter-status');
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -37,7 +39,6 @@ let hotelService;
 let todayDate;
 let userID;
 let modal;
-let sortedAvailableCustRooms;
 
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
@@ -328,7 +329,7 @@ function displayCustomerInfo() {
     if (date > hotelService.getTodayDate()) {
       bookRoomHeader.innerText = `All Available Rooms`;
       let availableRooms = hotelService.findAvailableRooms(date);
-      sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
+      let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
       let allRooms = sortedAvailableCustRooms.map(room => {
         return `<article class="today-booking-card">
         <img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="booking-card-img">
@@ -365,7 +366,7 @@ function displayCustomerBookings(event) {
     bookRoomDate.classList.add('hidden');
     bookRoomHeader.innerText = 'Your Bookings';
     backToBooking.insertAdjacentHTML('beforeend', `<button class="back-to-book-button">Book a Room</button>`);
-    let bookings = hotelService.findCustomerBookings(1);
+    let bookings = hotelService.findCustomerBookings(userID);
     let sortedBookings = hotelService.sortBookingsByDate(bookings);
       if (sortedBookings.length > 0) {
         let todaysBookingInfo = sortedBookings.map(booking => {
@@ -394,35 +395,56 @@ function backToCustomerBooking() {
 }
 
 function getFilterValue() {
-  if (document.getElementById('residential suite').value) {
+  let availableRooms = hotelService.findAvailableRooms(todayDate);
+  let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
+  if (filterCategories.elements['residential'].checked) {
+    customerRooms.innerHTML = '';
     let residentialSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'residential suite');
     displayFilteredRooms(residentialSuites);
-    bookRoomHeader.innerText = `Available Residential Suites`;
-    filterSection.innerHTML = `<button class="filter-status">REFRESH FILTER</button>`;
-  } else if (document.getElementById('suite').value) {
+    bookRoomHeader.innerText = 'Available Residential Suites';
+    filterCategories.classList.add('hidden');
+    filterSubmitButton.classList.add('hidden');
+    filterRefreshButton.classList.remove('hidden');
+  } else if (filterCategories.elements['suite'].checked) {
+    customerRooms.innerHTML = '';
     let suites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'suite');
     displayFilteredRooms(suites);
-    bookRoomHeader.innerText = `Available Suites`;
-    filterSection.innerHTML = `<button class="filter-status">REFRESH FILTER</button>`;
-  } else if (document.getElementById('junior-suite').value) {
-    let juniorSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'suite');
+    bookRoomHeader.innerText = 'Available Suites';
+    filterCategories.classList.add('hidden');
+    filterSubmitButton.classList.add('hidden');
+    filterRefreshButton.classList.remove('hidden');
+  } else if (filterCategories.elements['junior'].checked) {
+    customerRooms.innerHTML = '';
+    let juniorSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'junior suite');
     displayFilteredRooms(juniorSuites);
     bookRoomHeader.innerText = `Available Junior Suites`;
-    filterSection.innerHTML = `<button class="filter-status">REFRESH FILTER</button>`;
-  } else if (document.getElementById('single-room').value) {
-    let singleRooms = hotelService.filterRoomByType(sortedAvailableCustRooms, 'single-room');
+    filterCategories.classList.add('hidden');
+    filterSubmitButton.classList.add('hidden');
+    filterRefreshButton.classList.remove('hidden');
+  } else if (filterCategories.elements['single'].checked) {
+    customerRooms.innerHTML = '';
+    let singleRooms = hotelService.filterRoomByType(sortedAvailableCustRooms, 'single room');
     displayFilteredRooms(singleRooms);
     bookRoomHeader.innerText = `Available Single Rooms`;
-    filterSection.innerHTML = `<button class="filter-status">REFRESH FILTER</button>`;
+    filterCategories.classList.add('hidden');
+    filterSubmitButton.classList.add('hidden');
+    filterRefreshButton.classList.remove('hidden');
   }
   clearFormValues();
 }
 
 function clearFormValues() {
-  let tagButtons = document.querySelectorAll('.tag-button');
-  tagButtons.forEach(button => {
-    button.checked = false;
-  })
+  // let tagButtons = document.querySelectorAll('.tag-button');
+  // console.log(tagButtons);
+  // tagButtons.forEach(button => {
+  //   button.checked = false;
+  // })
+
+  filterCategories.elements['residential'].checked = false;
+  filterCategories.elements['suite'].checked = false;
+  filterCategories.elements['junior'].checked = false;
+  filterCategories.elements['single'].checked = false;
+  console.log(filterCategories.elements['residential'].checked)
 }
 
 function displayFilteredRooms(rooms) {
@@ -450,29 +472,10 @@ function displayFilteredRooms(rooms) {
 
 function refreshFilter(event) {
   if (event.target.classList.contains('filter-status')) {
+    customerRooms.innerHTML = '';
     displayCustomerRooms(todayDate);
-    filterSection.innerHTML = `<h3 class="filter-title">Filter Rooms</h3>
-    <span class="tag-row">
-    <input type="radio" name="filter" class="tag-button" value="residential suite" id="residential suite">
-    <label for="residential suite"><img src="https://www.raffles.com/assets/0/72/1930/1931/1956/58e252d1-f16e-48a5-915b-49d2ebf35d73.jpg" alt="residential suite" class="tag-image"></label>
-    <input type="radio" name="filter" class="tag-button" value="suite" id="suite">
-    <label for="suite"><img src="https://www.lonelyplanet.com/news/wp-content/uploads/2018/07/The-Plaza-A-Fairmont-Managed-Hotel-Plaza-Royal-Suite-1260625.jpg" alt="suite" class="tag-image"></label>
-  </span>
-  <span class="tag-name">
-    <li>Residential Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
-    <li>Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
-  </span>
-  <span class="tag-row">
-    <input type="radio" name="filter" class="tag-button" value="junior suite" id="junior suite">
-    <label for="junior suite"><img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="tag-image"></label>
-    <input type="radio" name="filter" class="tag-button" value="single room" id="single room">
-    <label for="single room"><img src="https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy" alt="single room" class="tag-image"></label>
-  </span>
-  <span class="tag-name">
-    <li>Junior Suite</li>
-    <li>Single Room</li>
-  </span>
-  <button type="button" class="filter-button">SEARCH</button>
-</section>`
+    filterCategories.classList.remove('hidden');
+    filterRefreshButton.classList.add('hidden');
+    filterSubmitButton.classList.remove('hidden');
   }
 }
