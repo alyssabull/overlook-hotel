@@ -431,7 +431,7 @@ h5 {
   height: 30px;
   margin: 18px 0px 0px 0px;
   display: flex;
-  color: goldenrod;
+  color: #995c00;
   background-color: #FFDF00;
   padding: 0px 40px 0px 40px;
   border: solid 1px;
@@ -442,7 +442,7 @@ h5 {
   height: 30px;
   margin: 18px 0px 0px 0px;
   display: flex;
-  color: whitesmoke;
+  color: black;
   background-color: darkgrey;
   padding: 0px 40px 0px 40px;
   border: solid 1px;
@@ -464,7 +464,7 @@ h5 {
   height: 30px;
   margin: 18px 0px 0px 0px;
   display: flex;
-  color: darkblue;
+  color: white;
   background-color: royalblue;
   padding: 0px 40px 0px 40px;
   border: solid 1px;
@@ -629,6 +629,16 @@ input[type=radio]:checked + label {
 
 .back-to-book-button:hover {
   cursor: pointer;
+}
+
+.booked-room {
+  font-family: 'Spectral SC', serif;
+  margin: 20px;
+  width: 100px;
+  outline: none;
+  border-radius: 5px;
+  color: white;
+  background-color: #4d79ff;
 }
 
 // .awards-section {

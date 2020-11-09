@@ -190,7 +190,7 @@ function loadCustomerInfo() {
     status = 'Blue';
   }
   let statusInfo = `
-  <p class="${status}"><b>${status} Status</b></p>
+  <p class="${status}"><b>${status} Level Preferred</b></p>
   <p>Total Spent: $${totalSpent}</p><button class="view-bookings-button customer-status">View Bookings</button>`;
   customerStatus.insertAdjacentHTML('afterbegin', statusInfo);
 }
@@ -393,6 +393,10 @@ function displayCustomerInfo() {
    if (event.target.classList.contains('customer-book-button')) {
      let newBooking = hotelService.addNewBooking(1, todayDate, event.target.classList[1]);
      postNewBooking(newBooking);
+     event.target.classList.remove('customer-book-button');
+     event.target.classList.add('booked-room');
+     event.target.innerText = 'BOOKED!';
+     event.target.disabled = true;
    }
  }
 
