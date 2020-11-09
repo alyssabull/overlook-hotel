@@ -9,6 +9,7 @@ let customerView = document.querySelector('.customer-view');
 let usernameInput = document.querySelector('.username');
 let passwordInput = document.querySelector('.password');
 let submitButton = document.querySelector('.submit-button');
+let signOutButton = document.querySelector('.signout-button');
 let hotelOverviewDate = document.querySelector('.hotel-overview-date');
 let overviewInfo = document.querySelector('#overview-info');
 let viewBookingInfo = document.querySelector('.view-information');
@@ -44,6 +45,7 @@ bookingModal.addEventListener('change', (event) => {
   displayAvailableRooms(todayDate);
 });
 viewBookingInfo.addEventListener('click', deleteBooking);
+signOutButton.addEventListener('click', signOut);
 
 function fetchAllData() {
   let userPromise =
@@ -74,6 +76,9 @@ function validateCredentials() {
   if (usernameInput.value === 'manager' && passwordInput.value === 'overlook2020') {
     enterCredentials.classList.add('hidden');
     managerView.classList.remove('hidden');
+    signOutButton.classList.remove('hidden');
+    usernameInput.value = '';
+    passwordInput.value = '';
   } else if (usernameInput.value.includes('customer') && passwordInput.value === 'overlook2020') {
     let findUserID = usernameInput.value.split(/(\d+)/);
     userID = findUserID[1];
@@ -81,6 +86,9 @@ function validateCredentials() {
       if(user.id == userID) {
         enterCredentials.classList.add('hidden');
         customerView.classList.remove('hidden');
+        signOutButton.classList.remove('hidden');
+        usernameInput.value = '';
+        passwordInput.value = '';
       } else {
         alertLogInError();
       }
@@ -101,13 +109,19 @@ function clearErrorMessage() {
   errorMessage.innerText = '';
 }
 
+function signOut() {
+  signOutButton.classList.add('hidden');
+  managerView.classList.add('hidden');
+  enterCredentials.classList.remove('hidden');
+}
+
 function displayHotelOverview(date) {
   let todayRevenue = hotelService.calculateTotalRevenue(date);
   let availableRooms = hotelService.calculateNumberAvailableRooms(date);
   let percentOccupied = hotelService.calculatePercentageOccupied(date);
-  let overview = `Revenue $${todayRevenue} <br>
-  Rooms Available ${availableRooms} <br>
-  Percentage Occupied ${percentOccupied}%`;
+  let overview = `Revenue &nbsp; $${todayRevenue} <br>
+  Rooms Available &nbsp; ${availableRooms} <br>
+  Percentage Occupied &nbsp; ${percentOccupied}%`;
   overviewInfo.classList.remove('overview-default');
   overviewInfo.classList.add('hotel-summary');
   overviewInfo.innerHTML = overview;
@@ -129,7 +143,7 @@ function displayTodayBookings(date) {
         <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
       </section>
       <section class="delete-booking">
-        <p class="room-price">$${booking.costPerNight}</p>
+        <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
         <button type="button" class="delete-booking-button delete" data-confirm="Are you sure you want to delete this booking?">DELETE BOOKING</button>
       </section>
       </article>`

@@ -82,7 +82,6 @@ export default class HotelService {
     if (typeof this.findAvailableRooms(date) === 'string') {
       return 0;
     } else {
-      // console.log(this.findAvailableRooms(date))
       return this.findAvailableRooms(date).length
     }
   }
@@ -100,8 +99,6 @@ export default class HotelService {
       roomsBooked.forEach(roomNum => {
         rooms.forEach(room => {
           if (roomNum === room.number) {
-            console.log('roomNum', roomNum);
-            console.log('room number', room.number)
             let index = rooms.indexOf(room);
             rooms.splice(index, 1);
           }
@@ -166,7 +163,7 @@ export default class HotelService {
 
     let percent = (dateBookings.length / this.allRooms.length)*100;
 
-    return percent.toFixed(1);
+    return percent.toFixed(0);
   }
 
   calculateTotalRevenue(date) {

@@ -97,6 +97,14 @@ input[type="password"]
 
 // Manager View
 
+.signout-button {
+  position: absolute;
+  left: 90%;
+  top: 3%;
+  width: 100px;
+  font-family: 'Spectral SC', serif;
+}
+
 .manager-view {
   background-color: white;
   opacity: 0.8;
@@ -105,7 +113,7 @@ input[type="password"]
 
 .overview-title {
   font-family: 'Spectral SC', serif;
-  display: flex;
+  display: inline-block;
   margin: 40px 5px 40px 20px;
 }
 
