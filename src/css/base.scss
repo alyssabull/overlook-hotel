@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'mixins';
+@import 'buttons';
 
 body {
   background: url('https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/h-PooSFA.jpeg');
@@ -88,32 +89,12 @@ h4 {
   outline: none;
 }
 
-.submit-button {
-  font-family: $main-font;
-  margin-top: 30px;
-  margin-bottom: 10px;
-  @include button-styles();
-}
-
-.submit-button:hover {
-  cursor: pointer;
-}
-
 input[type="password"]
 {
   -webkit-text-security: disc;
 }
 
 // Manager View
-
-.signout-button {
-  position: absolute;
-  left: 90%;
-  top: 3%;
-  width: 100px;
-  font-family: $main-font;
-  @include button-styles();
-}
 
 .manager-view {
   border-radius: $border-radius;
@@ -140,7 +121,7 @@ input[type="password"]
   display: flex;
   flex-direction: column;
   font-family: $main-font;
-  margin: 40px 0px 40px 100px;
+  margin: 40px 100px 10px 40px;
 }
 
 .hotel-summary {
@@ -178,24 +159,13 @@ input[type="password"]
   margin: 40px 0px 0px 40px;
 }
 
-.search-button {
-  font-family: $main-font;
-  margin: 40px 0px 40px 0px;
-  width: 100px;
-  @include button-styles();
-}
-
-.search-button:hover{
-  cursor: pointer;
-}
-
 h3 {
   font-family: $main-font;
   margin-left: 30px;
 }
 
 .search-customer-name {
-  margin: 40px 20px 40px 20px;
+  margin: 40px 10px 40px 20px;
   width: 300px;
 }
 
@@ -314,18 +284,6 @@ h5 {
   margin-top: 0px;
 }
 
-.add-booking-button {
-  font-family: $main-font;
-  margin-top: 20px;
-  margin-bottom: 0px;
-  width: 200px;
-  @include button-styles();
-}
-
-.add-booking-button:hover {
-  cursor: pointer;
-}
-
 .room-type {
   font-size: 30px;
   margin-bottom: 0px;
@@ -364,16 +322,6 @@ h5 {
   align-items: center;
   padding-left: 30px;
   border-left: $border-line;
-}
-
-.delete-booking-button {
-  font-family: $main-font;
-  margin: 5px 10px 10px 10px;
-  @include button-styles();
-}
-
-.delete-booking-button:hover {
-  cursor: pointer;
 }
 
 .book-room {
@@ -477,20 +425,6 @@ h5 {
   @include background-style();
 }
 
-.view-bookings-button {
-  margin: 18px 0px 0px 0px;
-  display: flex;
-  padding: 0px 40px 0px 40px;
-  border: solid 1px;
-  border-radius: $border-radius;
-  height: 30px;
-  @include button-styles();
-}
-
-.view-bookings-button:hover {
-  cursor: pointer;
-}
-
 .Gold {
   @include status-style();
   @include status-color(#995c00, #FFDF00);
@@ -525,22 +459,6 @@ h5 {
 .filter-title {
   margin-left: 25%;
   font-size: 25px;
-}
-
-.filter-button {
-  font-family: $main-font;
-  font-size: 15px;
-  width: 150px;
-  margin-left: 28%;
-  margin-top: 10px;
-  @include button-styles();
-}
-
-.tag-button {
-  padding: 0px;
-  margin: 0px;
-  display: none;
-  @include button-styles();
 }
 
 .tag-image {
@@ -642,43 +560,6 @@ input[type=radio]:checked + label {
   display: flex;
   justify-content: center;
   margin-top: 50px;
-}
-
-.customer-book-button {
-  font-family: $main-font;
-  margin: 20px;
-  width: 100px;
-  @include button-styles();
-}
-
-.customer-book-button:hover {
-  cursor: pointer;
-}
-
-.back-to-book-button {
-  font-family: $main-font;
-  margin: 0px;
-  width: 200px;
-  height: 30px;
-  @include button-styles();
-}
-
-.back-to-book-button:hover {
-  cursor: pointer;
-}
-
-.booked-room {
-  margin: 20px;
-  background-color: #4d79ff;
-  @include button-change();
-}
-
-.deleted-room {
-  margin: 5px 20px 5px;
-  padding: 10px;
-  width: 100px;
-  background-color: darkred;
-  @include button-change();
 }
 
 .hidden {

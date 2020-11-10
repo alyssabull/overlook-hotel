@@ -1,0 +1,141 @@
+.add-booking-button {
+  font-family: $main-font;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  width: 200px;
+  @include button-styles();
+}
+
+.add-booking-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.back-to-book-button {
+  font-family: $main-font;
+  margin: 0px;
+  width: 200px;
+  height: 30px;
+  @include button-styles();
+}
+
+.back-to-book-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.booked-room {
+  margin: 20px;
+  background-color: #4d79ff;
+  @include button-change();
+}
+
+.customer-book-button {
+  font-family: $main-font;
+  margin: 20px;
+  width: 100px;
+  @include button-styles();
+}
+
+.customer-book-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.delete-booking-button {
+  font-family: $main-font;
+  margin: 5px 10px 10px 10px;
+  @include button-styles();
+}
+
+.delete-booking-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.deleted-room {
+  margin: 5px 20px 5px;
+  padding: 10px;
+  width: 100px;
+  background-color: darkred;
+  @include button-change();
+}
+
+.filter-button {
+  font-family: $main-font;
+  font-size: 15px;
+  width: 150px;
+  margin-left: 28%;
+  margin-top: 10px;
+  @include button-styles();
+}
+
+.filter-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.search-button {
+  font-family: $main-font;
+  margin: 40px 10px 40px 0px;
+  width: 100px;
+  @include button-styles();
+}
+
+.search-button:hover{
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.signout-button {
+  position: absolute;
+  left: 90%;
+  top: 3%;
+  width: 100px;
+  font-family: $main-font;
+  @include button-styles();
+}
+
+.signout-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.submit-button {
+  font-family: $main-font;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  @include button-styles();
+}
+
+.submit-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.tag-button {
+  padding: 0px;
+  margin: 0px;
+  display: none;
+  @include button-styles();
+}
+
+.tag-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
+
+.view-bookings-button {
+  margin: 18px 0px 0px 0px;
+  display: flex;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: $border-radius;
+  height: 30px;
+  @include button-styles();
+}
+
+.view-bookings-button:hover {
+  background-color: $button-hover;
+  cursor: pointer;
+}
