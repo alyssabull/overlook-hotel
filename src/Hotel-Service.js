@@ -140,9 +140,9 @@ export default class HotelService {
 
   findBookings(date) {
     let todayBookings = this.allBookings.reduce((todayBookings, booking) => {
-      if (booking.date === date) {
+      if (booking.roomNumber > 0 && booking.date === date) {
         this.allRooms.forEach(room => {
-          if (room.number === booking.roomNumber) {
+          if (room.number == booking.roomNumber) {
             booking.roomType = room.roomType;
             booking.costPerNight = room.costPerNight;
           }
@@ -220,7 +220,7 @@ export default class HotelService {
   }
 
   sortBookingsByDate(bookings) {
-    if (bookings !== 'string' && bookings.length > 0) {
+    if (bookings.length > 0) {
       return bookings.sort((a,b) => {
         return new Date(b.date) - new Date(a.date);
       })
