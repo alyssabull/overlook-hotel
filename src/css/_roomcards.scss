@@ -1,3 +1,5 @@
+// Manager Room Cards
+
 .today-booking-card {
   display: flex;
   border: $border-line;
@@ -107,4 +109,36 @@
 .book-room {
   font-family: $main-font;
   margin: 0px 10px 10px 10px;
+}
+
+// Customer Room Cards
+
+.display-customer-rooms {
+  background-color: #fefefe;
+  width: 90%;
+  font-size: 16px;
+}
+
+.booking-card-img {
+  height: 150px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  border-radius: $border-radius;
+}
+
+.customer-booking {
+  border-left: $border-line;
+  width: 30%;
+  margin-left: 20px;
+}
+
+.customer-price {
+  font-family: $main-font;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
