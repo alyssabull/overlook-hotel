@@ -8,6 +8,20 @@
   margin: $margin;
 }
 
+@mixin status-color($color, $bgColor) {
+  color: $color;
+  background-color: $bgColor;
+}
+
+@mixin status-style() {
+  height: 30px;
+  margin: 18px 0px 0px 0px;
+  display: flex;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
 body {
   background: url('https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/h-PooSFA.jpeg');
   background-size: 100%;
@@ -494,47 +508,23 @@ h5 {
 }
 
 .Gold {
-  height: 30px;
-  margin: 18px 0px 0px 0px;
-  display: flex;
-  color: #995c00;
-  background-color: #FFDF00;
-  padding: 0px 40px 0px 40px;
-  border: solid 1px;
-  border-radius: 5px;
+  @include status-style();
+  @include status-color(#995c00, #FFDF00);
 }
 
 .Silver {
-  height: 30px;
-  margin: 18px 0px 0px 0px;
-  display: flex;
-  color: black;
-  background-color: darkgrey;
-  padding: 0px 40px 0px 40px;
-  border: solid 1px;
-  border-radius: 5px;
+  @include status-style();
+  @include status-color(black, darkgrey)
 }
 
 .Bronze {
-  height: 30px;
-  margin: 18px 0px 0px 0px;
-  display: flex;
-  color: white;
-  background-color: #cd7f32;
-  padding: 0px 40px 0px 40px;
-  border: solid 1px;
-  border-radius: 5px;
+  @include status-style();
+  @include status-color(white, #cd7f32)
 }
 
 .Blue {
-  height: 30px;
-  margin: 18px 0px 0px 0px;
-  display: flex;
-  color: white;
-  background-color: royalblue;
-  padding: 0px 40px 0px 40px;
-  border: solid 1px;
-  border-radius: 5px;
+  @include status-style();
+  @include status-color(white, royalblue)
 }
 
 .filter-rooms {
