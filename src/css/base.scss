@@ -22,6 +22,18 @@
   border-radius: 5px;
 }
 
+@mixin button-change() {
+  font-family: 'Spectral SC', serif;
+  border-radius: 5px;
+  color: white;
+  width: 100px;
+}
+
+@mixin button-styles() {
+  outline: none;
+  border: none;
+}
+
 body {
   background: url('https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/h-PooSFA.jpeg');
   background-size: 100%;
@@ -113,6 +125,7 @@ h4 {
   font-family: 'Spectral SC', serif;
   margin-top: 30px;
   margin-bottom: 10px;
+  @include button-styles();
 }
 
 .submit-button:hover {
@@ -132,6 +145,7 @@ input[type="password"]
   top: 3%;
   width: 100px;
   font-family: 'Spectral SC', serif;
+  @include button-styles();
 }
 
 .manager-view {
@@ -201,6 +215,7 @@ input[type="password"]
   font-family: 'Spectral SC', serif;
   margin: 40px 0px 40px 0px;
   width: 100px;
+  @include button-styles();
 }
 
 .search-button:hover{
@@ -337,6 +352,7 @@ h5 {
   margin-top: 20px;
   margin-bottom: 0px;
   width: 200px;
+  @include button-styles();
 }
 
 .add-booking-button:hover {
@@ -386,6 +402,7 @@ h5 {
 .delete-booking-button {
   font-family: 'Spectral SC', serif;
   margin: 5px 10px 10px 10px;
+  @include button-styles();
 }
 
 .delete-booking-button:hover {
@@ -500,7 +517,7 @@ h5 {
   border: solid 1px;
   border-radius: 5px;
   height: 30px;
-  outline: none;
+  @include button-styles();
 }
 
 .view-bookings-button:hover {
@@ -550,15 +567,15 @@ h5 {
   width: 150px;
   margin-left: 28%;
   margin-top: 10px;
+  @include button-styles();
 }
 
 .tag-button {
   padding: 0px;
   margin: 0px;
   border-radius: 50%;
-  outline: none;
-  border: none;
   display: none;
+  @include button-styles();
 }
 
 .tag-image {
@@ -666,7 +683,7 @@ input[type=radio]:checked + label {
   font-family: 'Spectral SC', serif;
   margin: 20px;
   width: 100px;
-  outline: none;
+  @include button-styles();
 }
 
 .customer-book-button:hover {
@@ -678,7 +695,7 @@ input[type=radio]:checked + label {
   margin: 0px;
   width: 200px;
   height: 30px;
-  outline: none;
+  @include button-styles();
 }
 
 .back-to-book-button:hover {
@@ -686,24 +703,17 @@ input[type=radio]:checked + label {
 }
 
 .booked-room {
-  font-family: 'Spectral SC', serif;
   margin: 20px;
-  width: 100px;
-  outline: none;
-  border-radius: 5px;
-  color: white;
   background-color: #4d79ff;
+  @include button-change();
 }
 
 .deleted-room {
-  font-family: 'Spectral SC', serif;
   margin: 5px 20px 5px;
   padding: 10px;
   width: 100px;
-  outline: none;
-  border-radius: 5px;
-  color: white;
   background-color: darkred;
+  @include button-change();
 }
 
 .hidden {
