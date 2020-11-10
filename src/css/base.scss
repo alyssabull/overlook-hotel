@@ -1,3 +1,8 @@
+$border-radius: 5px;
+$border-line: solid black 1px;
+$main-font: 'Spectral SC', serif;
+$accent-font: 'Open Sans', sans-serif;
+
 @mixin background-style() {
   background-color: white;
   opacity: 0.7;
@@ -19,12 +24,12 @@
   display: flex;
   padding: 0px 40px 0px 40px;
   border: solid 1px;
-  border-radius: 5px;
+  border-radius: $border-radius;
 }
 
 @mixin button-change() {
-  font-family: 'Spectral SC', serif;
-  border-radius: 5px;
+  font-family: $main-font;
+  border-radius: $border-radius;
   color: white;
   width: 100px;
 }
@@ -44,14 +49,14 @@ body {
 header {
   display: flex;
   justify-content: center;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
   @include background-style();
 }
 
 h1 {
   display: flex;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 40px;
   margin-top: 20px;
   margin-bottom: 0px;
@@ -66,12 +71,12 @@ h1 {
 .hotel-info {
   display: flex;
   justify-content: center;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $accent-font;
   font-size: 12px;
   margin-top: 0px;
   padding-bottom: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
   @include background-style();
 }
 
@@ -83,36 +88,36 @@ h1 {
   height: 340px;
   margin-left: 38%;
   margin-top: 6%;
-  border-radius: 5px;
+  border-radius: $border-radius;
   @include background-style();
 }
 
 .username-login {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $accent-font;
   font-size: 16px;
   margin: 20px 0px 10px 0px;
 }
 
 .password-login {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $accent-font;
   font-size: 16px;
   margin: 30px 0px 10px 0px;
 }
 
 .error-message {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $accent-font;
   font-size: 13px;
   color: black;
   margin-left: 10px;
 }
 
 h2 {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $accent-font;
   margin-bottom: 5px;
 }
 
 h4 {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin-bottom: 5px;
 }
 
@@ -122,7 +127,7 @@ h4 {
 }
 
 .submit-button {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin-top: 30px;
   margin-bottom: 10px;
   @include button-styles();
@@ -144,17 +149,17 @@ input[type="password"]
   left: 90%;
   top: 3%;
   width: 100px;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   @include button-styles();
 }
 
 .manager-view {
-  border-radius: 5px;
+  border-radius: $border-radius;
   @include background-style();
 }
 
 .overview-title {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   display: inline-block;
   margin: 40px 5px 40px 20px;
 }
@@ -166,19 +171,19 @@ input[type="password"]
 .today-overview {
   display: flex;
   align-items: flex-start;
-  border-bottom: solid black 1px;
+  border-bottom: $border-line;
 }
 
 .overview-default {
   display: flex;
   flex-direction: column;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin: 40px 0px 40px 100px;
 }
 
 .hotel-summary {
   margin-right: 60px;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
 }
 
 #overview-info {
@@ -189,14 +194,14 @@ input[type="password"]
 .overview {
   display: flex;
   justify-content: space-around;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
 }
 
 .customer-search-bar {
   display: flex;
   margin-top: 0px;
   font-size: 15px;
-  border-left: solid black 1px;
+  border-left: $border-line;
   height: 110px;
 }
 
@@ -212,7 +217,7 @@ input[type="password"]
 }
 
 .search-button {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin: 40px 0px 40px 0px;
   width: 100px;
   @include button-styles();
@@ -223,7 +228,7 @@ input[type="password"]
 }
 
 h3 {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin-left: 30px;
 }
 
@@ -233,7 +238,7 @@ h3 {
 }
 
 h5 {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 35px;
   margin: 0px 0px 5px 0px;
   display: flex;
@@ -244,20 +249,20 @@ h5 {
   list-style: none;
   display: flex;
   justify-content: space-around;
-  border: solid black 1px;
+  border: $border-line;
   margin-left: 3.5%;
   margin-right: 3.5%;
-  border-radius: 5px;
+  border-radius: $border-radius;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
 }
 
 .view-information {
   height: 350px;
-  border: solid black 1px;
+  border: $border-line;
   margin: 0px 40px 0px 40px;
-  border-radius: 5px;
+  border-radius: $border-radius;
   overflow: scroll;
 }
 
@@ -267,17 +272,17 @@ h5 {
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
+  border-radius: $border-radius;
   background-color: rgba(0, 0, 0, .5);
   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
 .today-booking-card {
   display: flex;
-  border: solid black 1px;
-  border-radius: 5px;
+  border: $border-line;
+  border-radius: $border-radius;
   margin: 10px 5% 10px 5%;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
 }
 
 .booking-info {
@@ -287,7 +292,7 @@ h5 {
 
 .manager-booking-card {
   display: flex;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
 }
 
 .manager-booking-date {
@@ -333,7 +338,7 @@ h5 {
 .no-bookings {
   display: flex;
   justify-content: center;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 20px;
   margin-top: 10%;
 }
@@ -342,13 +347,13 @@ h5 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 20px;
   margin-top: 0px;
 }
 
 .add-booking-button {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin-top: 20px;
   margin-bottom: 0px;
   width: 200px;
@@ -371,7 +376,7 @@ h5 {
 }
 
 .room-price {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 35px;
   margin-right: 22px;
 }
@@ -396,11 +401,11 @@ h5 {
   flex-direction: column;
   align-items: center;
   padding-left: 30px;
-  border-left: black solid 1px;
+  border-left: $border-line;
 }
 
 .delete-booking-button {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin: 5px 10px 10px 10px;
   @include button-styles();
 }
@@ -410,12 +415,12 @@ h5 {
 }
 
 .book-room {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin: 0px 10px 10px 10px;
 }
 
 .customer-error-message {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $main-font;
   font-size: 14px;
   margin: 50px;
 }
@@ -438,7 +443,7 @@ h5 {
   margin: 10% auto;
   padding: 10px;
   border: 1px solid #888;
-  border-radius: 5px;
+  border-radius: $border-radius;
   width: 80%;
   height: 65%;
   overflow: scroll;
@@ -459,7 +464,7 @@ h5 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   padding: 2px 16px;
 }
 
@@ -478,17 +483,17 @@ h5 {
 }
 
 .confirmation-message {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
 }
 
 // ** Customer view-bookings
 
 .customer-welcome {
   height: 50px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
   font-size: 35px;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   display: flex;
   justify-content: center;
   padding-top: 10px;
@@ -498,12 +503,12 @@ h5 {
 }
 
 .customer-status {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin-top: 0px;
   margin-bottom: 0px;
   padding-top: 0px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
   display: flex;
   justify-content: space-around;
   font-size: 18px;
@@ -515,7 +520,7 @@ h5 {
   display: flex;
   padding: 0px 40px 0px 40px;
   border: solid 1px;
-  border-radius: 5px;
+  border-radius: $border-radius;
   height: 30px;
   @include button-styles();
 }
@@ -548,10 +553,9 @@ h5 {
   height: 370px;
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
   margin-top: 20px;
   padding-left: 0px;
-  border-radius: 5px;
+  border-radius: $border-radius;
   width: 25%;
   @include background-style();
 }
@@ -562,7 +566,7 @@ h5 {
 }
 
 .filter-button {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 15px;
   width: 150px;
   margin-left: 28%;
@@ -573,7 +577,6 @@ h5 {
 .tag-button {
   padding: 0px;
   margin: 0px;
-  border-radius: 50%;
   display: none;
   @include button-styles();
 }
@@ -581,7 +584,7 @@ h5 {
 .tag-image {
   height: 80px;
   width: 120px;
-  border-radius: 5px;
+  border-radius: $border-radius;
 }
 
 .tag-image:hover {
@@ -610,7 +613,7 @@ transition: 1s ease;
   margin-bottom: 10px;
   font-size: 12px;
   list-style: none;
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 15px;
 }
 
@@ -625,9 +628,9 @@ input[type=radio]:checked + label {
 }
 
 .book-a-room {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin: 20px 0px 5px 20px;
-  border-radius: 5px;
+  border-radius: $border-radius;
   width: 75%;
   font-size: 35px;
   display: flex;
@@ -642,7 +645,7 @@ input[type=radio]:checked + label {
 }
 
 .filter-status {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 15px;
   width: 80%;
   margin-top: 30%;
@@ -662,17 +665,17 @@ input[type=radio]:checked + label {
   justify-content: center;
   align-items: center;
   margin: 20px;
-  border-radius: 5px;
+  border-radius: $border-radius;
 }
 
 .customer-booking {
-  border-left: solid black 1px;
+  border-left: $border-line;
   width: 30%;
   margin-left: 20px;
 }
 
 .customer-price {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   font-size: 25px;
   display: flex;
   justify-content: center;
@@ -680,7 +683,7 @@ input[type=radio]:checked + label {
 }
 
 .customer-book-button {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin: 20px;
   width: 100px;
   @include button-styles();
@@ -691,7 +694,7 @@ input[type=radio]:checked + label {
 }
 
 .back-to-book-button {
-  font-family: 'Spectral SC', serif;
+  font-family: $main-font;
   margin: 0px;
   width: 200px;
   height: 30px;
