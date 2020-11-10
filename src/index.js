@@ -303,11 +303,9 @@ function displayCustomerInfo() {
       modalTitle.innerText = 'Available Rooms';
       modalContent.innerText = '';
     } else if (event.target.classList.contains('delete-booking-button')) {
-      modal = bookingModal;
-      modalDate.classList.add('hidden');
-      modalTitle.innerText = 'Confirmation';
-      modalContent.innerText = 'Your booking has successfully been deleted. Please refresh the page to update the bookings.';
-      modal.style.display = 'block';
+      event.target.classList.add('deleted-room');
+      event.target.disabled = true;
+      event.target.innerText = 'DELETED!'
     }
   }
 
