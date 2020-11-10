@@ -18,43 +18,15 @@ import './images/room15.jpg'
 import './images/room16.jpg'
 import HotelService from './Hotel-Service.js';
 
-let enterCredentials = document.querySelector('.enter-credentials');
-let errorMessage = document.querySelector('.error-message');
-let managerView = document.querySelector('.manager-view');
-let customerView = document.querySelector('.customer-view');
-let usernameInput = document.querySelector('.username');
-let passwordInput = document.querySelector('.password');
-let submitButton = document.querySelector('.submit-button');
-let signOutButton = document.querySelector('.signout-button');
-let hotelOverviewDate = document.querySelector('.hotel-overview-date');
-let overviewInfo = document.querySelector('#overview-info');
-let viewBookingInfo = document.querySelector('.view-information');
-let searchTitle = document.querySelector('.search-title');
-let searchCustomerInput = document.querySelector('.search-customer-name');
-let searchCustomerButton = document.querySelector('#search-customer-button');
-let bookingModal = document.querySelector('#add-booking-modal');
-let modalContent = document.querySelector('#modal-content');
-let modalDate = document.querySelector('.modal-date');
-let modalTitle = document.querySelector('.modal-title');
-let customerWelcome = document.querySelector('.customer-welcome');
-let customerStatus = document.querySelector('.customer-status');
-let bookRoomDate = document.querySelector('.book-room-date');
-let customerRooms = document.querySelector('.display-customer-rooms');
-let bookARoom = document.querySelector('.book-a-room');
-let bookRoomHeader = document.querySelector('.book-room-header');
-let backToBooking = document.querySelector('.back-to-booking');
-let filterSubmitButton = document.querySelector('.filter-button');
-let filterSection = document.querySelector('.filter-rooms');
-let filterCategories = document.getElementById('filter-categories');
-let filterRefreshButton = document.querySelector('.filter-status');
+import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessag, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, submitButton, usernameInput, viewBookingInfo} from './DOMelements.js';
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
 
 let hotelService;
+let modal;
 let todayDate;
 let userID;
-let modal;
 
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
