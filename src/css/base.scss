@@ -3,6 +3,11 @@
   opacity: 0.7;
 }
 
+@mixin manager-format($width, $margin) {
+  width: $width;
+  margin: $margin;
+}
+
 body {
   background: url('https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/h-PooSFA.jpeg');
   background-size: 100%;
@@ -140,9 +145,7 @@ input[type="password"]
   display: flex;
   flex-direction: column;
   font-family: 'Spectral SC', serif;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  margin-right: 100px;
+  margin: 40px 0px 40px 100px;
 }
 
 .hotel-summary {
@@ -177,14 +180,12 @@ input[type="password"]
 }
 
 .search-customers {
-  margin-left: 40px;
-  margin-top: 40px;
+  margin: 40px 0px 0px 40px;
 }
 
 .search-button {
   font-family: 'Spectral SC', serif;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin: 40px 0px 40px 0px;
   width: 100px;
 }
 
@@ -205,8 +206,7 @@ h3 {
 h5 {
   font-family: 'Spectral SC', serif;
   font-size: 35px;
-  margin-top: 0px;
-  margin-bottom: 5px;
+  margin: 0px 0px 5px 0px;
   display: flex;
   justify-content: center;
 }
@@ -227,8 +227,7 @@ h5 {
 .view-information {
   height: 350px;
   border: solid black 1px;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin: 0px 40px 0px 40px;
   border-radius: 5px;
   overflow: scroll;
 }
@@ -248,10 +247,7 @@ h5 {
   display: flex;
   border: solid black 1px;
   border-radius: 5px;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 5% 10px 5%;
   font-family: 'Spectral SC', serif;
 }
 
@@ -266,53 +262,43 @@ h5 {
 }
 
 .manager-booking-date {
-  width: 200px;
-  margin: 10px 0px 10px 100px;
+  @include manager-format(200px, 10px 0px 10px 100px)
 }
 
 .manager-booking-roomtype {
-  width: 250px;
-  margin: 10px 0px 10px 0px;
+  @include manager-format(250px, 10px 0px 10px 0px)
 }
 
 .manager-booking-roomnum {
-  width: 100px;
-  margin: 10px 40px 10px 0px;
+  @include manager-format(100px, 10px 40px 10px 0px)
 }
 
 .manager-booking-cost {
-  width: 150px;
-  margin: 10px 40px 10px 5px;
+  @include manager-format(150px, 10px 40px 10px 5px)
 }
 
 .manager-booking-id {
-  width: 180px;
-  margin: 10px 40px 10px 0px;
+  @include manager-format(180px, 10px 40px 10px 0px)
 }
 
 .manager-booking-roomtype2 {
-  width: 200px;
-  margin: 10px 40px 10px 70px;
+  @include manager-format(200px, 10px 40px 10px 70px)
 }
 
 .manager-booking-numbeds {
-  width: 100px;
-  margin: 10px 40px 10px 0px;
+  @include manager-format(100px, 10px 40px 10px 0px)
 }
 
 .manager-booking-bidet {
-  width: 100px;
-  margin: 10px 15px 10px 0px;
+  @include manager-format(100px, 10px 15px 10px 0px)
 }
 
 .manager-booking-roomnum2 {
-  width: 100px;
-  margin: 10px 20px 10px 20px;
+  @include manager-format(100px, 10px 20px 10px 20px)
 }
 
 .manager-booking-cost2 {
-  width: 80px;
-  margin: 10px 10px 10px 0px;
+  @include manager-format(80px, 10px 10px 10px 0px)
 }
 
 .no-bookings {
