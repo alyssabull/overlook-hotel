@@ -226,8 +226,8 @@ h5 {
   display: flex;
   border: solid black 1px;
   border-radius: 5px;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
   margin-top: 10px;
   margin-bottom: 10px;
   font-family: 'Spectral SC', serif;
@@ -274,12 +274,13 @@ h5 {
 
 .room-number {
   margin-bottom: 0px;
-  margin-top: 0px;
+  margin-top: 10px;
 }
 
 .room-price {
   font-family: 'Spectral SC', serif;
   font-size: 35px;
+  margin-right: 22px;
 }
 
 .stay-date {
@@ -380,6 +381,265 @@ h5 {
 
 .confirmation-message {
   font-family: 'Spectral SC', serif;
+}
+
+// ** Customer view-bookings
+
+.customer-welcome {
+  background-color: white;
+  opacity: 0.8;
+  height: 50px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 35px;
+  font-family: 'Spectral SC', serif;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.customer-status {
+  font-family: 'Spectral SC', serif;
+  background-color: white;
+  opacity: 0.8;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 18px;
+}
+
+.view-bookings-button {
+  margin: 18px 0px 0px 0px;
+  display: flex;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+  height: 30px;
+  outline: none;
+}
+
+.view-bookings-button:hover {
+  cursor: pointer;
+}
+
+.Gold {
+  height: 30px;
+  margin: 18px 0px 0px 0px;
+  display: flex;
+  color: #995c00;
+  background-color: #FFDF00;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.Silver {
+  height: 30px;
+  margin: 18px 0px 0px 0px;
+  display: flex;
+  color: black;
+  background-color: darkgrey;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.Bronze {
+  height: 30px;
+  margin: 18px 0px 0px 0px;
+  display: flex;
+  color: white;
+  background-color: #cd7f32;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.Blue {
+  height: 30px;
+  margin: 18px 0px 0px 0px;
+  display: flex;
+  color: white;
+  background-color: royalblue;
+  padding: 0px 40px 0px 40px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.filter-rooms {
+  background-color: white;
+  opacity: 0.8;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  margin-top: 20px;
+  padding-left: 0px;
+  border-radius: 5px;
+  width: 25%;
+}
+
+.filter-title {
+  margin-left: 25%;
+  font-size: 25px;
+}
+
+.filter-button {
+  font-family: 'Spectral SC', serif;
+  font-size: 15px;
+  width: 150px;
+  margin-left: 28%;
+  margin-top: 10px;
+}
+
+.tag-button {
+  padding: 0px;
+  margin: 0px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  display: none;
+}
+
+.tag-image {
+  height: 80px;
+  width: 120px;
+  border-radius: 5px;
+}
+
+.tag-image:hover {
+  cursor: pointer;
+}
+
+.grow img{
+transition: 1s ease;
+}
+
+.grow img:hover{
+-webkit-transform: scale(1.2);
+-ms-transform: scale(1.2);
+transform: scale(1.2);
+transition: 1s ease;
+}
+
+.tag-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tag-name {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  font-size: 12px;
+  list-style: none;
+  font-family: 'Spectral SC', serif;
+  font-size: 15px;
+}
+
+input[type=radio]:checked + label {
+  opacity: 0.2;
+  font-style: normal;
+}
+
+.view-available-rooms {
+  display: flex;
+  flex-direction: row;
+}
+
+.book-a-room {
+  font-family: 'Spectral SC', serif;
+  background-color: white;
+  opacity: 0.8;
+  margin: 20px 0px 5px 20px;
+  border-radius: 5px;
+  width: 75%;
+  font-size: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-room-date {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.filter-status {
+  font-family: 'Spectral SC', serif;
+  font-size: 15px;
+  width: 80%;
+  margin-top: 30%;
+  margin-left: 30px;
+}
+
+.display-customer-rooms {
+  background-color: #fefefe;
+  width: 90%;
+  font-size: 16px;
+}
+
+.booking-card-img {
+  height: 150px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.customer-booking {
+  border-left: solid black 1px;
+  width: 30%;
+  margin-left: 20px;
+}
+
+.customer-price {
+  font-family: 'Spectral SC', serif;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.customer-book-button {
+  font-family: 'Spectral SC', serif;
+  margin: 20px;
+  width: 100px;
+  outline: none;
+}
+
+.customer-book-button:hover {
+  cursor: pointer;
+}
+
+.back-to-book-button {
+  font-family: 'Spectral SC', serif;
+  margin: 0px;
+  width: 200px;
+  height: 30px;
+  outline: none;
+}
+
+.back-to-book-button:hover {
+  cursor: pointer;
+}
+
+.booked-room {
+  font-family: 'Spectral SC', serif;
+  margin: 20px;
+  width: 100px;
+  outline: none;
+  border-radius: 5px;
+  color: white;
+  background-color: #4d79ff;
 }
 
 // .awards-section {

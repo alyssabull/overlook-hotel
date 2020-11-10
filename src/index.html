@@ -38,62 +38,56 @@
       <section class="footer">
       </section>
         <div class="modal hidden" id="add-booking-modal">
-          <div class="modal-content flex-column">
+          <div class="modal-content">
             <div class="modal-header">
               <h3 class="modal-title">Available Rooms</h3>
               <input type="date" class="modal-date">
             </div>
           <div id="modal-content" class="confirmation-message">
           </div>
-          <div class="modal hidden" id="delete-booking-confirmation">
-
+          </div>
+          </div>
+      </section>
     <section class="customer-view hidden">
-      <h2>Welcome back, <i>customer name</i></h2>
+      <h2 class="customer-welcome">Welcome Back, Leatha Ullrich!</h2>
       <article class="customer-status">
-        <p>Gold Status</p>
-        <p>3,456 points</p>
-        <p>Total Spent: $--.--</p>
       </article>
-      <button type="button" class="book-room">Book a Room</button>
-      <button type="button" class="view-bookings">View Bookings</button>
-    <section class="book-room-page">
-      <h2>Book a Room</h2>
-      <input type="date" name="room date">
-      <aside class="filter-rooms">
-        <h3>Filter Rooms</h3>
-        <input type="radio" name="residential suite">
-        <label for="residential suite">Residential Suite</label>
-        <input type="radio" name="suite">
-        <label for="suite">Suite</label>
-        <input type="radio" name="junior suite">
-        <label for="junior suite">Junior Suite</label>
-        <input type="radio" name="single room">
-        <label for="single room">Single Room</label>
+      <aside class="view-available-rooms">
+        <section class="filter-rooms grow">
+        <h3 class="filter-title">Filter Rooms</h3>
+        <form id="filter-categories">
+          <span class="tag-row">
+            <input type="radio" name="filter" class="tag-button" value="residential suite" id="residential">
+            <label for="residential"><img src="https://www.raffles.com/assets/0/72/1930/1931/1956/58e252d1-f16e-48a5-915b-49d2ebf35d73.jpg" alt="residential suite" class="tag-image"></label>
+            <input type="radio" name="filter" class="tag-button" value="suite" id="suite">
+            <label for="suite"><img src="https://www.lonelyplanet.com/news/wp-content/uploads/2018/07/The-Plaza-A-Fairmont-Managed-Hotel-Plaza-Royal-Suite-1260625.jpg" alt="suite" class="tag-image"></label>
+          </span>
+          <span class="tag-name">
+            <li>Residential Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
+            <li>Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
+          </span>
+          <span class="tag-row">
+            <input type="radio" name="filter" class="tag-button" value="junior suite" id="junior">
+            <label for="junior"><img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="tag-image"></label>
+            <input type="radio" name="filter" class="tag-button" value="single room" id="single">
+            <label for="single"><img src="https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy" alt="single room" class="tag-image"></label>
+          </span>
+          <span class="tag-name">
+            <li>Junior Suite</li>
+            <li>Single Room</li>
+          </span>
+        </form>
+      <button type="button" class="filter-button">SEARCH</button>
+      <button class="filter-status hidden">REFRESH FILTER</button>
+    </section>
+      <section class="book-a-room">
+      <h2 class="book-a-room book-room-header">Book a Room</h2>
+      <input type="date" name="room date" class="book-room-date">
+      <section class="back-to-booking"></section>
+      <section class="display-customer-rooms">
+      </section>
+      </section>
       </aside>
-      <article class="available-rooms">
-        <p>Available Room Info</p>
-        <button type="button" class="book-button">BOOK</button>
-        <p>Available Room Info</p>
-        <button type="button" class="book-button">BOOK</button>
-        <p>Available Room Info</p>
-        <button type="button" class="book-button">BOOK</button>
-      </article>
-    </section>
-    <section class="view-bookings-page">
-      <h3><i>customer name's</i>Past Bookings</h3>
-      <article class="room-information">
-        <p>Date</p>
-        <p>Room Information</p>
-      </article>
-      <article class="room-information">
-        <p>Date</p>
-        <p>Room Information</p>
-      </article>
-      <article class="room-information">
-        <p>Date</p>
-        <p>Room Information</p>
-      </article>
-    </section>
     </section>
     <!-- <footer class="awards-section">
       <img src="https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/65/2017/10/18091714/world_luxury_hotel_awards-e1508318281201.png" class="award-image">

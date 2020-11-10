@@ -111,8 +111,9 @@ export default class HotelService {
   }
 
   findCustomerBookings(id) {
+    console.log(this.allBookings);
     return this.allBookings.reduce((allUserBookings, booking) => {
-      if (booking.userID === id) {
+      if (booking.userID == id) {
         this.allRooms.forEach(room => {
           if (room.number === booking.roomNumber) {
             booking.roomType = room.roomType;
@@ -184,14 +185,23 @@ export default class HotelService {
     }, 0).toFixed(2)
   }
 
-  calculateTotalSpent(id) {
+  calculateNumberOfStays(id) {
     let userRoomNumbers = [];
     this.allBookings.forEach(booking => {
-      if (booking.userID === id) {
+      if (booking.userID == id) {
         userRoomNumbers.push(booking.roomNumber);
       }
     })
+    return userRoomNumbers.length;
+  }
 
+  calculateTotalSpent(id) {
+    let userRoomNumbers = [];
+    this.allBookings.forEach(booking => {
+      if (booking.userID == id) {
+        userRoomNumbers.push(booking.roomNumber);
+      }
+    })
     return this.allRooms.reduce((totalSpent, room) => {
       userRoomNumbers.forEach(roomNum => {
         if (roomNum === room.number) {
@@ -228,6 +238,22 @@ export default class HotelService {
       mm ='0'+ mm;
     }
     return today = yyyy+'/'+mm+'/'+dd;
+  }
+
+  getDashedTodayDate() {
+    let today = new Date();
+    let dd = today.getDate();
+
+    let mm = today.getMonth()+1;
+    let yyyy = today.getFullYear();
+
+    if(dd < 10) {
+      dd ='0'+ dd;
+    }
+    if(mm < 10){
+      mm ='0'+ mm;
+    }
+    return today = yyyy+'-'+mm+'-'+dd;
   }
 
   addNewBooking(userID, date, roomNumber) {
