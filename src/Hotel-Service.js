@@ -78,15 +78,8 @@ export default class HotelService {
     })
   }
 
-  calculateNumberAvailableRooms(date) {
-    if (typeof this.findAvailableRooms(date) === 'string') {
-      return 0;
-    } else {
-      return this.findAvailableRooms(date).length
-    }
-  }
-
   findAvailableRooms(date) {
+    console.log('date', date)
     let roomsBooked = this.allBookings.reduce((roomNums, booking) => {
       if (booking.date === date) {
         roomNums.push(booking.roomNumber)
@@ -114,7 +107,7 @@ export default class HotelService {
       })
       return rooms;
     } else {
-      return 'Sorry, there are no available rooms for the selected date. We sincerely apologize. Please select a different date and try again.'
+      return 'Sorry, there are no available rooms for the selected date. Please select a different date and try again.'
     }
   }
 
@@ -220,7 +213,7 @@ export default class HotelService {
   }
 
   sortBookingsByDate(bookings) {
-    if (bookings !== 'string' && bookings.length > 0) {
+    if (bookings.length > 0) {
       return bookings.sort((a,b) => {
         return new Date(b.date) - new Date(a.date);
       })

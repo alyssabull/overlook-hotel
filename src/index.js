@@ -337,8 +337,6 @@ function displayCustomerInfo() {
   }
 
   function postNewBooking(newBooking) {
-    // if (typeof newBooking !== 'string') {
-    console.log(newBooking)
       return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
         method: 'POST',
         headers: {
@@ -351,11 +349,6 @@ function displayCustomerInfo() {
         fetchAllData();
       })
       .catch(err => console.log(err))
-    // }
-    // else {
-    //   modalContent.innerHTML = '';
-    //   modalContent.insertAdjacentHTML('beforeend', `<p class="error-message">${newBooking}</p>`);
-    // }
   }
 
   function deleteBooking(event) {
@@ -461,7 +454,9 @@ function backToCustomerBooking() {
 }
 
 function getFilterValue() {
-  let availableRooms = hotelService.findAvailableRooms(todayDate);
+  let calendarDate = document.getElementById('book-room-date').value;
+  let formatCalendarDate = calendarDate.split('-').join('/')
+  let availableRooms = hotelService.findAvailableRooms(formatCalendarDate);
   let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
   if (filterCategories.elements['residential'].checked) {
     customerRooms.innerHTML = '';
