@@ -3,6 +3,7 @@
 @import 'buttons';
 @import 'roomcards';
 @import 'modal';
+@import 'login';
 
 body {
   background: url('https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/h-PooSFA.jpeg');
@@ -43,59 +44,6 @@ h1 {
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
   @include background-style();
-}
-
-// Login
-
-.enter-credentials {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 25%;
-  height: 340px;
-  margin-left: 38%;
-  margin-top: 6%;
-  border-radius: $border-radius;
-  @include background-style();
-}
-
-.username-login {
-  font-family: $accent-font;
-  font-size: 16px;
-  margin: 20px 0px 10px 0px;
-}
-
-.password-login {
-  font-family: $accent-font;
-  font-size: 16px;
-  margin: 30px 0px 10px 0px;
-}
-
-.error-message {
-  font-family: $accent-font;
-  font-size: 13px;
-  color: black;
-  margin-left: 10px;
-}
-
-h2 {
-  font-family: $accent-font;
-  margin-bottom: 5px;
-}
-
-h4 {
-  font-family: $main-font;
-  margin-bottom: 5px;
-}
-
-.login-info {
-  width: 75%;
-  outline: none;
-}
-
-input[type="password"]
-{
-  -webkit-text-security: disc;
 }
 
 // Manager View
@@ -237,7 +185,7 @@ h5 {
   font-family: $main-font;
 }
 
-// Customer View 
+// Customer View
 
 .customer-welcome {
   height: 50px;
