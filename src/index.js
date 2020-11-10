@@ -243,17 +243,22 @@ function displayCustomerInfo() {
   let sortedBookings = hotelService.sortBookingsByDate(bookings);
     if (sortedBookings.length > 0) {
       let todaysBookingInfo = sortedBookings.map(booking => {
-        return `<article class="today-booking-card">
-        <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
-        <section class="booking-info">
-          <p class="room-type">${booking.roomType}</p>
-          <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
-          <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
-          <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
-          <p class="customer-name"><b>Guest Name:</b> ${booking.guestName}</p>
+        return `<article class="manager-booking-card">
+        <section class="manager-booking-date">
+          ${booking.date}
         </section>
-        <section class="delete-booking">
-          <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
+        <section class="manager-booking-roomtype">
+          ${booking.roomType.toUpperCase()}
+        </section>
+        <section class="manager-booking-roomnum">
+          ${booking.roomNumber}
+        </section>
+        <section class="manager-booking-cost">
+          $${booking.costPerNight.toFixed(2)}
+        </section>
+        <section class="manager-booking-id">
+          ${booking.id}
+        </section>
           <button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>
         </section>
         </article>`

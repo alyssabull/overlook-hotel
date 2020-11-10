@@ -202,6 +202,19 @@ h5 {
   justify-content: center;
 }
 
+.customer-info-headers {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  border: solid black 1px;
+  margin-left: 3.5%;
+  margin-right: 3.5%;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: 'Spectral SC', serif;
+}
+
 .view-information {
   height: 350px;
   border: solid black 1px;
@@ -236,6 +249,36 @@ h5 {
 .booking-info {
   width: 75%;
   padding-left: 20px;
+}
+
+.manager-booking-card {
+  display: flex;
+  font-family: 'Spectral SC', serif;
+}
+
+.manager-booking-date {
+  width: 200px;
+  margin: 10px 0px 10px 100px;
+}
+
+.manager-booking-roomtype {
+  width: 250px;
+  margin: 10px 0px 10px 0px;
+}
+
+.manager-booking-roomnum {
+  width: 100px;
+  margin: 10px 40px 10px 0px;
+}
+
+.manager-booking-cost {
+  width: 150px;
+  margin: 10px 40px 10px 5px;
+}
+
+.manager-booking-id {
+  width: 180px;
+  margin: 10px 40px 10px 0px;
 }
 
 .no-bookings {
@@ -308,7 +351,11 @@ h5 {
 
 .delete-booking-button {
   font-family: 'Spectral SC', serif;
-  margin: 0px 10px 10px 10px;
+  margin: 5px 10px 10px 10px;
+}
+
+.delete-booking-button:hover {
+  cursor: pointer;
 }
 
 .book-room {

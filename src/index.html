@@ -12,7 +12,7 @@
       <button type="button" class="signout-button hidden">SIGN OUT</button>
     </header>
     <p class="hotel-info">1744 Aspen Drive, Spareeholm Sweden | +0157-8447132 | bookings@overlookhotel.net</p>
-    <section class="enter-credentials">
+    <section class="enter-credentials hidden">
         <h2>Please Log In</h2>
         <h4>Username</h4>
         <input type="text" name="username" class="username login-info">
@@ -21,7 +21,7 @@
         <button type="button" class="submit-button">ENTER</button>
         <p class="error-message"></p>
     </section>
-    <section class="manager-view hidden">
+    <section class="manager-view">
       <article class="today-overview">
         <p class="overview-title"><b>Hotel Overview for</b></p>
         <input type="date" class="hotel-overview-date">
@@ -33,6 +33,14 @@
         </section>
       </article>
       <h5 class="search-title">Bookings for --</h5>
+      <ul class="customer-info-headers">
+        <li>Date</li>
+        <li>Room Type</li>
+        <li>Room #</li>
+        <li>Price</li>
+        <li>Confirmation</li>
+        <li>Delete</li>
+      </ul>
       <section class="view-information">
       </section>
       <section class="footer">
