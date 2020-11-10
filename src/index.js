@@ -373,7 +373,7 @@ function displayCustomerInfo() {
         },
         body: JSON.stringify(deleteBody)
       })
-      .then(response => response.json())
+      .then(response => console.log(response.json()))
       .then(json => fetchAllData())
       .catch(err => console.log(err))
     }
@@ -427,7 +427,7 @@ function displayCustomerBookings(event) {
   if (event.target.classList.contains('view-bookings-button')) {
     customerRooms.innerHTML = '';
     bookRoomDate.classList.add('hidden');
-    bookRoomHeader.innerText = 'Your Bookings';
+    bookRoomHeader.innerText = `Your Bookings`;
     backToBooking.insertAdjacentHTML('beforeend', `<button class="back-to-book-button">Book a Room</button>`);
     let bookings = hotelService.findCustomerBookings(userID);
     let sortedBookings = hotelService.sortBookingsByDate(bookings);
