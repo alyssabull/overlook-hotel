@@ -412,7 +412,7 @@ function displayCustomerInfo() {
  function customerAddBookings(event) {
    if (event.target.classList.contains('customer-book-button')) {
      let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[1]);
-     console.log('roomnum', event.target.classList[1]);
+     customerStatus.innerHTML = ''
      postNewBooking(newBooking);
      fetchAllData();
      loadCustomerInfo();
