@@ -103,11 +103,9 @@ export default class HotelService {
       }
     })
 
-    console.log('room clean up', rooms)
     if (roomsBooked.length < rooms.length) {
       rooms.forEach(roomNum => {
         rooms.forEach(room => {
-          console.log('currentroom', room);
           if (roomNum === room.number) {
             let index = rooms.indexOf(room);
             rooms.splice(index, 1);
@@ -123,7 +121,6 @@ export default class HotelService {
   findCustomerBookings(id) {
     return this.allBookings.reduce((allUserBookings, booking) => {
       if (booking.userID == id && booking.roomNumber > 1) {
-        console.log(booking)
         this.allRooms.forEach(room => {
           if (room.number === booking.roomNumber) {
             booking.roomType = room.roomType;
@@ -271,19 +268,15 @@ export default class HotelService {
   }
 
   addNewBooking(userID, date, roomNumber) {
-    if (date > this.getTodayDate()) {
       let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
         if (room.number == roomNumber) {
-          bookingDetails.userID = userID;
+          bookingDetails.userID = parseInt(userID);
           bookingDetails.date = date;
           bookingDetails.roomNumber = room.number;
         }
         return bookingDetails;
       }, {})
       return bookingInfo;
-    } else {
-      return 'Oops! The date you selected for a booking is in the past. Please select another date until time travel exists!'
-    }
   }
 
   deleteBooking(deleteBooking) {

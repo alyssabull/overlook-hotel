@@ -111,6 +111,7 @@ function fetchAllData() {
 
 function loadData() {
   hotelService.start();
+  console.log(hotelService.allBookings.length)
   todayDate = hotelService.getTodayDate()
 }
 
@@ -133,6 +134,7 @@ function validateCredentials() {
         filterSubmitButton.classList.add('hidden');
         todayDate = hotelService.getDashedTodayDate();
         bookRoomDate.setAttribute('value', todayDate);
+        bookRoomDate.setAttribute('min', todayDate);
         loadCustomerInfo();
         usernameInput.value = '';
         passwordInput.value = '';
@@ -334,9 +336,9 @@ function displayCustomerInfo() {
     }
   }
 
-  function postNewBooking(newBooking, eventTarget) {
-    debugger
-    if (typeof newBooking !== 'string') {
+  function postNewBooking(newBooking) {
+    // if (typeof newBooking !== 'string') {
+    console.log(newBooking)
       return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
         method: 'POST',
         headers: {
@@ -349,10 +351,11 @@ function displayCustomerInfo() {
         fetchAllData();
       })
       .catch(err => console.log(err))
-    } else {
-      modalContent.innerHTML = '';
-      modalContent.insertAdjacentHTML('beforeend', `<p class="error-message">${newBooking}</p>`);
-    }
+    // }
+    // else {
+    //   modalContent.innerHTML = '';
+    //   modalContent.insertAdjacentHTML('beforeend', `<p class="error-message">${newBooking}</p>`);
+    // }
   }
 
   function deleteBooking(event) {
@@ -378,38 +381,41 @@ function displayCustomerInfo() {
 
   function displayCustomerRooms(date) {
     fetchAllData();
-    if (date > hotelService.getTodayDate()) {
       filterCategories.classList.remove('hidden');
       filterSubmitButton.classList.remove('hidden');
       bookRoomHeader.innerText = `All Available Rooms`;
       let availableRooms = hotelService.findAvailableRooms(date);
-      let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
-      let allRooms = sortedAvailableCustRooms.map(room => {
-        return `<article class="today-booking-card">
-        <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
-        <section class="booking-info">
-          <p class="room-type">${room.roomType}</p>
-          <p class="room-number"><b>Room Number:</b> ${room.number}</p>
-          <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
-          <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
-          <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
-        </section>
-        <section class="customer-booking">
-          <p class="customer-price">$${room.costPerNight.toFixed(2)}</p>
-          <button type="button" class="customer-book-button ${room.number}">BOOK ROOM</button>
-        </section>
-        </article>`
-      }).join(' ')
-     customerRooms.insertAdjacentHTML('afterbegin', allRooms);
-   } else {
-     customerRooms.innerText = 'Oops! The date you selected is in the past. Please select a date in the future to make a booking!'
-   }
+      if (typeof availableRooms !== 'string') {
+        let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
+        let allRooms = sortedAvailableCustRooms.map(room => {
+          return `<article class="today-booking-card">
+          <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
+          <section class="booking-info">
+            <p class="room-type">${room.roomType}</p>
+            <p class="room-number"><b>Room Number:</b> ${room.number}</p>
+            <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
+            <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
+            <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
+          </section>
+          <section class="customer-booking">
+            <p class="customer-price">$${room.costPerNight.toFixed(2)}</p>
+            <button type="button" class="customer-book-button ${room.number}">BOOK ROOM</button>
+          </section>
+          </article>`
+        }).join(' ')
+       customerRooms.insertAdjacentHTML('afterbegin', allRooms);
+     } else {
+       customerRooms.innerText = `${availableRooms}`;
+     }
  }
 
  function customerAddBookings(event) {
    if (event.target.classList.contains('customer-book-button')) {
-     let newBooking = hotelService.addNewBooking(1, todayDate, event.target.classList[1]);
+     let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[1]);
+     console.log('roomnum', event.target.classList[1]);
      postNewBooking(newBooking);
+     fetchAllData();
+     loadCustomerInfo();
      event.target.classList.remove('customer-book-button');
      event.target.classList.add('booked-room');
      event.target.innerText = 'BOOKED!';
@@ -526,6 +532,7 @@ function displayFilteredRooms(rooms) {
 function refreshFilter(event) {
   if (event.target.classList.contains('filter-status')) {
     customerRooms.innerHTML = '';
+    customerRooms.innerText = '';
     displayCustomerRooms(todayDate);
     filterCategories.classList.remove('hidden');
     filterRefreshButton.classList.add('hidden');
