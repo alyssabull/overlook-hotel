@@ -95,8 +95,16 @@ export default class HotelService {
     }, [])
 
     let rooms = [...this.allRooms];
+
+    let roomCleanUp = rooms.forEach(roomNum => {
+      if (roomNum > 25 || roomNum < 1) {
+        let index = rooms.indexOf(roomNum);
+        rooms.splice(index,1);
+      }
+    })
+
     if (roomsBooked.length < rooms.length) {
-      roomsBooked.forEach(roomNum => {
+      rooms.forEach(roomNum => {
         rooms.forEach(room => {
           if (roomNum === room.number) {
             let index = rooms.indexOf(room);
@@ -111,9 +119,8 @@ export default class HotelService {
   }
 
   findCustomerBookings(id) {
-    console.log(this.allBookings);
     return this.allBookings.reduce((allUserBookings, booking) => {
-      if (booking.userID == id) {
+      if (booking.userID == id && booking.roomNumber > 1) {
         this.allRooms.forEach(room => {
           if (room.number === booking.roomNumber) {
             booking.roomType = room.roomType;
@@ -213,9 +220,13 @@ export default class HotelService {
   }
 
   sortBookingsByDate(bookings) {
-    return bookings.sort((a,b) => {
-      return new Date(b.date) - new Date(a.date);
-    })
+    if (bookings !== 'string' && bookings.length > 0) {
+      return bookings.sort((a,b) => {
+        return new Date(b.date) - new Date(a.date);
+      })
+    } else {
+      return 'Sorry, no rooms available for the selected dates.'
+    }
   }
 
   sortBookingsByRoomNumber(bookings) {
@@ -257,19 +268,15 @@ export default class HotelService {
   }
 
   addNewBooking(userID, date, roomNumber) {
-    if (date > this.getTodayDate()) {
       let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
         if (room.number == roomNumber) {
-          bookingDetails.userID = userID;
+          bookingDetails.userID = parseInt(userID);
           bookingDetails.date = date;
           bookingDetails.roomNumber = room.number;
         }
         return bookingDetails;
       }, {})
       return bookingInfo;
-    } else {
-      return 'Oops! The date you selected for a booking is in the past. Please select another date until time travel exists!'
-    }
   }
 
   deleteBooking(deleteBooking) {
