@@ -16,14 +16,6 @@ import './images/room13.jpg'
 import './images/room14.jpg'
 import './images/room15.jpg'
 import './images/room16.jpg'
-// import './images/room17.jpg'
-// import './images/room18.jpg'
-// import './images/room19.jpg'
-// import './images/room20.jpg'
-// import './images/room21.jpg'
-// import './images/room22.jpg'
-// import './images/room23.jpg'
-// import './images/room24.jpg'
 import HotelService from './Hotel-Service.js';
 
 let enterCredentials = document.querySelector('.enter-credentials');
@@ -277,22 +269,19 @@ function displayCustomerInfo() {
     let availableRooms = hotelService.findAvailableRooms(date);
     let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
     let allRooms = sortedAvailableRooms.map(room => {
-      return `<article class="today-booking-card">
-      <section class="booking-info">
-        <p class="room-type">${room.roomType}</p>
-        <p class="room-number"><b>Room Number:</b> ${room.number}</p>
-        <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
-        <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
-        <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
-      </section>
-      <section class="delete-booking">
-        <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
+      return `<article class="manager-booking-card">
+
+        <p class="manager-booking-roomtype2">${room.roomType}</p>
+        <p class="manager-booking-numbeds"> ${room.numBeds}</p>
+        <p class="manager-booking-roomnum">${room.bedSize}</p>
+        <p class="manager-booking-roomnum2">${room.number}</p>
+        <p class="manager-booking-bidet"> ${room.bidet}</p>
+        <p class="manager-booking-cost2">$${room.costPerNight.toFixed(2)}</p>
         <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
-      </section>
+
       </article>`
     }).join(' ')
-
-   modalContent.insertAdjacentHTML('afterbegin', allRooms);
+   modalContent.insertAdjacentHTML('beforeend', allRooms);
   }
 
   function openModal(event) {
@@ -301,7 +290,15 @@ function displayCustomerInfo() {
       modal.style.display = 'block';
       modalDate.classList.remove('hidden');
       modalTitle.innerText = 'Available Rooms';
-      modalContent.innerText = '';
+      modalContent.innerHTML = `<ul class="customer-info-headers">
+        <li>Room Type</li>
+        <li>Num Beds</li>
+        <li>Bed Type</li>
+        <li>Room #</li>
+        <li>Bidet</li>
+        <li>Price</li>
+        <li>Add</li>
+      </ul>`;
     } else if (event.target.classList.contains('delete-booking-button')) {
       event.target.classList.add('deleted-room');
       event.target.disabled = true;
