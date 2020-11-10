@@ -111,7 +111,6 @@ export default class HotelService {
   }
 
   findCustomerBookings(id) {
-    console.log(this.allBookings);
     return this.allBookings.reduce((allUserBookings, booking) => {
       if (booking.userID == id) {
         this.allRooms.forEach(room => {

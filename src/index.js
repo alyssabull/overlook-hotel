@@ -216,7 +216,7 @@ function displayTodayBookings(date) {
       </section>
       <section class="delete-booking">
         <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
-        <button type="button" class="delete-booking-button delete" data-confirm="Are you sure you want to delete this booking?">DELETE BOOKING</button>
+        <button type="button" class="delete-booking-button delete">DELETE BOOKING</button>
       </section>
       </article>`
     }).join(' ')
@@ -278,7 +278,6 @@ function displayCustomerInfo() {
         <p class="manager-booking-bidet"> ${room.bidet}</p>
         <p class="manager-booking-cost2">$${room.costPerNight.toFixed(2)}</p>
         <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
-
       </article>`
     }).join(' ')
    modalContent.insertAdjacentHTML('beforeend', allRooms);
@@ -309,7 +308,8 @@ function displayCustomerInfo() {
   function handleModal(event) {
     if (event.target.classList.contains('book-room')) {
       let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[1]);
-      postNewBooking(newBooking);
+      let eventTarget = event.target;
+      postNewBooking(newBooking, eventTarget);
       modalDate.classList.add('hidden');
       modalTitle.innerText = 'Success';
       modalContent.innerText = 'The booking has successfully been added. Please refresh the page to see the updated bookings.';
@@ -318,7 +318,8 @@ function displayCustomerInfo() {
     }
   }
 
-  function postNewBooking(newBooking) {
+  function postNewBooking(newBooking, eventTarget) {
+    debugger
     if (typeof newBooking !== 'string') {
       return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
         method: 'POST',
@@ -360,6 +361,7 @@ function displayCustomerInfo() {
   }
 
   function displayCustomerRooms(date) {
+    fetchAllData();
     if (date > hotelService.getTodayDate()) {
       filterCategories.classList.remove('hidden');
       filterSubmitButton.classList.remove('hidden');
@@ -382,7 +384,6 @@ function displayCustomerInfo() {
         </section>
         </article>`
       }).join(' ')
-
      customerRooms.insertAdjacentHTML('afterbegin', allRooms);
    } else {
      customerRooms.innerText = 'Oops! The date you selected is in the past. Please select a date in the future to make a booking!'
