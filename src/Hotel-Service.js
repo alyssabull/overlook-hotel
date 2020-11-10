@@ -140,7 +140,7 @@ export default class HotelService {
 
   findBookings(date) {
     let todayBookings = this.allBookings.reduce((todayBookings, booking) => {
-      if (booking.date === date) {
+      if (booking.roomNumber > 0 && booking.date === date) {
         this.allRooms.forEach(room => {
           if (room.number == booking.roomNumber) {
             booking.roomType = room.roomType;
