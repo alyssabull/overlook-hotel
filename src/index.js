@@ -267,26 +267,37 @@ function displayCustomerInfo() {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
       viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
     }
-    searchCustomerInput.value = '';
   }
 
   function displayManagerRooms(date) {
     let availableRooms = hotelService.findAvailableRooms(date);
-    let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
-    let allRooms = sortedAvailableRooms.map(room => {
-      return `<article class="manager-booking-card">
-
-        <p class="manager-booking-roomtype2">${room.roomType}</p>
-        <p class="manager-booking-numbeds"> ${room.numBeds}</p>
-        <p class="manager-booking-roomnum">${room.bedSize}</p>
-        <p class="manager-booking-roomnum2">${room.number}</p>
-        <p class="manager-booking-bidet"> ${room.bidet}</p>
-        <p class="manager-booking-cost2">$${room.costPerNight.toFixed(2)}</p>
-        <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
-      </article>`
-    }).join(' ')
-   modalContent.insertAdjacentHTML('beforeend', allRooms);
+    if (typeof availableRooms !== 'string') {
+      let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
+      modalContent.innerHTML = `<ul class="customer-info-headers">
+        <li>Room Type</li>
+        <li>Num Beds</li>
+        <li>Bed Type</li>
+        <li>Room #</li>
+        <li>Bidet</li>
+        <li>Price</li>
+        <li>Add</li>
+      </ul>`
+      let allRooms = sortedAvailableRooms.map(room => {
+        return `<article class="manager-booking-card">
+          <p class="manager-booking-roomtype2">${room.roomType}</p>
+          <p class="manager-booking-numbeds"> ${room.numBeds}</p>
+          <p class="manager-booking-roomnum">${room.bedSize}</p>
+          <p class="manager-booking-roomnum2">${room.number}</p>
+          <p class="manager-booking-bidet"> ${room.bidet}</p>
+          <p class="manager-booking-cost2">$${room.costPerNight.toFixed(2)}</p>
+          <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
+        </article>`
+      }).join(' ')
+    modalContent.insertAdjacentHTML('beforeend', allRooms);
+  } else {
+    modalContent.innerHTML = `<h5 class="no-bookings">${availableRooms}</h5>`;
   }
+}
 
   function openModal(event) {
     if (event.target.classList.contains('add-booking-button')) {

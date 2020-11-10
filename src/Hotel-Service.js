@@ -95,9 +95,19 @@ export default class HotelService {
     }, [])
 
     let rooms = [...this.allRooms];
+
+    let roomCleanUp = rooms.forEach(roomNum => {
+      if (roomNum > 25 || roomNum < 1) {
+        let index = rooms.indexOf(roomNum);
+        rooms.splice(index,1);
+      }
+    })
+
+    console.log('room clean up', rooms)
     if (roomsBooked.length < rooms.length) {
-      roomsBooked.forEach(roomNum => {
+      rooms.forEach(roomNum => {
         rooms.forEach(room => {
+          console.log('currentroom', room);
           if (roomNum === room.number) {
             let index = rooms.indexOf(room);
             rooms.splice(index, 1);
@@ -212,9 +222,13 @@ export default class HotelService {
   }
 
   sortBookingsByDate(bookings) {
-    return bookings.sort((a,b) => {
-      return new Date(b.date) - new Date(a.date);
-    })
+    if (bookings !== 'string' && bookings.length > 0) {
+      return bookings.sort((a,b) => {
+        return new Date(b.date) - new Date(a.date);
+      })
+    } else {
+      return 'Sorry, no rooms available for the selected dates.'
+    }
   }
 
   sortBookingsByRoomNumber(bookings) {
