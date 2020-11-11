@@ -203,7 +203,7 @@ function displayTodayBookings(date) {
   if (typeof bookings !== 'string') {
     let sortedBookings = hotelService.sortBookingsByRoomNumber(bookings);
     let todaysBookingInfo = sortedBookings.map(booking => {
-      return `<article class="manager-booking-card">
+      return `<article class="manager-booking-card" id="${booking.id}">
       <section class="manager-booking-date">
         ${booking.date}
       </section>
@@ -377,9 +377,18 @@ function displayCustomerInfo() {
         body: JSON.stringify(deleteBody)
       })
       .then(response => console.log(response.json()))
-      .then(json => fetchAllData())
+      .then(json => updateBookings(event.target.classList[1]))
       .catch(err => console.log(err))
     }
+  }
+
+  function updateBookings(bookingID) {
+    fetchAllData();
+    setTimeout(removeElement(bookingID), 4000)
+  }
+
+  function removeElement(bookingID) {
+    document.getElementById(bookingID).remove();
   }
 
   function displayCustomerRooms(date) {
