@@ -171,7 +171,7 @@ describe('Hotel Service', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.calculateNumberAvailableRooms('2021/04/22')).to.deep.equal(2)
+      expect(hotelService.calculateNumberAvailableRooms('2021/04/22')).to.deep.equal(3)
     });
 
     it('should return 0 if no rooms are available', () => {
@@ -185,7 +185,7 @@ describe('Hotel Service', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.findAvailableRooms('2021/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
+      expect(hotelService.findAvailableRooms('2021/04/22')).to.deep.equal(sampleRoomData)
     });
 
     it('should be able to retrieve customer bookings', () => {
@@ -221,7 +221,7 @@ describe('Hotel Service', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.calculatePercentageOccupied('2021/04/22')).to.deep.equal('33.3')
+      expect(hotelService.calculatePercentageOccupied('2021/04/22')).to.deep.equal('33')
     });
 
     it('should be able to calculate the total revenue by day', () => {
@@ -239,8 +239,20 @@ describe('Hotel Service', () => {
       expect(hotelService.calculateTotalSpent(user.id)).to.deep.equal(613.39)
     });
 
-    it ('should be able to find the current date', () => {
+    it('should be able to sort bookings by date', () => {
+      expect(hotelService.sortBookingsByDate(sampleBookingData)[0]).to.deep.equal(sampleBookingData[0]);
+    })
+
+    it('should be able to sort bookings by room number', () => {
+      expect(hotelService.sortBookingsByRoomNumber(sampleBookingData)[0]).to.deep.equal(sampleBookingData[0])
+    });
+
+    it('should be able to find the current date', () => {
       expect(hotelService.getTodayDate()).to.deep.equal(hotelService.getTodayDate())
+    });
+
+    it('should be able to format the date in dashes', () => {
+      expect(hotelService.getDashedTodayDate()).to.deep.equal(hotelService.getDashedTodayDate());
     });
 
     it('should be able to add a booking for the current user', () => {
