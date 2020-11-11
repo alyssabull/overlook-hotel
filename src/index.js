@@ -149,15 +149,16 @@ function createUserDropDown() {
 }
 
 function signOut() {
+  debugger
   signOutButton.classList.add('hidden');
+  customerStatus.innerHTML = '';
   managerView.classList.add('hidden');
   customerView.classList.add('hidden');
   enterCredentials.classList.remove('hidden');
+  clearErrorMessage();
   bookRoomHeader = 'Book a Room';
   backToBooking.innerHTML = '';
   customerRooms.innerHTML = '';
-  customerStatus.innerHTML = '';
-  clearErrorMessage();
 }
 
 function loadCustomerInfo() {
@@ -184,7 +185,6 @@ function displayCustomerStats(status, totalSpent) {
 }
 
 function displayHotelOverview(date) {
-  console.log(date)
   let todayRevenue = hotelService.calculateTotalRevenue(date);
   let availableRooms = hotelService.calculateNumberAvailableRooms(date);
   let percentOccupied = hotelService.calculatePercentageOccupied(date);
@@ -231,8 +231,6 @@ function displayTodayBookings(date) {
 }
 
 function determineBookingDate(booking) {
-  console.log('bookingdate', booking.date);
-  console.log('hotelservice date', hotelService.getTodayDate());
   if (booking.date > hotelService.getTodayDate()) {
     return `<button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>`
   } else {
