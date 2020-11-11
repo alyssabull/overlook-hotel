@@ -67,7 +67,7 @@ function fetchAllData() {
     .then(response => response.json())
     .then(data => data.users)
     .catch(err => console.log(err))
-    
+
   let roomPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
     .then(response => response.json())
     .then(data => data.rooms)
@@ -150,8 +150,8 @@ function signOut() {
   managerView.classList.add('hidden');
   customerView.classList.add('hidden');
   enterCredentials.classList.remove('hidden');
-  errorMessage.innerHTML = '';
   bookRoomHeader = 'Book a Room';
+  errorMessage.innerHTML = '';
   backToBooking.innerHTML = '';
   customerRooms.innerHTML = '';
   customerStatus.innerHTML = '';
@@ -170,6 +170,10 @@ function loadCustomerInfo() {
   } else {
     status = 'Blue';
   }
+  displayCustomerStats(status, totalSpent)
+}
+
+function displayCustomerStats(status, totalSpent) {
   let statusInfo = `
   <p class="${status}"><b>${status} Level Preferred</b></p>
   <p>Total Spent: $${totalSpent}</p><button class="view-bookings-button customer-status">View Bookings</button>`;
