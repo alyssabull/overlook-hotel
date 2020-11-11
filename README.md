@@ -69,8 +69,6 @@ To view the test suite:
 
 * A customer can book a room by clicking a date to see the available rooms. Once a date is selected the customer has an option to book a room by clicking the button. They also have the option to filter the rooms by room type by selected which room type they would like to see. Once filtered, the customer can easily go back to view all the rooms by refreshing the filter.
 
-![gif of customer page view](https://media.giphy.com/media/XASdeBvFZqeTgkKzPN/giphy.gif)
-
 
 ### Wins 
 * Creating class structure and corresponding tests from scratch
