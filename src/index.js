@@ -455,40 +455,30 @@ function getFilterValue() {
   let formatCalendarDate = calendarDate.split('-').join('/');
   let availableRooms = hotelService.findAvailableRooms(formatCalendarDate);
   let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
-  if (filterCategories.elements['residential'].checked) {
-    customerRooms.innerHTML = '';
+  customerRooms.innerHTML = '';
+  if (filterCategories.elements[0].value === 'residential') {
     let residentialSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'residential suite');
-    displayFilteredRooms(residentialSuites);
-    bookRoomHeader.innerText = 'Available Residential Suites';
-    filterCategories.classList.add('hidden');
-    filterSubmitButton.classList.add('hidden');
-    filterRefreshButton.classList.remove('hidden');
-  } else if (filterCategories.elements['suite'].checked) {
-    customerRooms.innerHTML = '';
+    formatFilteredView('Residential Suites', residentialSuites);
+  } else if (filterCategories.elements[1].value === 'suite') {
     let suites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'suite');
-    displayFilteredRooms(suites);
-    bookRoomHeader.innerText = 'Available Suites';
-    filterCategories.classList.add('hidden');
-    filterSubmitButton.classList.add('hidden');
-    filterRefreshButton.classList.remove('hidden');
-  } else if (filterCategories.elements['junior'].checked) {
-    customerRooms.innerHTML = '';
+    formatFilteredView('Suites', suites);
+  } else if (filterCategories.elements[2].value === 'junior') {
     let juniorSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'junior suite');
-    displayFilteredRooms(juniorSuites);
-    bookRoomHeader.innerText = `Available Junior Suites`;
-    filterCategories.classList.add('hidden');
-    filterSubmitButton.classList.add('hidden');
-    filterRefreshButton.classList.remove('hidden');
-  } else if (filterCategories.elements['single'].checked) {
-    customerRooms.innerHTML = '';
+    formatFilteredView('Junior Suites', juniorSuites);
+  } else if (filterCategories.elements[3].value === 'single') {
     let singleRooms = hotelService.filterRoomByType(sortedAvailableCustRooms, 'single room');
-    displayFilteredRooms(singleRooms);
-    bookRoomHeader.innerText = `Available Single Rooms`;
-    filterCategories.classList.add('hidden');
-    filterSubmitButton.classList.add('hidden');
-    filterRefreshButton.classList.remove('hidden');
+    formatFilteredView('Single Rooms', singleRooms);
   }
   clearFormValues();
+}
+
+
+function formatFilteredView(roomType, sortedRooms) {
+  displayFilteredRooms(sortedRooms);
+  bookRoomHeader.innerText = `Available ${roomType}`;
+  filterCategories.classList.add('hidden');
+  filterSubmitButton.classList.add('hidden');
+  filterRefreshButton.classList.remove('hidden');
 }
 
 function clearFormValues() {
