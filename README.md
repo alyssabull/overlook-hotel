@@ -1,6 +1,6 @@
 # The OverLook Hotel
 
-## Our Site
+## Deployed Site
 
 >[Deployed GitHub Pages Site](https://alyssabull.github.io/overlook-hotel/)
 
@@ -15,7 +15,7 @@ Download Instructions
 * `cd` into the repo on your local machine
 * In your terminal, run `npm install`
 * In your terminal, run `npm start` to start the server
-* Go to http://localhost:8080/
+* Go to http://localhost:8080/ (or the localhost that your terminal is showing you) in your browser
 
 To view the test suite:
 * Run `npm test` in your terminal
