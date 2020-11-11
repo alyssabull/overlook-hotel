@@ -30,6 +30,14 @@
   @include button-change();
 }
 
+.cannot-delete {
+  font-family: $main-font;
+  margin: 20px;
+  width: 100px;
+  background-color: lightgrey;
+  @include button-styles();
+}
+
 .customer-book-button {
   font-family: $main-font;
   margin: 20px;
@@ -126,7 +134,6 @@
 }
 
 .view-bookings-button {
-  margin: 18px 0px 0px 0px;
   display: flex;
   padding: 0px 40px 0px 40px;
   border: solid 1px;

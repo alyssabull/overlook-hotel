@@ -1,5 +1,8 @@
 import chai from 'chai';
 const expect = chai.expect;
+import sampleUserData from './test-data/users-data';
+import sampleRoomData from './test-data/rooms-data';
+import sampleBookingData from './test-data/bookings-data';
 
 import HotelService from '../src/Hotel-Service.js';
 import User from '../src/User.js';
@@ -7,74 +10,8 @@ import Room from '../src/Room.js';
 import Booking from '../src/Booking.js';
 
 describe('Hotel Service', () => {
-  let sampleUserData;
-  let sampleRoomData;
-  let sampleBookingData;
   let hotelService;
   beforeEach(() => {
-    sampleUserData = [
-      {
-        id: 1,
-        name: 'Ellis Joyner'
-      },{
-        id: 2,
-        name: 'Alyssa Bull'
-      },{
-        id: 3,
-        name: 'Kara Caputo'
-      }
-    ];
-    sampleRoomData = [
-      {
-        number: 1,
-        roomType: 'residential suite',
-        bidet: true,
-        bedSize: 'queen',
-        numBeds: 1,
-        costPerNight: 358.4
-      },{
-        number: 2,
-        roomType: 'suite',
-        bidet: false,
-        bedSize: 'twin',
-        numBeds: 1,
-        costPerNight: 254.99
-      },{
-        number: 3,
-        roomType: 'single room',
-        bidet: false,
-        bedSize: 'queen',
-        numBeds: 1,
-        costPerNight: 186.7
-      }
-    ];
-    sampleBookingData = [
-      {
-        id: '5fwrgu4i7k55hl6sz',
-        userID: 1,
-        date: '2021/04/22',
-        roomNumber: 1,
-        roomServiceCharges: []
-      },{
-        id: '4hwrgu7i7k12hl6dz',
-        userID: 1,
-        date: '2020/10/10',
-        roomNumber: 2,
-        roomServiceCharges: []
-      },{
-        id: 'qewrgu7i7345hl6dz',
-        userID: 3,
-        date: '2020/10/10',
-        roomNumber: 3,
-        roomServiceCharges: []
-      },{
-        id: 'q67dhkjf7345hl6dz',
-        userID: 2,
-        date: '2020/10/10',
-        roomNumber: 1,
-        roomServiceCharges: []
-      }
-    ];
     hotelService = new HotelService(sampleUserData, sampleRoomData, sampleBookingData);
   })
 
@@ -164,14 +101,14 @@ describe('Hotel Service', () => {
     it('should be able to filter room by type', () => {
       hotelService.addRooms();
 
-      expect(hotelService.filterRoomByType(sampleRoomData,'residential suite')).to.deep.equal([sampleRoomData[0]])
+      expect(hotelService.filterRoomByType(sampleRoomData, 'residential suite')).to.deep.equal([sampleRoomData[0]])
     });
 
     it('should be able to find the number of available rooms by day', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.calculateNumberAvailableRooms('2021/04/22')).to.deep.equal(2)
+      expect(hotelService.calculateNumberAvailableRooms('2021/04/22')).to.deep.equal(3)
     });
 
     it('should return 0 if no rooms are available', () => {
@@ -185,7 +122,7 @@ describe('Hotel Service', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.findAvailableRooms('2021/04/22')).to.deep.equal([sampleRoomData[1], sampleRoomData[2]])
+      expect(hotelService.findAvailableRooms('2021/04/22')).to.deep.equal(sampleRoomData)
     });
 
     it('should be able to retrieve customer bookings', () => {
@@ -221,7 +158,7 @@ describe('Hotel Service', () => {
       hotelService.addRooms();
       hotelService.addBookings();
 
-      expect(hotelService.calculatePercentageOccupied('2021/04/22')).to.deep.equal('33.3')
+      expect(hotelService.calculatePercentageOccupied('2021/04/22')).to.deep.equal('33')
     });
 
     it('should be able to calculate the total revenue by day', () => {
@@ -239,13 +176,23 @@ describe('Hotel Service', () => {
       expect(hotelService.calculateTotalSpent(user.id)).to.deep.equal(613.39)
     });
 
-    it ('should be able to find the current date', () => {
+    it('should be able to sort bookings by date', () => {
+      expect(hotelService.sortBookingsByDate(sampleBookingData)[0]).to.deep.equal(sampleBookingData[0]);
+    })
+
+    it('should be able to sort bookings by room number', () => {
+      expect(hotelService.sortBookingsByRoomNumber(sampleBookingData)[0]).to.deep.equal(sampleBookingData[0])
+    });
+
+    it('should be able to find the current date', () => {
       expect(hotelService.getTodayDate()).to.deep.equal(hotelService.getTodayDate())
     });
 
+    it('should be able to format the date in dashes', () => {
+      expect(hotelService.getDashedTodayDate()).to.deep.equal(hotelService.getDashedTodayDate());
+    });
+
     it('should be able to add a booking for the current user', () => {
-      const user = new User(sampleUserData[0]);
-      const roomNumber = 1;
       const result = {userID: 1, date: '2020/11/25', roomNumber: 1};
       hotelService.addRooms();
 
@@ -268,5 +215,4 @@ describe('Hotel Service', () => {
       expect(hotelService.deleteBooking(booking1)).to.equal('Oops! You cannot delete a booking from the past. Select another booking and try again.');
     });
   })
-
 });
