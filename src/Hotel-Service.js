@@ -96,10 +96,10 @@ export default class HotelService {
 
     let rooms = [...this.allRooms];
 
-    let roomCleanUp = rooms.forEach(roomNum => {
+    rooms.forEach(roomNum => {
       if (roomNum > 25 || roomNum < 1) {
         let index = rooms.indexOf(roomNum);
-        rooms.splice(index,1);
+        rooms.splice(index, 1);
       }
     })
 
@@ -169,7 +169,7 @@ export default class HotelService {
       return booking.date === date;
     })
 
-    let percent = (dateBookings.length / this.allRooms.length)*100;
+    let percent = (dateBookings.length / this.allRooms.length) * 100;
 
     return percent.toFixed(0);
   }
@@ -221,7 +221,7 @@ export default class HotelService {
 
   sortBookingsByDate(bookings) {
     if (bookings.length > 0) {
-      return bookings.sort((a,b) => {
+      return bookings.sort((a, b) => {
         return new Date(b.date) - new Date(a.date);
       })
     } else {
@@ -230,7 +230,7 @@ export default class HotelService {
   }
 
   sortBookingsByRoomNumber(bookings) {
-    return bookings.sort((a,b) => {
+    return bookings.sort((a, b) => {
       return a.roomNumber - b.roomNumber;
     })
   }
@@ -239,44 +239,44 @@ export default class HotelService {
     let today = new Date();
     let dd = today.getDate();
 
-    let mm = today.getMonth()+1;
+    let mm = today.getMonth() + 1;
     let yyyy = today.getFullYear();
 
-    if(dd < 10) {
-      dd ='0'+ dd;
+    if (dd < 10) {
+      dd = '0' + dd;
     }
-    if(mm < 10){
-      mm ='0'+ mm;
+    if (mm < 10) {
+      mm = '0' + mm;
     }
-    return today = yyyy+'/'+mm+'/'+dd;
+    return today = yyyy + '/' + mm + '/' + dd;
   }
 
   getDashedTodayDate() {
     let today = new Date();
     let dd = today.getDate();
 
-    let mm = today.getMonth()+1;
+    let mm = today.getMonth() + 1;
     let yyyy = today.getFullYear();
 
-    if(dd < 10) {
-      dd ='0'+ dd;
+    if (dd < 10) {
+      dd = '0' + dd;
     }
-    if(mm < 10){
-      mm ='0'+ mm;
+    if (mm < 10) {
+      mm = '0' + mm;
     }
-    return today = yyyy+'-'+mm+'-'+dd;
+    return today = yyyy + '-' + mm + '-' + dd;
   }
 
   addNewBooking(userID, date, roomNumber) {
-      let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
-        if (room.number == roomNumber) {
-          bookingDetails.userID = parseInt(userID);
-          bookingDetails.date = date;
-          bookingDetails.roomNumber = room.number;
-        }
-        return bookingDetails;
-      }, {})
-      return bookingInfo;
+    let bookingInfo = this.allRooms.reduce((bookingDetails, room) => {
+      if (room.number == roomNumber) {
+        bookingDetails.userID = parseInt(userID);
+        bookingDetails.date = date;
+        bookingDetails.roomNumber = room.number;
+      }
+      return bookingDetails;
+    }, {})
+    return bookingInfo;
   }
 
   deleteBooking(deleteBooking) {
@@ -285,7 +285,7 @@ export default class HotelService {
       this.allBookings.forEach(booking => {
         if (booking.id === deleteBooking.id) {
           let index = this.allBookings.indexOf(booking);
-          this.allBookings.splice(index,1);
+          this.allBookings.splice(index, 1);
         }
       })
     } else {

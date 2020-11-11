@@ -59,7 +59,7 @@ hotelOverviewDate.addEventListener('change', (event) => {
 
 function getRandomIndex() {
   return Math.floor(Math.random() * 10);
-};
+}
 
 function fetchAllData() {
   let userPromise =
@@ -108,7 +108,7 @@ function validateCredentials() {
 
 function loadUserPage() {
   hotelService.allUsers.forEach(user => {
-    if(user.id == userID) {
+    if (user.id == userID) {
       enterCredentials.classList.add('hidden');
       customerView.classList.remove('hidden');
       signOutButton.classList.remove('hidden');
@@ -271,7 +271,7 @@ function displayCustomerInfo() {
       formatCustomerInfo();
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-      viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
+      viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer ${searchCustomerInput.value}. Please enter another name and try again.</b></p>`;
     }
   }
 
@@ -355,7 +355,7 @@ function displayCustomerInfo() {
         body: JSON.stringify(newBooking)
       })
       .then(response => console.log(response.json()))
-      .then(json => {
+      .then(() => {
         fetchAllData();
       })
       .catch(err => console.log(err))
@@ -377,7 +377,7 @@ function displayCustomerInfo() {
         body: JSON.stringify(deleteBody)
       })
       .then(response => console.log(response.json()))
-      .then(json => updateBookings(event.target.classList[1]))
+      .then(() => updateBookings(event.target.classList[1]))
       .catch(err => console.log(err))
     }
   }
