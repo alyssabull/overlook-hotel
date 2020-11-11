@@ -8,11 +8,17 @@
 
 >[Overlook Hotel Solo Project](https://frontend.turing.io/projects/overlook.html)
 
-## Project Team 
+## Set Up 
 
->[Alyssa Bull](https://github.com/alyssabull), contributor
+Download Instructions 
+* After cloning the repo, run `npm install`
+* `cd` into the repo on your local machine
+* In your terminal, run `npm install`
+* In your terminal, run `npm start` to start the server
+* Go to http://localhost:8080/
 
->[Shawn Truesdale](https://github.com/shawntru), PR reviewer
+To view the test suite:
+* Run `npm test` in your terminal
 
 ## Overview
 
@@ -34,6 +40,8 @@
 * CSS and SASS
 * HTML
 * Users, Rooms and Bookings API
+* Webpack
+* Mocha testing framework and Chai assertion library
 
 ## Functionality
 
@@ -41,6 +49,7 @@
 
 * When the page is loaded, a log in page is displayed where the customer or manager can log in with a user name and password. If the credentials are correct, the corresponding page view is loaded, if the credentials are incorrect, an error message is displayed that prompts the user to try again.
 
+![gif of log in page](https://media.giphy.com/media/0LqFpunCG4e6g24oRR/giphy.gif)
 
 #### Manager View
 
@@ -50,6 +59,7 @@
 
 * A manager is also able to add a booking for a customer. When they click the add booking button, a modal will pop up where a date can be selected to see the available rooms. A room can be booked by clicking the button where a confirmaiton message will show that the booking was successful.
 
+![gif of manager page view](https://media.giphy.com/media/12Y8kVHkaE0cwWYAyv/giphy.gif)
 
 #### Customer View
 
@@ -59,8 +69,10 @@
 
 * A customer can book a room by clicking a date to see the available rooms. Once a date is selected the customer has an option to book a room by clicking the button. They also have the option to filter the rooms by room type by selected which room type they would like to see. Once filtered, the customer can easily go back to view all the rooms by refreshing the filter.
 
+![gif of customer page view](https://media.giphy.com/media/XASdeBvFZqeTgkKzPN/giphy.gif)
 
-#### Wins 
+
+### Wins 
 * Creating class structure and corresponding tests from scratch
 * Using correct array iterator methods when needed
 * Successfully completing get, post and delete requests from an API
@@ -68,7 +80,7 @@
 * Separating code into multiple files for readability
 * Creating a user friendly interface
 
-#### Challenges
+### Challenges
 * Writing useful sad path tests
 * Ensuring the class structure was the most clean
 * Focusing on data model first
