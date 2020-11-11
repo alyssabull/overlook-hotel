@@ -21,40 +21,41 @@ import HotelService from './Hotel-Service.js';
 import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, submitButton, usernameInput, viewBookingInfo} from './DOMelements.js';
 
 window.onload = fetchAllData();
-window.addEventListener('click', handleModal);
 
 let hotelService;
 let modal;
 let todayDate;
 let userID;
 
+backToBooking.addEventListener('click', backToCustomerBooking);
+bookARoom.addEventListener('click', customerAddBookings)
+customerStatus.addEventListener('click', displayCustomerBookings);
+filterSection.addEventListener('click', refreshFilter);
+filterSubmitButton.addEventListener('click', getFilterValue);
+searchCustomerButton.addEventListener('click', displayCustomerInfo);
+signOutButton.addEventListener('click', signOut);
 submitButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
+viewBookingInfo.addEventListener('click', deleteBooking);
+window.addEventListener('click', openModal);
+window.addEventListener('click', handleModal);
+bookRoomDate.addEventListener('change', (event) => {
+  let formatDate = `${event.target.value}`.split('-');
+  todayDate = formatDate.join('/');
+  displayCustomerRooms(todayDate);
+});
+bookingModal.addEventListener('change', (event) => {
+  let formatDate = `${event.target.value}`.split('-');
+  todayDate = formatDate.join('/');
+  displayManagerRooms(todayDate);
+});
 hotelOverviewDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   todayDate = formatDate.join('/');
   displayHotelOverview(todayDate);
   displayTodayBookings(todayDate);
 });
-searchCustomerButton.addEventListener('click', displayCustomerInfo);
-window.addEventListener('click', openModal);
-bookingModal.addEventListener('change', (event) => {
-  let formatDate = `${event.target.value}`.split('-');
-  todayDate = formatDate.join('/');
-  displayManagerRooms(todayDate);
-});
-viewBookingInfo.addEventListener('click', deleteBooking);
-signOutButton.addEventListener('click', signOut);
-bookRoomDate.addEventListener('change', (event) => {
-  let formatDate = `${event.target.value}`.split('-');
-  todayDate = formatDate.join('/');
-  displayCustomerRooms(todayDate);
-});
-bookARoom.addEventListener('click', customerAddBookings)
-backToBooking.addEventListener('click', backToCustomerBooking);
-filterSubmitButton.addEventListener('click', getFilterValue);
-filterSection.addEventListener('click', refreshFilter);
-customerStatus.addEventListener('click', displayCustomerBookings)
+
 
 function getRandomIndex() {
   return Math.floor(Math.random() * 10);
@@ -66,10 +67,12 @@ function fetchAllData() {
     .then(response => response.json())
     .then(data => data.users)
     .catch(err => console.log(err))
+    
   let roomPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
     .then(response => response.json())
     .then(data => data.rooms)
     .catch(err => console.log(err))
+
   let bookingPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
     .then(response => response.json())
     .then(data => data.bookings)
@@ -83,7 +86,7 @@ function fetchAllData() {
 
 function loadData() {
   hotelService.start();
-  todayDate = hotelService.getTodayDate()
+  todayDate = hotelService.getTodayDate();
 }
 
 function validateCredentials() {
@@ -97,26 +100,30 @@ function validateCredentials() {
   } else if (usernameInput.value.includes('customer') && passwordInput.value === 'overlook2020') {
     let findUserID = usernameInput.value.split(/(\d+)/);
     userID = findUserID[1];
-    hotelService.allUsers.forEach(user => {
-      if(user.id == userID) {
-        enterCredentials.classList.add('hidden');
-        customerView.classList.remove('hidden');
-        signOutButton.classList.remove('hidden');
-        filterCategories.classList.add('hidden');
-        filterSubmitButton.classList.add('hidden');
-        todayDate = hotelService.getDashedTodayDate();
-        bookRoomDate.setAttribute('value', todayDate);
-        bookRoomDate.setAttribute('min', todayDate);
-        loadCustomerInfo();
-        usernameInput.value = '';
-        passwordInput.value = '';
-      } else {
-        alertLogInError();
-      }
-    })
+    loadUserPage();
   } else {
     alertLogInError();
   }
+}
+
+function loadUserPage() {
+  hotelService.allUsers.forEach(user => {
+    if(user.id == userID) {
+      enterCredentials.classList.add('hidden');
+      customerView.classList.remove('hidden');
+      signOutButton.classList.remove('hidden');
+      filterCategories.classList.add('hidden');
+      filterSubmitButton.classList.add('hidden');
+      todayDate = hotelService.getDashedTodayDate();
+      bookRoomDate.setAttribute('value', todayDate);
+      bookRoomDate.setAttribute('min', todayDate);
+      loadCustomerInfo();
+      usernameInput.value = '';
+      passwordInput.value = '';
+    } else {
+      alertLogInError();
+    }
+  })
 }
 
 function alertLogInError() {
