@@ -254,14 +254,18 @@ function displayCustomerInfo() {
         </section>
         </article>`
       }).join(' ')
-      searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-      searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>`)
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
-      searchCustomerInput.value = '';
+      formatCustomerInfo();
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
       viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
     }
+  }
+
+  function formatCustomerInfo() {
+    searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
+    searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>`)
+    searchCustomerInput.value = '';
   }
 
   function displayManagerRooms(date) {
