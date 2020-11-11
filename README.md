@@ -1,105 +1,92 @@
-# Webpack Starter Kit
+# The OverLook Hotel
 
-## Clone This Repo
+## Our Site
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
+>[Deployed GitHub Pages Site]()
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+## Project Specs and Rubric
 
-Now try to commit something and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
+>[Overlook Hotel Solo Project](https://frontend.turing.io/projects/overlook.html)
 
-## Setup
+## Project Team 
 
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo. 
+>[Alyssa Bull](https://github.com/alyssabull), contributor
 
-Then install the library dependencies. Run:
+>[Shawn Truesdale](https://github.com/shawntru), PR reviewer
 
-```bash
-npm install
-```
+## Overview
 
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with some `h1` text, Turing logo image and a beautiful gradient background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
+* In this project, I created a website application for a hotel - The Overlook. The website has a customer and manager interface where bookings can be viewed, added or deleted. Customers can also browse available rooms and filter by room type. It provides a user friendly interface without compromising functionality.
 
-## Where to Add Your Code
+## Project Goals
 
-### JavaScript
+* Implement ES6 classes that communicate to each other as needed
+* Implement a robust testing suite using TDD
+* Use object and array prototype methods to perform data manipulation
+* Create a user interface that is easy to use and displays information in a clear way
 
-You have to be very intentional with where you add your feature code. This repo uses a tool called [webpack](https://webpack.js.org/) to combine many JavaScript files into one big file. Webpack enables you to have many, separate JavaScript files to keep your code organized and readable. Webpack expects all of your code files to be in a specific place, or else it doesn't know how to combine them all behind the scenes.
+## Functionality
 
-**Create all of your feature code files in the `src` directory.**
+#### Home Page
 
-Since code is separated into multiple files, you need to use the `import` and `export` syntax to share code across file.
+* When the user loads the page, a home page is displayed that features an 'All Recipes' section as well as a search section. The 'All Recipes' section shows a list of recipes that a user may view and add to their favorites or recipes to cook if they desire. The search section allows a user to filter recipes by category or ingredient.
 
-Here is a video that walks through some information about [import and export](https://www.youtube.com/watch?v=_3oSWwapPKQ). There are a lot of resources out there about `import` and `export`, and resources will sometimes call them `ES6 modules`. It's something you will see in React and beyond.
+![Screen Shot 2020-10-21 at 7 58 04 PM](https://user-images.githubusercontent.com/67242223/96809320-dce7b080-13d7-11eb-8595-30dc6e745a02.png)
 
-### HTML
+#### Navigation Bar
 
-Add the HTML you need in the `index.html` file in the `./src` directory. There is some boilerplate HTML that exists from the start that you can modify.
+* The navigation bar at the top of the page can be used to navigate through the different pages, such as the home page, a user's favorites, a user's recipes to cook, and a user's pantry.
+* There is also a 'User' button that when clicked will assign a new user and a new pantry associated with that user.
 
-### CSS (SCSS/SASS)
+![Screen Shot 2020-10-21 at 8 00 30 PM](https://user-images.githubusercontent.com/67242223/96809425-16b8b700-13d8-11eb-86d4-536e2db76b3c.png)
 
-This project is setup to use SCSS/SASS files by default instead of your regular CSS files. Add your SCSS files in the `src/css` directory. There is a `base.scss` file already there, but you can change this file and add multiple SCSS files in this directory.
+#### Searching For Recipes
 
-This might sound weird, but you need to `import` your SCSS files in the JavaScript entry file (`index.js`) for the styles to be applied to your HTML. The example `base.scss` file has already been imported in the JavaScript entry file as an example.
+* The search section appears on the left hand side of the screen when the user is on the home page, favorite recipes page, or the recipes to cook page.
+* The search results will change based on the page the user is on
 
-### Images
+![Screen Shot 2020-10-21 at 8 01 37 PM](https://user-images.githubusercontent.com/67242223/96809626-7dd66b80-13d8-11eb-9dfe-b9b143f2867c.png)
 
-Add your image files in the `src/images` directory. Similar to CSS files, you need to `import` image files in the JavaScript entry file (`index.js`). Then go into the HTML and add an `img` element with the `src` attribute pointing to the `images` directory. There is an example in the `index.html` file for you to see.
+#### Recipe Page
 
-## How to View Your Code in Action
+* When a user clicks on a recipe, they are taken to that recipe's page.  They then can view the ingredients and instructions required for the recipe.
+* A user can also click a 'Check Pantry Stock' button (described below)
 
-In the terminal, run:
+![Screen Shot 2020-10-21 at 8 04 13 PM](https://user-images.githubusercontent.com/67242223/96809767-9ba3d080-13d8-11eb-956e-263eaa524f81.png)
 
-```bash
-npm start
-```
+#### Checking Pantry Stock
 
-You will see a bunch of lines output to your terminal. One of those lines will be something like:
+* After a recipe is selected, the user has the option to 'Check Pantry Stock'.  This will tell them which ingredients they are missing and how much of that ingredient they need.
 
-```bash
-Project is running at http://localhost:8080/
-```
+![Screen Shot 2020-10-21 at 8 05 18 PM](https://user-images.githubusercontent.com/67242223/96810272-c42bca80-13d8-11eb-8ef9-cf57931e788a.png)
 
-Go to `http://localhost:8080/` in your browser to view your code running in the browser.
+#### Favorited Recipes Page
 
----
+* After a user has favorited some recipes, they may click the 'Favorites' button on the NAV to take them to their favorited recipes.
 
-## Test Files Organization
+![Screen Shot 2020-10-21 at 8 06 27 PM](https://user-images.githubusercontent.com/67242223/96810819-ed4c5b00-13d8-11eb-97b1-6fc268360238.png)
 
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
+#### Recipes To Cook Page
 
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
+* After a user has selected some recipes to cook, they may click the 'Recipes To Cook' button on the NAV to take them to their recipes to cook.
 
-## Running Your Tests
+![Screen Shot 2020-10-21 at 8 07 34 PM](https://user-images.githubusercontent.com/67242223/96811265-140a9180-13d9-11eb-9d08-26d64e7cc60f.png)
 
-Run your test suite using the command:
+#### User Pantry
 
-```bash
-npm test
-```
+* A user can click on the 'Pantry' button on the NAV to view all of their ingredients, along with the amount that they have.
 
-The test results will output to the terminal.
+![Screen Shot 2020-10-21 at 8 08 27 PM](https://user-images.githubusercontent.com/67242223/96811888-43b99980-13d9-11eb-9859-d4b984a02eca.png)
 
----
+#### Wins 
+* Creating class structure and corresponding tests from scratch
+* Using correct array iterator methods when needed
+* Connecting our Class JS files to our main JS file
+* Consistent Git workflow
+* Solid collaboration methods
 
-## Linting Your Code
-
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory. 
-
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+#### Challenges
+* Writing useful sad path tests
+* Having Class methods be useful/accurate before DOM manipulation
+* Focusing on data model first
+* Refactoring code right after it’s written (instead of waiting to do it later)
