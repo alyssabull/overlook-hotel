@@ -219,7 +219,7 @@ function displayTodayBookings(date) {
       <section class="manager-booking-id">
         ${booking.id}
       </section>
-        <button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>
+        ${determineBookingDate(booking)}
       </article>`
     }).join(' ')
     viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
@@ -227,6 +227,16 @@ function displayTodayBookings(date) {
   } else {
     searchTitle.innerText = 'Bookings for --';
     viewBookingInfo.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
+  }
+}
+
+function determineBookingDate(booking) {
+  console.log('bookingdate', booking.date);
+  console.log('hotelservice date', hotelService.getTodayDate());
+  if (booking.date > hotelService.getTodayDate()) {
+    return `<button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>`
+  } else {
+    return '<button type="button" class="cannot-delete">-</button>';
   }
 }
 
@@ -253,7 +263,7 @@ function displayCustomerInfo() {
         <section class="manager-booking-id">
           ${booking.id}
         </section>
-          <button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>
+          ${determineBookingDate(booking)}
         </section>
         </article>`
       }).join(' ')
