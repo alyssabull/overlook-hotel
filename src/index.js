@@ -154,10 +154,10 @@ function signOut() {
   customerView.classList.add('hidden');
   enterCredentials.classList.remove('hidden');
   bookRoomHeader = 'Book a Room';
-  errorMessage.innerHTML = '';
   backToBooking.innerHTML = '';
   customerRooms.innerHTML = '';
   customerStatus.innerHTML = '';
+  clearErrorMessage();
 }
 
 function loadCustomerInfo() {
@@ -382,9 +382,9 @@ function displayCustomerInfo() {
     }
   }
 
-  function updateBookings(bookingID) {
+  function updateBookings(id) {
     fetchAllData();
-    setTimeout(removeElement(bookingID), 4000)
+    setTimeout(removeElement(id), 4000)
   }
 
   function removeElement(bookingID) {
@@ -426,7 +426,6 @@ function displayCustomerInfo() {
      let newBooking = hotelService.addNewBooking(userID, todayDate, event.target.classList[1]);
      customerStatus.innerHTML = ''
      postNewBooking(newBooking);
-     fetchAllData();
      loadCustomerInfo();
      event.target.classList.remove('customer-book-button');
      event.target.classList.add('booked-room');
@@ -443,6 +442,7 @@ function displayCustomerBookings(event) {
     backToBooking.insertAdjacentHTML('beforeend', `<button class="back-to-book-button">Book a Room</button>`);
     let bookings = hotelService.findCustomerBookings(userID);
     let sortedBookings = hotelService.sortBookingsByDate(bookings);
+    console.log('sortedbookings', sortedBookings);
       if (sortedBookings.length > 0) {
         let todaysBookingInfo = sortedBookings.map(booking => {
           return `<article class="today-booking-card">
@@ -451,7 +451,7 @@ function displayCustomerBookings(event) {
             <p class="room-type">${booking.roomType}</p>
             <p class="room-number"><b>Room Number:</b> ${booking.roomNumber}</p>
             <p class="stay-date"><b>Date Booked:</b> ${booking.date}</p>
-            <p class="confirmation-number"><b>Confirmation:</b> ${booking.id}</p>
+            <p class="confirmation-number"><b>Confirmation:</b>${booking.id}</p>
           </section>
           <section class="delete-booking">
             <p class="room-price">$${booking.costPerNight.toFixed(2)}</p>
