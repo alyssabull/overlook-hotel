@@ -2,7 +2,7 @@
 
 ## Our Site
 
->[Deployed GitHub Pages Site]()
+>[Deployed GitHub Pages Site](https://alyssabull.github.io/overlook-hotel/)
 
 ## Project Specs and Rubric
 
@@ -16,29 +16,39 @@
 
 ## Overview
 
-* In this project, I created a website application for a hotel - The Overlook. The website has a customer and manager interface where bookings can be viewed, added or deleted. Customers can also browse available rooms and filter by room type. It provides a user friendly interface without compromising functionality.
+* In this project, I created a website application for a hotel - The Overlook. The website has a customer and manager interface where bookings can be viewed, added or deleted from an API. Customers can also browse available rooms and filter by room type. It provides a user friendly interface with and easy layout to provide maximum functionality.
 
 ## Project Goals
 
 * Implement ES6 classes that communicate to each other as needed
 * Implement a robust testing suite using TDD
+* Work with an API to get, post and delete data
+* Refactor CSS styles using SASS
+* Separate code in separate files for readability
 * Use object and array prototype methods to perform data manipulation
 * Create a user interface that is easy to use and displays information in a clear way
 
 ## Functionality
 
-#### Home Page
+#### Log In Page
 
-* When the user loads the page, a home page is displayed that features an 'All Recipes' section as well as a search section. The 'All Recipes' section shows a list of recipes that a user may view and add to their favorites or recipes to cook if they desire. The search section allows a user to filter recipes by category or ingredient.
+* When the page is loaded, a log in page is displayed where the customer or manager can log in with a user name and password. If the credentials are correct, the corresponding page view is loaded, if the credentials are incorrect, an error message is displayed that prompts the user to try again.
 
-![Screen Shot 2020-10-21 at 7 58 04 PM](https://user-images.githubusercontent.com/67242223/96809320-dce7b080-13d7-11eb-8595-30dc6e745a02.png)
 
-#### Navigation Bar
 
-* The navigation bar at the top of the page can be used to navigate through the different pages, such as the home page, a user's favorites, a user's recipes to cook, and a user's pantry.
-* There is also a 'User' button that when clicked will assign a new user and a new pantry associated with that user.
+#### Manager View
 
-![Screen Shot 2020-10-21 at 8 00 30 PM](https://user-images.githubusercontent.com/67242223/96809425-16b8b700-13d8-11eb-86d4-536e2db76b3c.png)
+* When logged in as manager, there are options of information that can be viewed. The manager can select a date to see an overview of the hotel including the number of rooms occupied for a certain day as well as the rooms bookings for that current date. If the date is in the future, the manager has an option to delete that booking.
+
+
+
+* A manager can search for customers from the drop down menu and view their information including total spent and their booking history. The manager can delete a customer's booking if the date is in the future.
+
+
+
+* A manager is also able to add a booking for a customer. When they click the add booking button, a modal will pop up where a date can be selected to see the available rooms. A room can be booked by clicking the button where a confirmaiton message will show that the booking was successful.
+
+
 
 #### Searching For Recipes
 
