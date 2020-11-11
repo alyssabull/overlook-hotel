@@ -139,7 +139,10 @@ function clearErrorMessage() {
 
 function createUserDropDown() {
   let dropDown = document.getElementById('customers');
-  let customerNames = hotelService.allUsers.map(user => {
+  let sortCustomerNames = hotelService.allUsers.sort((a, b) => {
+    return a.name < b.name ? -1 : 1;
+  })
+  let customerNames = sortCustomerNames.map(user => {
     return `<option value="${user.name}">`
   }).join('');
   dropDown.insertAdjacentHTML('afterbegin', customerNames);
