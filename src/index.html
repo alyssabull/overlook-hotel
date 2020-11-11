@@ -28,8 +28,12 @@
           <p class="overview-default" id="overview-info">Please select a date.</p>
           <section class="customer-search-bar">
           <h3 class="search-customers">Search Customers</h3>
-          <input type="text" name="customer search" placeholder="type customer name to view their bookings" class="search-customer-name">
-          <button type="button" class="search-button" id="search-customer-button">SEARCH</button>
+          <form>
+            <input list="customers" name="browser" class="search-customer-name">
+            <datalist id="customers">
+            </datalist>
+          </form>
+          <input type="submit" class="search-button" id="search-customer-button">
         </section>
       </article>
       <h5 class="search-title">Bookings for --</h5>
@@ -97,11 +101,5 @@
       </section>
       </aside>
     </section>
-    <!-- <footer class="awards-section">
-      <img src="https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/65/2017/10/18091714/world_luxury_hotel_awards-e1508318281201.png" class="award-image">
-      <img src="https://www.unicohotelrivieramaya.com/link/952417ae745a42dab28159291fe30b12.aspx" class="award-image">
-      <img src="https://www.unicohotelrivieramaya.com/link/2aa2572097774a8ab5b9d7e3435bda6d.aspx" class="award-image">
-      <img src="https://lh3.googleusercontent.com/proxy/EE4cmTZ-GFZL1vVxkzyXTUCwhDu-5zeHUSszGqShylOkCT-dlXRpguf4aJ6y7TTeOzrxE4S0J8_q15gntlppyQ9H8hogatOhrdMdAz7IgKI32MdJJhCfQ-ntAQEzuNgQHUzLwLddsIMGOhBu2KuOzwAGHK4PCBECgs6dOLX5" class="award-image">
-    </footer> -->
   </body>
 </html>

@@ -18,7 +18,7 @@ import './images/room15.jpg'
 import './images/room16.jpg'
 import HotelService from './Hotel-Service.js';
 
-import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessag, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, submitButton, usernameInput, viewBookingInfo} from './DOMelements.js';
+import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, submitButton, usernameInput, viewBookingInfo} from './DOMelements.js';
 
 window.onload = fetchAllData();
 window.addEventListener('click', handleModal);
@@ -88,6 +88,7 @@ function loadData() {
 
 function validateCredentials() {
   if (usernameInput.value === 'manager' && passwordInput.value === 'overlook2020') {
+    createUserDropDown();
     enterCredentials.classList.add('hidden');
     managerView.classList.remove('hidden');
     signOutButton.classList.remove('hidden');
@@ -127,6 +128,14 @@ function alertLogInError() {
 
 function clearErrorMessage() {
   errorMessage.innerText = '';
+}
+
+function createUserDropDown() {
+  let dropDown = document.getElementById('customers');
+  let customerNames = hotelService.allUsers.map(user => {
+    return `<option value="${user.name}">`
+  }).join('');
+  dropDown.insertAdjacentHTML('afterbegin', customerNames);
 }
 
 function signOut() {
@@ -237,6 +246,7 @@ function displayCustomerInfo() {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
       searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>`)
       viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+      searchCustomerInput.value = '';
     } else {
       searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
       viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer \'${searchCustomerInput.value}\'. Please enter another name and try again.</b></p>`;
