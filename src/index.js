@@ -180,33 +180,29 @@ function displayHotelOverview() {
       <b>Percentage Occupied:</b> &nbsp; ${percentOccupied}%
     `;
   overviewInfo.innerHTML = overview;
+  displayTodayBookings();
 }
 
-function displayTodayBookings(date) {
+function displayTodayBookings() {
+  let date = hotelService.getTodayDate();
   viewBookingInfo.innerHTML = '';
   searchTitle.innerHTML = '';
   let bookings = hotelService.findBookings(date);
   if (typeof bookings !== 'string') {
     let sortedBookings = hotelService.sortBookingsByRoomNumber(bookings);
+    console.log(sortedBookings);
     let todaysBookingInfo = sortedBookings.map(booking => {
       return `<article class="manager-booking-card" id="${booking.id}">
-      <section class="manager-booking-date">
-        ${booking.date}
-      </section>
-      <section class="manager-booking-roomtype">
-        ${booking.roomType.toUpperCase()}
-      </section>
-      <section class="manager-booking-roomnum">
-        ${booking.roomNumber}
-      </section>
-      <section class="manager-booking-cost">
-        $${booking.costPerNight.toFixed(2)}
-      </section>
-      <section class="manager-booking-id">
-        ${booking.id}
-      </section>
-        ${determineBookingDate(booking)}
-      </article>`
+      <br>
+      <div class="grid-container">
+        <div class="grid-item">${booking.date}</div>
+        <div class="grid-item">${booking.guestName}</div>
+        <div class="grid-item">${booking.roomType.toUpperCase()}</div>
+        <div class="grid-item">${booking.roomNumber}</div>
+        <div class="grid-item">${booking.bedSize}</div>
+        <div class="grid-item">$${booking.costPerNight.toFixed(2)}</div>
+        <div class="grid-item">${booking.id}</div>
+      </div>`
     }).join(' ')
     viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
     searchTitle.innerText = `Bookings for ${date}`;

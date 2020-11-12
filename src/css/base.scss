@@ -136,9 +136,15 @@ header {
 
 .grid-container {
   display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
   justify-content: space-around;
   font-family: 'Comfortaa', cursive;
   font-size: 13px;
+}
+
+.grid-header {
+  font-size: 15px;
 }
 
 .grid-item {
