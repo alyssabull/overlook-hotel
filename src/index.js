@@ -17,6 +17,7 @@ signOutButton.addEventListener('click', signOut);
 customerDirectoryButton.addEventListener('click', displayBookARoomView);
 searchCustomersForBookingButton.addEventListener('click', displayRoomSearch);
 viewAvailableRooms.addEventListener('click', bookARoom);
+homeButton.addEventListener('click', goHomeManagerView);
 // viewCustomerBookingsButton.addEventListener('click', viewCustomerBookings);
 
 searchCustomerNameDropDown.addEventListener('change', (event) => {
@@ -102,6 +103,7 @@ function signOut() {
   managerView.classList.add('hidden');
   // customerView.classList.add('hidden');
   enterCredentials.classList.remove('hidden');
+  todayHotelBookings.classList.add('hidden');
   clearErrorMessage();
   // bookRoomHeader = 'Book a Room';
   // backToBooking.innerHTML = '';
@@ -116,6 +118,15 @@ function createUserDropDown() {
     return `<option value="${user.name}">`
   }).join('');
   dropDown.insertAdjacentHTML('afterbegin', customerNames);
+}
+
+function goHomeManagerView() {
+  homeButton.disabled = true;
+  customerDirectoryButton.disabled = false;
+  todayHotelOverview.classList.remove('hidden');
+  todayHotelBookings.classList.remove('hidden');
+  customerBookingSearchBar.classList.add('hidden');
+  viewAvailableRooms.classList.add('hidden');
 }
 
 function displayHotelOverview() {
@@ -135,7 +146,6 @@ function displayHotelOverview() {
 
 function displayTodayBookings() {
   let date = hotelService.getTodayDate();
-  // todayHotelBookings.innerHTML = '';
   todayHotelBookingsTitle.innerHTML = '';
   let bookings = hotelService.findBookings(date);
   if (typeof bookings !== 'string') {
@@ -194,7 +204,7 @@ function displayAvailableRooms(date) {
         <div class="grid-item">${room.roomType.toUpperCase()}</div>
         <div class="grid-item">${room.number}</div>
         <div class="grid-item">${room.bedSize.toUpperCase()}</div>
-        <div class="grid-item">${room.bidet}</div>
+        <div class="grid-item">${room.bidet.toString().toUpperCase()}</div>
         <div class="grid-item">$${room.costPerNight.toFixed(2)}</div>
         <div class="grid-item">
         <button type="button" class="book-room ${room.number}" id="button-${room.number}">BOOK ROOM</button></div>

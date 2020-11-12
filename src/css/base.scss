@@ -145,7 +145,7 @@ header {
   margin-bottom: 2%;
   width: 150px;
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .grid-header {
@@ -273,6 +273,14 @@ header {
 
 #customer-bookings {
   display: flex;
+}
+
+.no-bookings {
+  font-family: 'Comfortaa', cursive;
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+  font-size: 14px;
 }
 
 .hidden {
