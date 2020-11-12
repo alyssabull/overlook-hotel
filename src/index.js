@@ -1,24 +1,7 @@
 import './css/base.scss';
-import './images/room0.jpg'
-import './images/room1.jpg'
-import './images/room2.jpg'
-import './images/room3.jpg'
-import './images/room4.jpg'
-import './images/room5.jpg'
-import './images/room6.jpg'
-import './images/room7.jpg'
-import './images/room8.jpg'
-import './images/room9.jpg'
-import './images/room10.jpg'
-import './images/room11.jpg'
-import './images/room12.jpg'
-import './images/room13.jpg'
-import './images/room14.jpg'
-import './images/room15.jpg'
-import './images/room16.jpg'
 import HotelService from './Hotel-Service.js';
 
-import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, submitButton, usernameInput, viewBookingInfo} from './DOMelements.js';
+import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, usernameInput, viewBookingInfo} from './DOMelements.js';
 
 window.onload = fetchAllData();
 
@@ -34,7 +17,7 @@ filterSection.addEventListener('click', refreshFilter);
 filterSubmitButton.addEventListener('click', getFilterValue);
 searchCustomerButton.addEventListener('click', displayCustomerInfo);
 signOutButton.addEventListener('click', signOut);
-submitButton.addEventListener('click', validateCredentials);
+loginButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
 viewBookingInfo.addEventListener('click', deleteBooking);
 window.addEventListener('click', openModal);

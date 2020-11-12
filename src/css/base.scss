@@ -3,23 +3,42 @@ body {
   background-size: 100%;
 }
 
-.hidden {
-  display: none;
-}
+// Hotel Banner
 
 header {
   display: flex;
+  justify-content: space-between;
   background-color: white;
   height: 90px;
   margin: -14px;
 }
 
 .header-name {
+  display: flex;
+  flex-direction: column;
   font-family: 'Comfortaa', cursive;
   font-size: 30px;
   padding-left: 20px;
   padding-top: 2px;
 }
+
+.header-button {
+  height: 18%;
+  margin: 40px 20px 40px 20px;
+  font-family: 'Comfortaa', cursive;
+  font-size: 11px;
+  background-color: white;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+.header-button:hover {
+  cursor: pointer;
+  color: darkgrey;
+}
+
+// Login Page
 
 .enter-credentials {
   font-family: 'Comfortaa', cursive;
@@ -41,9 +60,11 @@ header {
   width: 50%;
   height: 18%;
   margin: 3% 0% 5% 0%;
+  outline: none;
 }
 
 .login-button {
+  font-family: 'Comfortaa', cursive;
   margin-top: 5%;
   padding: 2%;
   width: 40%;
@@ -55,4 +76,28 @@ header {
 .login-button:hover {
   cursor: pointer;
   background-color: lightgrey;
+}
+
+.error-message {
+  font-family: 'Comfortaa', cursive;
+  font-size: 12px;
+  margin-left: 4%;
+}
+
+// Manager View
+
+.today-overview {
+  display: flex;
+  font-family: 'Comfortaa', cursive;
+  font-size: 16px;
+  margin-top: 2%;
+}
+
+.overview-title {
+
+}
+
+
+.hidden {
+  display: none;
 }

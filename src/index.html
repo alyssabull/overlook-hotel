@@ -8,10 +8,13 @@
   <body>
     <header>
       <p class="header-name">Overlook Hotel</p>
-      <button type="button" class="signout-button hidden">SIGN OUT</button>
+      <section class="header-buttons">
+        <button type="button" class="header-button bookroom-button">BOOK A ROOM</button>
+        <button type="button" class="header-button searchcustomers-button">SEARCH CUSTOMERS</button>
+        <button type="button" class="header-button signout-button">SIGN OUT</button>
+      </section>
     </header>
-    <!-- -->
-    <section class="enter-credentials">
+    <section class="enter-credentials hidden">
         <h2>Please Log In</h2>
         <label for="username" class="credentials">Username</label>
         <input type="text" name="username" class="username login-info" aria-label="username">
@@ -20,11 +23,11 @@
         <button type="button" class="login-button">ENTER</button>
         <p class="error-message"></p>
     </section>
-    <section class="manager-view hidden">
+    <section class="manager-view">
       <article class="today-overview">
         <p class="overview-title"><b>Hotel Overview for</b></p>
-        <input type="date" class="hotel-overview-date">
-          <p class="overview-default" id="overview-info">Please select a date.</p>
+        <!-- <input type="date" class="hotel-overview-date"> -->
+        <!-- <p class="overview-default" id="overview-info">Please select a date.</p> -->
           <section class="customer-search-bar">
           <h3 class="search-customers">Search Customers</h3>
           <form>

@@ -24,6 +24,6 @@ export let searchCustomerButton = document.querySelector('#search-customer-butto
 export let searchCustomerInput = document.querySelector('.search-customer-name');
 export let searchTitle = document.querySelector('.search-title');
 export let signOutButton = document.querySelector('.signout-button');
-export let submitButton = document.querySelector('.submit-button');
+export let loginButton = document.querySelector('.login-button');
 export let usernameInput = document.querySelector('.username');
 export let viewBookingInfo = document.querySelector('.view-information');
