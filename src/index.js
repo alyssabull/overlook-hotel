@@ -186,6 +186,7 @@ function displayCustomerStats(status, totalSpent) {
 
 function displayHotelOverview(date) {
   let todayRevenue = hotelService.calculateTotalRevenue(date);
+  debugger
   let availableRooms = hotelService.calculateNumberAvailableRooms(date);
   let percentOccupied = hotelService.calculatePercentageOccupied(date);
   let overview = `Revenue &nbsp; $${todayRevenue} <br>
@@ -241,6 +242,7 @@ function determineBookingDate(booking) {
 function displayCustomerInfo() {
   viewBookingInfo.innerHTML = '';
   userID = hotelService.findUserId(searchCustomerInput.value);
+  fetchAllData();
   let bookings = hotelService.findCustomerBookings(userID);
   let sortedBookings = hotelService.sortBookingsByDate(bookings);
   if (sortedBookings.length > 0) {
@@ -276,7 +278,6 @@ function displayCustomerInfo() {
 function formatCustomerInfo() {
   searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
   searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>`)
-  searchCustomerInput.value = '';
 }
 
 function displayManagerRooms(date) {
