@@ -43,28 +43,28 @@
           <div class="grid-header"><u>Confirmation</u></div>
         </div>
       </section>
-      <section class="customer-search-bar hidden">
+      <section class="customer-booking-search-bar hidden">
         <h3 class="search-customers">SELECT A CUSTOMER TO BOOK A ROOM</h3>
         <form>
           <input list="customers" name="browser" class="search-customer-name">
           <datalist id="customers">
-            <option value="Angus Swift">
           </datalist>
         </form>
-        <input type="submit" class="search-button" id="search-customer-button">
+        <input type="submit" class="search-customers-forbooking-button" id="search-customer-button">
+        <p class="error-message"></p>
       </section>
-      <section class="view-information hidden">
+      <section class="view-available-rooms hidden">
         <article class="bookings-for-title">
-          <h3 class="bookings-header">Bookings for</h3>
-          <input type="date" class="bookings-date">
+          <h3 class="manager-book-room-header"></h3>
+          <input type="date" id="manager-book-room-date">
         </article>
-        <div class="grid-container" class="grid-header" id="customer-bookings">
-          <div class="grid-item"><u>Room Type</u></div>
-          <div class="grid-item"><u>Room #</u></div>
-          <div class="grid-item"><u>Bed Size</u></div>
-          <div class="grid-item"><u>Bidet</u></div>
-          <div class="grid-item"><u>Cost</u></div>
-          <div class="grid-item"><u>Book Room</u></div>
+        <div class="grid-container" id="customer-bookings">
+          <div class="grid-header"><u>Room Type</u></div>
+          <div class="grid-header"><u>Room #</u></div>
+          <div class="grid-header"><u>Bed Size</u></div>
+          <div class="grid-header"><u>Bidet</u></div>
+          <div class="grid-header"><u>Cost</u></div>
+          <div class="grid-header"><u>Book Room</u></div>
         </div>
         <div id="grid-column">
         </div>

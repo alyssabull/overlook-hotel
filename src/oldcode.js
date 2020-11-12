@@ -17,11 +17,7 @@ searchCustomerButton.addEventListener('click', displayBookARoom);
 viewBookingInfo.addEventListener('click', deleteBooking);
 window.addEventListener('click', openModal);
 window.addEventListener('click', handleModal);
-bookRoomDate.addEventListener('change', (event) => {
-  let formatDate = `${event.target.value}`.split('-');
-  todayDate = formatDate.join('/');
-  displayCustomerRooms(todayDate);
-});
+
 // bookingModal.addEventListener('change', (event) => {
 //   let formatDate = `${event.target.value}`.split('-');
 //   todayDate = formatDate.join('/');
@@ -71,16 +67,7 @@ function loadUserPage() {
 
 
 
-function createUserDropDown() {
-  let dropDown = document.getElementById('customers');
-  let sortCustomerNames = hotelService.allUsers.sort((a, b) => {
-    return a.name < b.name ? -1 : 1;
-  })
-  let customerNames = sortCustomerNames.map(user => {
-    return `<option value="${user.name}">`
-  }).join('');
-  dropDown.insertAdjacentHTML('afterbegin', customerNames);
-}
+
 
 
 
@@ -162,29 +149,7 @@ function formatCustomerInfo() {
   searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>`)
 }
 
-function displayManagerViewRooms(date) {
-  let availableRooms = hotelService.findAvailableRooms(date);
-  if (typeof availableRooms !== 'string') {
-    let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
-    console.log(sortedAvailableRooms)
-    let gridColumn = document.getElementById('grid-column');
-    let allRooms = sortedAvailableRooms.map(room => {
-      return `
-      <div class="grid-row">
-        <div class="grid-item">${room.roomType.toUpperCase()}</div>
-        <div class="grid-item">${room.number}</div>
-        <div class="grid-item">${room.bedSize.toUpperCase()}</div>
-        <div class="grid-item">${room.bidet}</div>
-        <div class="grid-item">$${room.costPerNight.toFixed(2)}</div>
-        <div class="grid-item">
-        <button type="button" class="book-room ${room.number}">BOOK ROOM</button></div>
-      </div>`
-    }).join(' ')
-    gridColumn.insertAdjacentHTML('beforeend', allRooms);
-  } else {
-    modalContent.innerHTML = `<h5 class="no-bookings">${availableRooms}</h5>`;
-  }
-}
+
 
 
 
@@ -248,21 +213,6 @@ function handleModal(event) {
   } else if (event.target === modal) {
     modal.style.display = 'none';
   }
-}
-
-function postNewBooking(newBooking) {
-  return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newBooking)
-  })
-    .then(response => console.log(response.json()))
-    .then(() => {
-      fetchAllData();
-    })
-    .catch(err => console.log(err))
 }
 
 function deleteBooking(event) {
