@@ -79,11 +79,9 @@ export default class HotelService {
   }
 
   calculateNumberAvailableRooms(date) {
-    if (typeof this.findAvailableRooms(date) === 'string') {
-      return 0;
-    } else {
-      return this.findAvailableRooms(date).length
-    }
+    let percent = this.calculatePercentageOccupied(date) / 100;
+    let occupiedRooms = percent * 25;
+    return 25 - occupiedRooms;
   }
 
   findAvailableRooms(date) {

@@ -14,7 +14,7 @@
         <button type="button" class="header-button signout-button">SIGN OUT</button>
       </section>
     </header>
-    <section class="enter-credentials hidden">
+    <section class="enter-credentials">
         <h2>Please Log In</h2>
         <label for="username" class="credentials">Username</label>
         <input type="text" name="username" class="username login-info" aria-label="username">
@@ -23,11 +23,11 @@
         <button type="button" class="login-button">ENTER</button>
         <p class="error-message"></p>
     </section>
-    <section class="manager-view">
+    <section class="manager-view hidden">
       <article class="today-overview">
-        <h4 class="overview-title"><b>Hotel Overview for</b></h4>
+        <h4 class="overview-title"></h4>
         <!-- <input type="date" class="hotel-overview-date"> -->
-        <!-- <p class="overview-default" id="overview-info">Please select a date.</p> -->
+        <section class="overview-default" id="overview-info"></section>
           <!-- <section class="customer-search-bar">
           <h3 class="search-customers">Search Customers</h3>
           <form>

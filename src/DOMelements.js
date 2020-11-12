@@ -27,3 +27,4 @@ export let signOutButton = document.querySelector('.signout-button');
 export let loginButton = document.querySelector('.login-button');
 export let usernameInput = document.querySelector('.username');
 export let viewBookingInfo = document.querySelector('.view-information');
+export let overviewTitle = document.querySelector('.overview-title');

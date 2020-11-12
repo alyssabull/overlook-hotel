@@ -1,7 +1,7 @@
 import './css/base.scss';
 import HotelService from './Hotel-Service.js';
 
-import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, usernameInput, viewBookingInfo} from './DOMelements.js';
+import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, overviewTitle, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, usernameInput, viewBookingInfo} from './DOMelements.js';
 
 window.onload = fetchAllData();
 
@@ -15,7 +15,7 @@ bookARoom.addEventListener('click', customerAddBookings)
 customerStatus.addEventListener('click', displayCustomerBookings);
 filterSection.addEventListener('click', refreshFilter);
 filterSubmitButton.addEventListener('click', getFilterValue);
-searchCustomerButton.addEventListener('click', displayCustomerInfo);
+// searchCustomerButton.addEventListener('click', displayCustomerInfo);
 signOutButton.addEventListener('click', signOut);
 loginButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
@@ -32,12 +32,12 @@ bookingModal.addEventListener('change', (event) => {
   todayDate = formatDate.join('/');
   displayManagerRooms(todayDate);
 });
-hotelOverviewDate.addEventListener('change', (event) => {
-  let formatDate = `${event.target.value}`.split('-');
-  todayDate = formatDate.join('/');
-  displayHotelOverview(todayDate);
-  displayTodayBookings(todayDate);
-});
+// hotelOverviewDate.addEventListener('change', (event) => {
+//   let formatDate = `${event.target.value}`.split('-');
+//   todayDate = formatDate.join('/');
+//   displayHotelOverview(todayDate);
+//   displayTodayBookings(todayDate);
+// });
 
 
 function getRandomIndex() {
@@ -74,7 +74,8 @@ function loadData() {
 
 function validateCredentials() {
   if (usernameInput.value === 'manager' && passwordInput.value === 'overlook2020') {
-    createUserDropDown();
+    // createUserDropDown();
+    displayHotelOverview();
     enterCredentials.classList.add('hidden');
     managerView.classList.remove('hidden');
     signOutButton.classList.remove('hidden');
@@ -120,19 +121,18 @@ function clearErrorMessage() {
   errorMessage.innerText = '';
 }
 
-function createUserDropDown() {
-  let dropDown = document.getElementById('customers');
-  let sortCustomerNames = hotelService.allUsers.sort((a, b) => {
-    return a.name < b.name ? -1 : 1;
-  })
-  let customerNames = sortCustomerNames.map(user => {
-    return `<option value="${user.name}">`
-  }).join('');
-  dropDown.insertAdjacentHTML('afterbegin', customerNames);
-}
+// function createUserDropDown() {
+//   let dropDown = document.getElementById('customers');
+//   let sortCustomerNames = hotelService.allUsers.sort((a, b) => {
+//     return a.name < b.name ? -1 : 1;
+//   })
+//   let customerNames = sortCustomerNames.map(user => {
+//     return `<option value="${user.name}">`
+//   }).join('');
+//   dropDown.insertAdjacentHTML('afterbegin', customerNames);
+// }
 
 function signOut() {
-  debugger
   signOutButton.classList.add('hidden');
   customerStatus.innerHTML = '';
   managerView.classList.add('hidden');
@@ -167,16 +167,18 @@ function displayCustomerStats(status, totalSpent) {
   customerStatus.insertAdjacentHTML('afterbegin', statusInfo);
 }
 
-function displayHotelOverview(date) {
+function displayHotelOverview() {
+  let date = hotelService.getTodayDate();
+  overviewTitle.innerText = `Hotel Overview for ${date}`;
   let todayRevenue = hotelService.calculateTotalRevenue(date);
-  debugger
   let availableRooms = hotelService.calculateNumberAvailableRooms(date);
   let percentOccupied = hotelService.calculatePercentageOccupied(date);
-  let overview = `Revenue &nbsp; $${todayRevenue} <br>
-  Rooms Available &nbsp; ${availableRooms} <br>
-  Percentage Occupied &nbsp; ${percentOccupied}%`;
-  overviewInfo.classList.remove('overview-default');
-  overviewInfo.classList.add('hotel-summary');
+  let overview = `
+
+      <b>Today Revenue:</b> &nbsp; $${todayRevenue} &nbsp; &nbsp; &nbsp; &nbsp;
+      <b>Rooms Available:</b> &nbsp; ${availableRooms} &nbsp; &nbsp; &nbsp; &nbsp;
+      <b>Percentage Occupied:</b> &nbsp; ${percentOccupied}%
+    `;
   overviewInfo.innerHTML = overview;
 }
 
