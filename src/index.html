@@ -25,32 +25,35 @@
     </section>
     <section class="manager-view">
       <article class="today-overview">
-        <p class="overview-title"><b>Hotel Overview for</b></p>
+        <h4 class="overview-title"><b>Hotel Overview for</b></h4>
         <!-- <input type="date" class="hotel-overview-date"> -->
         <!-- <p class="overview-default" id="overview-info">Please select a date.</p> -->
-          <section class="customer-search-bar">
+          <!-- <section class="customer-search-bar">
           <h3 class="search-customers">Search Customers</h3>
           <form>
             <input list="customers" name="browser" class="search-customer-name">
             <datalist id="customers">
             </datalist>
-          </form>
-          <input type="submit" class="search-button" id="search-customer-button">
-        </section>
+          </form> -->
+          <!-- <input type="submit" class="search-button" id="search-customer-button"> -->
+        <!-- </section> -->
       </article>
+      <section class="current-bookings">
       <h5 class="search-title">Bookings for --</h5>
-      <ul class="customer-info-headers">
-        <li>Date</li>
-        <li>Room Type</li>
-        <li>Room #</li>
-        <li>Price</li>
-        <li>Confirmation</li>
-        <li>Delete</li>
-      </ul>
+      <div class="grid-container">
+        <div class="grid-item">Date</div>
+        <div class="grid-item">Guest Name</div>
+        <div class="grid-item">Room Type</div>
+        <div class="grid-item">Room #</div>
+        <div class="grid-item">Bed Size</div>
+        <div class="grid-item">Bidet</div>
+        <div class="grid-item">Confirmation</div>
+      </div>
       <section class="view-information">
       </section>
-      <section class="footer">
       </section>
+      <!-- <section class="footer">
+      </section> -->
         <div class="modal hidden" id="add-booking-modal">
           <div class="modal-content">
             <div class="modal-header">
