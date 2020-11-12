@@ -1,5 +1,6 @@
 export let backToBooking = document.querySelector('.back-to-booking');
 export let bookARoom = document.querySelector('.book-a-room');
+export let bookRoomButton = document.querySelector('.bookroom-button');
 export let bookingModal = document.querySelector('#add-booking-modal');
 export let bookRoomDate = document.querySelector('.book-room-date');
 export let bookRoomHeader = document.querySelector('.book-room-header');
@@ -28,3 +29,5 @@ export let loginButton = document.querySelector('.login-button');
 export let usernameInput = document.querySelector('.username');
 export let viewBookingInfo = document.querySelector('.view-information');
 export let overviewTitle = document.querySelector('.overview-title');
+export let todayOverview = document.querySelector('.today-overview');
+export let todayBookings = document.querySelector('.current-bookings');

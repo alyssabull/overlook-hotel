@@ -10,11 +10,11 @@
       <p class="header-name">Overlook Hotel</p>
       <section class="header-buttons">
         <button type="button" class="header-button bookroom-button">BOOK A ROOM</button>
-        <button type="button" class="header-button searchcustomers-button">SEARCH CUSTOMERS</button>
+        <button type="button" class="header-button searchcustomers-button">CUSTOMER DIRECTORY</button>
         <button type="button" class="header-button signout-button">SIGN OUT</button>
       </section>
     </header>
-    <section class="enter-credentials">
+    <section class="enter-credentials hidden">
         <h2>Please Log In</h2>
         <label for="username" class="credentials">Username</label>
         <input type="text" name="username" class="username login-info" aria-label="username">
@@ -23,22 +23,13 @@
         <button type="button" class="login-button">ENTER</button>
         <p class="error-message"></p>
     </section>
-    <section class="manager-view hidden">
-      <article class="today-overview">
+    <section class="manager-view">
+      <article class="today-overview hidden">
         <h4 class="overview-title"></h4>
         <!-- <input type="date" class="hotel-overview-date"> -->
         <section class="overview-default" id="overview-info"></section>
-          <!-- <section class="customer-search-bar">
-          <h3 class="search-customers">Search Customers</h3>
-          <form>
-            <input list="customers" name="browser" class="search-customer-name">
-            <datalist id="customers">
-            </datalist>
-          </form> -->
-          <!-- <input type="submit" class="search-button" id="search-customer-button"> -->
-        <!-- </section> -->
       </article>
-      <section class="current-bookings">
+      <section class="current-bookings hidden">
       <h5 class="search-title">Bookings for --</h5>
       <div class="grid-container" class="grid-header">
         <div class="grid-item">Date</div>
@@ -52,8 +43,16 @@
       <section class="view-information">
       </section>
       </section>
-      <!-- <section class="footer">
-      </section> -->
+      <section class="customer-search-bar">
+        <h3 class="search-customers">SELECT A CUSTOMER TO BOOK A ROOM</h3>
+        <form>
+          <input list="customers" name="browser" class="search-customer-name">
+          <datalist id="customers">
+            <option value="Angus Swift">
+          </datalist>
+        </form>
+        <input type="submit" class="search-button" id="search-customer-button">
+      </section>
         <div class="modal hidden" id="add-booking-modal">
           <div class="modal-content">
             <div class="modal-header">

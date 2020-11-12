@@ -1,7 +1,7 @@
 import './css/base.scss';
 import HotelService from './Hotel-Service.js';
 
-import {backToBooking, bookARoom, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, overviewTitle, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, usernameInput, viewBookingInfo} from './DOMelements.js';
+import {backToBooking, bookARoom, bookRoomButton, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, overviewTitle, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, todayBookings, todayOverview, usernameInput, viewBookingInfo} from './DOMelements.js';
 
 window.onload = fetchAllData();
 
@@ -32,12 +32,7 @@ bookingModal.addEventListener('change', (event) => {
   todayDate = formatDate.join('/');
   displayManagerRooms(todayDate);
 });
-// hotelOverviewDate.addEventListener('change', (event) => {
-//   let formatDate = `${event.target.value}`.split('-');
-//   todayDate = formatDate.join('/');
-//   displayHotelOverview(todayDate);
-//   displayTodayBookings(todayDate);
-// });
+bookRoomButton.addEventListener('click', bookCustomerRoom);
 
 
 function getRandomIndex() {
@@ -121,16 +116,16 @@ function clearErrorMessage() {
   errorMessage.innerText = '';
 }
 
-// function createUserDropDown() {
-//   let dropDown = document.getElementById('customers');
-//   let sortCustomerNames = hotelService.allUsers.sort((a, b) => {
-//     return a.name < b.name ? -1 : 1;
-//   })
-//   let customerNames = sortCustomerNames.map(user => {
-//     return `<option value="${user.name}">`
-//   }).join('');
-//   dropDown.insertAdjacentHTML('afterbegin', customerNames);
-// }
+function createUserDropDown() {
+  let dropDown = document.getElementById('customers');
+  let sortCustomerNames = hotelService.allUsers.sort((a, b) => {
+    return a.name < b.name ? -1 : 1;
+  })
+  let customerNames = sortCustomerNames.map(user => {
+    return `<option value="${user.name}">`
+  }).join('');
+  dropDown.insertAdjacentHTML('afterbegin', customerNames);
+}
 
 function signOut() {
   signOutButton.classList.add('hidden');
@@ -211,6 +206,27 @@ function displayTodayBookings() {
     viewBookingInfo.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
   }
 }
+
+function bookCustomerRoom() {
+  bookRoomButton.disabled = true;
+  todayOverview.classList.add('hidden');
+  todayBookings.classList.add('hidden');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function determineBookingDate(booking) {
   if (booking.date > hotelService.getTodayDate()) {
