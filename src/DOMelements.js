@@ -1,5 +1,4 @@
-export let bookRoomButton = document.querySelector('.bookroom-button');
-export let customerDirectoryButton = document.querySelector('.searchcustomers-button');
+export let customerDirectoryButton = document.querySelector('.customer-directory-button');
 export let customerBookingSearchBar = document.querySelector('.customer-booking-search-bar');
 export let dropDown = document.getElementById('customers');
 export let enterCredentials = document.querySelector('.enter-credentials');

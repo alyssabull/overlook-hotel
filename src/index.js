@@ -6,7 +6,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {bookRoomButton, customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, managerView, passwordInput, searchCustomersForBookingButton, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms} from './DOMelements.js';
+import {customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, managerView, passwordInput, searchCustomersForBookingButton, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -14,7 +14,7 @@ import {bookRoomButton, customerDirectoryButton, customerBookingSearchBar, dropD
 loginButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
 signOutButton.addEventListener('click', signOut);
-bookRoomButton.addEventListener('click', displayBookARoomView);
+customerDirectoryButton.addEventListener('click', displayBookARoomView);
 searchCustomersForBookingButton.addEventListener('click', displayRoomSearch);
 viewAvailableRooms.addEventListener('click', bookARoom);
 
@@ -62,7 +62,6 @@ function validateCredentials() {
     managerView.classList.remove('hidden');
     signOutButton.disabled = false;
     homeButton.disabled = true;
-    bookRoomButton.classList.remove('hidden');
     customerDirectoryButton.classList.remove('hidden');
     todayHotelOverview.classList.remove('hidden');
     todayHotelBookings.classList.remove('hidden');
@@ -157,7 +156,7 @@ function displayTodayBookings() {
 
 function displayBookARoomView() {
   homeButton.disabled = false;
-  bookRoomButton.disabled = true;
+  customerDirectoryButton.disabled = true;
   todayHotelOverview.classList.add('hidden');
   todayHotelBookings.classList.add('hidden');
   customerBookingSearchBar.classList.remove('hidden');
@@ -232,6 +231,4 @@ function postNewBooking(newBooking, roomNumber) {
       onSuccess();
     })
     .catch(err => console.log(err))
-
-
 }

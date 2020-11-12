@@ -10,8 +10,7 @@
       <p class="header-name">Overlook Hotel</p>
       <section class="header-buttons">
         <button type="button" class="header-button home-button">HOME</button>
-        <button type="button" class="header-button bookroom-button">BOOK A ROOM</button>
-        <button type="button" class="header-button searchcustomers-button">CUSTOMER DIRECTORY</button>
+        <button type="button" class="header-button customer-directory-button">CUSTOMER DIRECTORY</button>
         <button type="button" class="header-button signout-button">SIGN OUT</button>
       </section>
     </header>
@@ -44,14 +43,16 @@
         </div>
       </section>
       <section class="customer-booking-search-bar hidden">
-        <h3 class="search-customers">SELECT A CUSTOMER TO BOOK A ROOM</h3>
+        <h3 class="search-customers">SELECT A CUSTOMER</h3>
         <form>
           <input list="customers" name="browser" class="search-customer-name">
           <datalist id="customers">
           </datalist>
         </form>
-        <input type="submit" class="search-customers-forbooking-button" id="search-customer-button">
-        <p class="error-message"></p>
+        <section class="customer-view-buttons">
+          <button type="submit" class="search-customers-forbooking-button" id="search-customer-button">BOOK A ROOM</button>
+          <button type="submit" class="manager-viewbookings-button" id="view-customer-bookings-button">VIEW CUSTOMER BOOKINGS</button>
+        </section>
       </section>
       <section class="view-available-rooms hidden">
         <article class="bookings-for-title">
