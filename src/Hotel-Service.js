@@ -86,7 +86,7 @@ export default class HotelService {
 
   findAvailableRooms(date) {
     let roomsBooked = this.allBookings.reduce((roomNums, booking) => {
-      if (booking.date === date) {
+      if (booking.date === date && typeof booking.roomNumber === 'number') {
         roomNums.push(booking.roomNumber)
       }
       return roomNums;
@@ -102,9 +102,10 @@ export default class HotelService {
     })
 
     if (roomsBooked.length < rooms.length) {
-      rooms.forEach(roomNum => {
+      roomsBooked.forEach(roomNum => {
         rooms.forEach(room => {
           if (roomNum === room.number) {
+            console.log('room match', room)
             let index = rooms.indexOf(room);
             rooms.splice(index, 1);
           }

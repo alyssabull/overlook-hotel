@@ -25,7 +25,9 @@ managerBookRoomDate.addEventListener('change', (event) => {
 });
 
 function fetchAllData() {
-  signOutButton.disabled = true;
+  if (managerView.classList.contains('hidden')) {
+    signOutButton.disabled = true;
+  }
   let userPromise =
   fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
     .then(response => response.json())
@@ -171,7 +173,9 @@ function displayRoomSearch() {
 function displayAvailableRooms(date) {
   let gridColumn = document.getElementById('grid-column');
   gridColumn.innerHTML = '';
+  console.log('display avail rooms date', date)
   let availableRooms = hotelService.findAvailableRooms(date);
+  console.log('available rooms', availableRooms)
   if (typeof availableRooms !== 'string') {
     let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
     let allRooms = sortedAvailableRooms.map(room => {
@@ -183,7 +187,7 @@ function displayAvailableRooms(date) {
         <div class="grid-item">${room.bidet}</div>
         <div class="grid-item">$${room.costPerNight.toFixed(2)}</div>
         <div class="grid-item">
-        <button type="button" class="book-room ${room.number}">BOOK ROOM</button></div>
+        <button type="button" class="book-room ${room.number}" id="button-${room.number}">BOOK ROOM</button></div>
       </div>`
     }).join(' ')
     gridColumn.insertAdjacentHTML('beforeend', allRooms);
@@ -198,11 +202,24 @@ function bookARoom(event) {
     let calendarDate = managerBookRoomDate.value;
     let bookingDate = calendarDate.split('-').join('/');
     let newBooking = hotelService.addNewBooking(userID, bookingDate, roomNumber);
-    postNewBooking(newBooking);
+    postNewBooking(newBooking, roomNumber);
   }
 }
 
-function postNewBooking(newBooking) {
+function postNewBooking(newBooking, roomNumber) {
+  let onSuccess = () => {
+    let bookingPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
+      .then(response => response.json())
+      .then(data => data.bookings)
+      .catch(err => console.log(err))
+    Promise.all([bookingPromise])
+      .then(data => hotelService.rawBookingData = data[0])
+      .then(() => hotelService.addBookings())
+      .catch(err => console.log(err))
+    let bookedButton = document.getElementById(`button-${roomNumber}`)
+    bookedButton.innerText = 'BOOKED!';
+    bookedButton.disabled = true;
+  }
   return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
     method: 'POST',
     headers: {
@@ -215,4 +232,6 @@ function postNewBooking(newBooking) {
       onSuccess();
     })
     .catch(err => console.log(err))
+
+
 }
