@@ -6,13 +6,14 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {bookRoomButton, customerDirectoryButton, enterCredentials, errorMessage, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerView, passwordInput, signOutButton, todayHotelOverview, usernameInput} from './DOMelements.js';
+import {bookRoomButton, customerDirectoryButton, enterCredentials, errorMessage, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerView, passwordInput, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
 
 loginButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
+signOutButton.addEventListener('click', signOut);
 
 function fetchAllData() {
   signOutButton.disabled = true;
@@ -40,7 +41,6 @@ function fetchAllData() {
 
 function loadData() {
   hotelService.start();
-  todayDate = hotelService.getTodayDate();
 }
 
 function validateCredentials() {
@@ -50,9 +50,11 @@ function validateCredentials() {
     enterCredentials.classList.add('hidden');
     managerView.classList.remove('hidden');
     signOutButton.disabled = false;
+    homeButton.disabled = true;
     bookRoomButton.classList.remove('hidden');
     customerDirectoryButton.classList.remove('hidden');
     todayHotelOverview.classList.remove('hidden');
+    todayHotelBookings.classList.remove('hidden');
     usernameInput.value = '';
     passwordInput.value = '';
   }
@@ -79,14 +81,14 @@ function clearErrorMessage() {
 
 function signOut() {
   signOutButton.disabled = true;
-  customerStatus.innerHTML = '';
+  // customerStatus.innerHTML = '';
   managerView.classList.add('hidden');
-  customerView.classList.add('hidden');
+  // customerView.classList.add('hidden');
   enterCredentials.classList.remove('hidden');
   clearErrorMessage();
-  bookRoomHeader = 'Book a Room';
-  backToBooking.innerHTML = '';
-  customerRooms.innerHTML = '';
+  // bookRoomHeader = 'Book a Room';
+  // backToBooking.innerHTML = '';
+  // customerRooms.innerHTML = '';
 }
 
 function displayHotelOverview() {
@@ -101,5 +103,33 @@ function displayHotelOverview() {
       <b>Percentage Occupied:</b> &nbsp; ${percentOccupied}%
     `;
   hotelOverviewInfo.innerHTML = overview;
-  // displayTodayBookings();
+  displayTodayBookings();
+}
+
+function displayTodayBookings() {
+  let date = hotelService.getTodayDate();
+  // todayHotelBookings.innerHTML = '';
+  todayHotelBookingsTitle.innerHTML = '';
+  let bookings = hotelService.findBookings(date);
+  if (typeof bookings !== 'string') {
+    let sortedBookings = hotelService.sortBookingsByRoomNumber(bookings);
+    let todaysBookingInfo = sortedBookings.map(booking => {
+      return `<article class="manager-booking-card" id="${booking.id}">
+      <br>
+      <div class="grid-container">
+        <div class="grid-item">${booking.date}</div>
+        <div class="grid-item">${booking.guestName}</div>
+        <div class="grid-item">${booking.roomType.toUpperCase()}</div>
+        <div class="grid-item">${booking.roomNumber}</div>
+        <div class="grid-item">${booking.bedSize.toUpperCase()}</div>
+        <div class="grid-item">$${booking.costPerNight.toFixed(2)}</div>
+        <div class="grid-item">${booking.id}</div>
+      </div>`
+    }).join(' ')
+    todayHotelBookings.insertAdjacentHTML('beforeend', todaysBookingInfo);
+    todayHotelBookingsTitle.innerText = `Bookings for ${date}`;
+  } else {
+    todayHotelBookingsTitle.innerText = 'Bookings for --';
+    todayHotelBookings.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
+  }
 }

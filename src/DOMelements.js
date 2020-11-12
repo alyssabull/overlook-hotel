@@ -9,6 +9,8 @@ export let hotelOverviewInfo = document.querySelector('#hotel-overview-info');
 export let hotelOverviewTitle = document.querySelector('.hotel-overview-title');
 export let passwordInput = document.querySelector('.password');
 export let signOutButton = document.querySelector('.signout-button');
+export let todayHotelBookings = document.querySelector('.today-hotel-bookings');
+export let todayHotelBookingsTitle = document.querySelector('.today-hotel-bookings-title');
 export let todayHotelOverview = document.querySelector('.today-hotel-overview');
 export let usernameInput = document.querySelector('.username');
 
@@ -39,13 +41,13 @@ export let usernameInput = document.querySelector('.username');
 
 // export let searchCustomerButton = document.querySelector('#search-customer-button');
 // export let searchCustomerInput = document.querySelector('.search-customer-name');
-// export let searchTitle = document.querySelector('.search-title');
+
 
 
 // export let viewBookingInfo = document.querySelector('.view-information');
 
 
-// export let todayBookings = document.querySelector('.current-bookings');
+
 // export let gridContainer = document.querySelector('#customer-bookings');
 // export let bookingsDate = document.querySelector('.bookings-date');
 

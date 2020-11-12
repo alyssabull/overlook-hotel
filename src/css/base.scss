@@ -120,13 +120,13 @@ header {
   flex-direction: row;
 }
 
-.current-bookings {
+.today-hotel-bookings {
   background-color: white;
   border-radius: 10px;
   margin: 0% 7% 0% 7%;
 }
 
-.search-title {
+.today-hotel-bookings-title {
   font-family: 'Comfortaa', cursive;
   font-size: 20px;
   display: flex;
@@ -141,16 +141,18 @@ header {
   font-family: 'Comfortaa', cursive;
 }
 
-.grid-header {
-  font-size: 15px;
+.grid-item {
+  margin-bottom: 2%;
   width: 150px;
   text-align: center;
+  font-size: 11px;
 }
 
-.grid-item {
-  margin-bottom: 5%;
+.grid-header {
+  margin-bottom: 3%;
   width: 150px;
   text-align: center;
+  font-size: 14px;
 }
 
 #grid-column {

@@ -11,7 +11,7 @@ customerStatus.addEventListener('click', displayCustomerBookings);
 filterSection.addEventListener('click', refreshFilter);
 filterSubmitButton.addEventListener('click', getFilterValue);
 searchCustomerButton.addEventListener('click', displayBookARoom);
-signOutButton.addEventListener('click', signOut);
+
 
 
 viewBookingInfo.addEventListener('click', deleteBooking);
@@ -106,34 +106,7 @@ function loadCustomerInfo() {
 
 
 
-function displayTodayBookings() {
-  let date = hotelService.getTodayDate();
-  viewBookingInfo.innerHTML = '';
-  searchTitle.innerHTML = '';
-  let bookings = hotelService.findBookings(date);
-  if (typeof bookings !== 'string') {
-    let sortedBookings = hotelService.sortBookingsByRoomNumber(bookings);
-    console.log(sortedBookings);
-    let todaysBookingInfo = sortedBookings.map(booking => {
-      return `<article class="manager-booking-card" id="${booking.id}">
-      <br>
-      <div class="grid-container">
-        <div class="grid-item">${booking.date}</div>
-        <div class="grid-item">${booking.guestName}</div>
-        <div class="grid-item">${booking.roomType.toUpperCase()}</div>
-        <div class="grid-item">${booking.roomNumber}</div>
-        <div class="grid-item">${booking.bedSize}</div>
-        <div class="grid-item">$${booking.costPerNight.toFixed(2)}</div>
-        <div class="grid-item">${booking.id}</div>
-      </div>`
-    }).join(' ')
-    viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
-    searchTitle.innerText = `Bookings for ${date}`;
-  } else {
-    searchTitle.innerText = 'Bookings for --';
-    viewBookingInfo.innerHTML = `<h5 class="no-bookings">${bookings}</h5>`;
-  }
-}
+
 
 function bookCustomerRoom() {
   bookRoomButton.disabled = true;
