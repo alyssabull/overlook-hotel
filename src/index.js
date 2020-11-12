@@ -1,7 +1,7 @@
 import './css/base.scss';
 import HotelService from './Hotel-Service.js';
 
-import {backToBooking, bookARoom, bookRoomButton, bookingModal, bookingsDate, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridContainer, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, overviewTitle, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, todayBookings, todayOverview, usernameInput, viewBookingInfo} from './DOMelements.js';
+import {backToBooking, bookARoom, bookRoomButton, bookingModal, bookingsDate, bookRoomDate, bookRoomHeader, customerDirectoryButton, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridContainer, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, overviewTitle, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, todayBookings, todayOverview, usernameInput, viewBookingInfo} from './DOMelements.js';
 
 window.onload = fetchAllData();
 
@@ -38,6 +38,7 @@ bookingsDate.addEventListener('change', (event) => {
   let date = formatDate.join('/');
   displayManagerViewRooms(date);
 });
+customerDirectoryButton.addEventLister('click', viewCustomerDirectory);
 
 
 function getRandomIndex() {
@@ -45,6 +46,7 @@ function getRandomIndex() {
 }
 
 function fetchAllData() {
+  signOutButton.disabled = true;
   let userPromise =
   fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
     .then(response => response.json())
@@ -78,7 +80,10 @@ function validateCredentials() {
     displayHotelOverview();
     enterCredentials.classList.add('hidden');
     managerView.classList.remove('hidden');
-    signOutButton.classList.remove('hidden');
+    signOutButton.disabled = false;
+    bookRoomButton.classList.remove('hidden');
+    customerDirectoryButton.classList.remove('hidden');
+    todayOverview.classList.remove('hidden');
     usernameInput.value = '';
     passwordInput.value = '';
   } else if (usernameInput.value.includes('customer') && passwordInput.value === 'overlook2020') {
@@ -95,7 +100,7 @@ function loadUserPage() {
     if (user.id == userID) {
       enterCredentials.classList.add('hidden');
       customerView.classList.remove('hidden');
-      signOutButton.classList.remove('hidden');
+      signOutButton.disabled = true;
       filterCategories.classList.add('hidden');
       filterSubmitButton.classList.add('hidden');
       todayDate = hotelService.getDashedTodayDate();
@@ -133,7 +138,7 @@ function createUserDropDown() {
 }
 
 function signOut() {
-  signOutButton.classList.add('hidden');
+  signOutButton.disabled = true;
   customerStatus.innerHTML = '';
   managerView.classList.add('hidden');
   customerView.classList.add('hidden');
@@ -216,6 +221,9 @@ function bookCustomerRoom() {
   bookRoomButton.disabled = true;
   todayOverview.classList.add('hidden');
   todayBookings.classList.add('hidden');
+  managerView.classList.remove('hidden');
+  customerSearchBar.classList.remove('hidden');
+  viewBookingInfo.classList.remove('hidden');
 }
 
 function determineBookingDate(booking) {
@@ -294,13 +302,13 @@ function displayManagerViewRooms(date) {
     let allRooms = sortedAvailableRooms.map(room => {
       return `
       <div class="grid-row">
-        <div class="grid-item">${room.date}</div>
         <div class="grid-item">${room.roomType.toUpperCase()}</div>
         <div class="grid-item">${room.number}</div>
         <div class="grid-item">${room.bedSize.toUpperCase()}</div>
         <div class="grid-item">${room.bidet}</div>
         <div class="grid-item">$${room.costPerNight.toFixed(2)}</div>
-        <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
+        <div class="grid-item">
+        <button type="button" class="book-room ${room.number}">BOOK ROOM</button></div>
       </div>`
     }).join(' ')
     gridColumn.insertAdjacentHTML('beforeend', allRooms);

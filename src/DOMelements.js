@@ -33,3 +33,5 @@ export let todayOverview = document.querySelector('.today-overview');
 export let todayBookings = document.querySelector('.current-bookings');
 export let gridContainer = document.querySelector('#customer-bookings');
 export let bookingsDate = document.querySelector('.bookings-date');
+export let customerDirectoryButton = document.querySelector('.searchcustomers-button');
+export let customerSearchBar = document.querySelector('.customer-search-bar');
