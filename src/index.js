@@ -1,7 +1,7 @@
 import './css/base.scss';
 import HotelService from './Hotel-Service.js';
 
-import {backToBooking, bookARoom, bookRoomButton, bookingModal, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, overviewTitle, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, todayBookings, todayOverview, usernameInput, viewBookingInfo} from './DOMelements.js';
+import {backToBooking, bookARoom, bookRoomButton, bookingModal, bookingsDate, bookRoomDate, bookRoomHeader, customerRooms, customerStatus, customerView, customerWelcome, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridContainer, hotelOverviewDate, managerView, modalContent, modalDate, modalTitle, overviewInfo, overviewTitle, passwordInput, searchCustomerButton, searchCustomerInput, searchTitle, signOutButton, loginButton, todayBookings, todayOverview, usernameInput, viewBookingInfo} from './DOMelements.js';
 
 window.onload = fetchAllData();
 
@@ -15,7 +15,7 @@ bookARoom.addEventListener('click', customerAddBookings)
 customerStatus.addEventListener('click', displayCustomerBookings);
 filterSection.addEventListener('click', refreshFilter);
 filterSubmitButton.addEventListener('click', getFilterValue);
-// searchCustomerButton.addEventListener('click', displayCustomerInfo);
+searchCustomerButton.addEventListener('click', displayBookARoom);
 signOutButton.addEventListener('click', signOut);
 loginButton.addEventListener('click', validateCredentials);
 usernameInput.addEventListener('input', clearErrorMessage);
@@ -27,12 +27,17 @@ bookRoomDate.addEventListener('change', (event) => {
   todayDate = formatDate.join('/');
   displayCustomerRooms(todayDate);
 });
-bookingModal.addEventListener('change', (event) => {
-  let formatDate = `${event.target.value}`.split('-');
-  todayDate = formatDate.join('/');
-  displayManagerRooms(todayDate);
-});
+// bookingModal.addEventListener('change', (event) => {
+//   let formatDate = `${event.target.value}`.split('-');
+//   todayDate = formatDate.join('/');
+//   displayManagerRooms(todayDate);
+// });
 bookRoomButton.addEventListener('click', bookCustomerRoom);
+bookingsDate.addEventListener('change', (event) => {
+  let formatDate = `${event.target.value}`.split('-');
+  let date = formatDate.join('/');
+  displayManagerViewRooms(date);
+});
 
 
 function getRandomIndex() {
@@ -213,21 +218,6 @@ function bookCustomerRoom() {
   todayBookings.classList.add('hidden');
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function determineBookingDate(booking) {
   if (booking.date > hotelService.getTodayDate()) {
     return `<button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}">DELETE BOOKING</button>`
@@ -236,35 +226,32 @@ function determineBookingDate(booking) {
   }
 }
 
+function displayBookARoom() {
+  gridContainer.classList.remove('hidden');
+}
+
 function displayCustomerInfo() {
-  viewBookingInfo.innerHTML = '';
   userID = hotelService.findUserId(searchCustomerInput.value);
   fetchAllData();
   let bookings = hotelService.findCustomerBookings(userID);
   let sortedBookings = hotelService.sortBookingsByDate(bookings);
+  console.log(sortedBookings)
   if (sortedBookings.length > 0) {
     let todaysBookingInfo = sortedBookings.map(booking => {
-      return `<article class="manager-booking-card">
-        <section class="manager-booking-date">
-          ${booking.date}
-        </section>
-        <section class="manager-booking-roomtype">
-          ${booking.roomType.toUpperCase()}
-        </section>
-        <section class="manager-booking-roomnum">
-          ${booking.roomNumber}
-        </section>
-        <section class="manager-booking-cost">
-          $${booking.costPerNight.toFixed(2)}
-        </section>
-        <section class="manager-booking-id">
-          ${booking.id}
+      return `
+      <div class="grid-row" id="${booking.id}">
+        <div class="grid-item">${booking.date}</div>
+        <div class="grid-item">${booking.roomType.toUpperCase()}</div>
+        <div class="grid-item">${booking.roomNumber}</div>
+        <div class="grid-item">${booking.bedSize}</div>
+        <div class="grid-item">${booking.bidet}</div>
+        <div class="grid-item">$${booking.costPerNight.toFixed(2)}</div>
         </section>
           ${determineBookingDate(booking)}
         </section>
-        </article>`
+      </div>`
     }).join(' ')
-    viewBookingInfo.insertAdjacentHTML('beforeend', todaysBookingInfo);
+    gridContainer.insertAdjacentHTML('beforeend', todaysBookingInfo);
     formatCustomerInfo();
   } else {
     searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
@@ -277,33 +264,46 @@ function formatCustomerInfo() {
   searchTitle.insertAdjacentHTML('beforeend', `<p id="total-spent">Total Spent: $ ${hotelService.calculateTotalSpent(userID).toFixed(2)} <br><button class="add-booking-button">ADD BOOKING</button>`)
 }
 
-function displayManagerRooms(date) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function displayManagerViewRooms(date) {
   let availableRooms = hotelService.findAvailableRooms(date);
   if (typeof availableRooms !== 'string') {
     let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
-    modalContent.innerHTML = `
-      <ul class="customer-info-headers">
-        <li>Room Type</li>
-        <li>Num Beds</li>
-        <li>Bed Type</li>
-        <li>Room #</li>
-        <li>Bidet</li>
-        <li>Price</li>
-        <li>Add</li>
-      </ul>`
+    console.log(sortedAvailableRooms)
+    let gridColumn = document.getElementById('grid-column');
     let allRooms = sortedAvailableRooms.map(room => {
       return `
-        <article class="manager-booking-card">
-          <p class="manager-booking-roomtype2">${room.roomType}</p>
-          <p class="manager-booking-numbeds"> ${room.numBeds}</p>
-          <p class="manager-booking-roomnum">${room.bedSize}</p>
-          <p class="manager-booking-roomnum2">${room.number}</p>
-          <p class="manager-booking-bidet"> ${room.bidet}</p>
-          <p class="manager-booking-cost2">$${room.costPerNight.toFixed(2)}</p>
-          <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
-        </article>`
+      <div class="grid-row">
+        <div class="grid-item">${room.date}</div>
+        <div class="grid-item">${room.roomType.toUpperCase()}</div>
+        <div class="grid-item">${room.number}</div>
+        <div class="grid-item">${room.bedSize.toUpperCase()}</div>
+        <div class="grid-item">${room.bidet}</div>
+        <div class="grid-item">$${room.costPerNight.toFixed(2)}</div>
+        <button type="button" class="book-room ${room.number}">BOOK ROOM</button>
+      </div>`
     }).join(' ')
-    modalContent.insertAdjacentHTML('beforeend', allRooms);
+    gridColumn.insertAdjacentHTML('beforeend', allRooms);
   } else {
     modalContent.innerHTML = `<h5 class="no-bookings">${availableRooms}</h5>`;
   }

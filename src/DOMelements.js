@@ -31,3 +31,5 @@ export let viewBookingInfo = document.querySelector('.view-information');
 export let overviewTitle = document.querySelector('.overview-title');
 export let todayOverview = document.querySelector('.today-overview');
 export let todayBookings = document.querySelector('.current-bookings');
+export let gridContainer = document.querySelector('#customer-bookings');
+export let bookingsDate = document.querySelector('.bookings-date');

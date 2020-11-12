@@ -144,6 +144,7 @@ export default class HotelService {
             booking.roomType = room.roomType;
             booking.costPerNight = room.costPerNight;
             booking.bedSize = room.bedSize;
+            booking.bidet = room.bidet;
           }
         })
         this.allUsers.forEach(user => {
