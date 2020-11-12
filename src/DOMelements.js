@@ -11,6 +11,7 @@ export let managerView = document.querySelector('.manager-view');
 export let hotelOverviewInfo = document.querySelector('#hotel-overview-info');
 export let hotelOverviewTitle = document.querySelector('.hotel-overview-title');
 export let passwordInput = document.querySelector('.password');
+export let searchCustomerNameDropDown = document.querySelector('.search-customer-name');
 export let searchCustomersForBookingButton = document.querySelector('.search-customers-forbooking-button');
 export let signOutButton = document.querySelector('.signout-button');
 export let todayHotelBookings = document.querySelector('.today-hotel-bookings');
@@ -18,6 +19,7 @@ export let todayHotelBookingsTitle = document.querySelector('.today-hotel-bookin
 export let todayHotelOverview = document.querySelector('.today-hotel-overview');
 export let usernameInput = document.querySelector('.username');
 export let viewAvailableRooms = document.querySelector('.view-available-rooms');
+export let viewCustomerBookingsButton = document.getElementById('view-customer-bookings-button');
 
 
 

@@ -6,7 +6,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, managerView, passwordInput, searchCustomersForBookingButton, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms} from './DOMelements.js';
+import {customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, managerView, passwordInput, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -17,7 +17,14 @@ signOutButton.addEventListener('click', signOut);
 customerDirectoryButton.addEventListener('click', displayBookARoomView);
 searchCustomersForBookingButton.addEventListener('click', displayRoomSearch);
 viewAvailableRooms.addEventListener('click', bookARoom);
+// viewCustomerBookingsButton.addEventListener('click', viewCustomerBookings);
 
+searchCustomerNameDropDown.addEventListener('change', (event) => {
+  viewCustomerBookingsButton.classList.remove('hidden');
+  searchCustomersForBookingButton.classList.remove('hidden');
+  searchCustomersForBookingButton.disabled = false;
+  console.log(searchCustomerNameDropDown.value);
+})
 managerBookRoomDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   let calendarDate = formatDate.join('/');
@@ -157,6 +164,8 @@ function displayTodayBookings() {
 function displayBookARoomView() {
   homeButton.disabled = false;
   customerDirectoryButton.disabled = true;
+  viewCustomerBookingsButton.classList.add('hidden');
+  searchCustomersForBookingButton.classList.add('hidden');
   todayHotelOverview.classList.add('hidden');
   todayHotelBookings.classList.add('hidden');
   customerBookingSearchBar.classList.remove('hidden');
@@ -167,6 +176,8 @@ function displayRoomSearch() {
   userID = hotelService.findUserId(customerNameInput.value);
   viewAvailableRooms.classList.remove('hidden');
   managerBookRoomHeader.innerText = `Bookings for ${customerNameInput.value} on`;
+  searchCustomerNameDropDown.value = '';
+  searchCustomersForBookingButton.disabled = true;
 }
 
 function displayAvailableRooms(date) {
