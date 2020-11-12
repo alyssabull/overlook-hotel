@@ -9,12 +9,13 @@
     <header>
       <p class="header-name">Overlook Hotel</p>
       <section class="header-buttons">
+        <button type="button" class="header-button home-button">HOME</button>
         <button type="button" class="header-button bookroom-button">BOOK A ROOM</button>
         <button type="button" class="header-button searchcustomers-button">CUSTOMER DIRECTORY</button>
         <button type="button" class="header-button signout-button">SIGN OUT</button>
       </section>
     </header>
-    <section class="enter-credentials hidden">
+    <section class="enter-credentials">
         <h2>Please Log In</h2>
         <label for="username" class="credentials">Username</label>
         <input type="text" name="username" class="username login-info" aria-label="username">
@@ -23,25 +24,26 @@
         <button type="button" class="login-button">ENTER</button>
         <p class="error-message"></p>
     </section>
-    <section class="manager-view">
-      <article class="today-overview hidden">
-        <h4 class="overview-title"></h4>
+    <section class="manager-view hidden">
+      <article class="today-hotel-overview hidden">
+        <h4 class="hotel-overview-title"></h4>
         <!-- <input type="date" class="hotel-overview-date"> -->
-        <section class="overview-default" id="overview-info"></section>
+        <section class="overview-default" id="hotel-overview-info"></section>
       </article>
-      <section class="current-bookings">
-      <h5 class="search-title">Bookings for --</h5>
-      <div class="grid-container" class="grid-header">
-        <div class="grid-item">Date</div>
-        <div class="grid-item">Guest Name</div>
-        <div class="grid-item">Room Type</div>
-        <div class="grid-item">Room #</div>
-        <div class="grid-item">Bed Size</div>
-        <div class="grid-item">Cost</div>
-        <div class="grid-item">Confirmation</div>
-      </div>
+    </section>
+      <section class="current-bookings hidden">
+        <h5 class="search-title">Bookings for --</h5>
+        <div class="grid-container" class="grid-header">
+          <div class="grid-item">Date</div>
+          <div class="grid-item">Guest Name</div>
+          <div class="grid-item">Room Type</div>
+          <div class="grid-item">Room #</div>
+          <div class="grid-item">Bed Size</div>
+          <div class="grid-item">Cost</div>
+          <div class="grid-item">Confirmation</div>
+        </div>
       </section>
-      <section class="customer-search-bar">
+      <section class="customer-search-bar hidden">
         <h3 class="search-customers">SELECT A CUSTOMER TO BOOK A ROOM</h3>
         <form>
           <input list="customers" name="browser" class="search-customer-name">
@@ -51,7 +53,7 @@
         </form>
         <input type="submit" class="search-button" id="search-customer-button">
       </section>
-      <section class="view-information">
+      <section class="view-information hidden">
         <article class="bookings-for-title">
           <h3 class="bookings-header">Bookings for</h3>
           <input type="date" class="bookings-date">
