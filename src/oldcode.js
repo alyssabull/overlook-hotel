@@ -45,25 +45,7 @@ customerDirectoryButton.addEventLister('click', viewCustomerDirectory);
 
 
 
-function loadUserPage() {
-  hotelService.allUsers.forEach(user => {
-    if (user.id == userID) {
-      enterCredentials.classList.add('hidden');
-      customerView.classList.remove('hidden');
-      signOutButton.disabled = true;
-      filterCategories.classList.add('hidden');
-      filterSubmitButton.classList.add('hidden');
-      todayDate = hotelService.getDashedTodayDate();
-      bookRoomDate.setAttribute('value', todayDate);
-      bookRoomDate.setAttribute('min', todayDate);
-      loadCustomerInfo();
-      usernameInput.value = '';
-      passwordInput.value = '';
-    } else {
-      alertLogInError();
-    }
-  })
-}
+
 
 
 
@@ -73,21 +55,7 @@ function loadUserPage() {
 
 // MANAGER VIEW
 
-function loadCustomerInfo() {
-  let status;
-  customerWelcome.innerText = `Welcome Back, ${hotelService.findUserName(userID)}!`
-  let totalSpent = hotelService.calculateTotalSpent(userID).toFixed(2);
-  if (totalSpent > 10000) {
-    status = 'Gold';
-  } else if (totalSpent < 10000 && totalSpent > 8000) {
-    status = 'Silver';
-  } else if (totalSpent < 8000 && totalSpent > 5000) {
-    status = 'Bronze';
-  } else {
-    status = 'Blue';
-  }
-  displayCustomerStats(status, totalSpent)
-}
+
 
 
 
@@ -148,12 +116,7 @@ function formatCustomerInfo() {
 
 
 
-function displayCustomerStats(status, totalSpent) {
-  let statusInfo = `
-  <p class="${status}"><b>${status} Level Preferred</b></p>
-  <p>Total Spent: $${totalSpent}</p><button class="view-bookings-button customer-status">View Bookings</button>`;
-  customerStatus.insertAdjacentHTML('afterbegin', statusInfo);
-}
+
 
 function openModal(event) {
   if (event.target.classList.contains('add-booking-button')) {
@@ -192,14 +155,6 @@ function handleModal(event) {
 
 
 
-function updateBookings(id) {
-  fetchAllData();
-  setTimeout(removeElement(id), 4000)
-}
-
-function removeElement(bookingID) {
-  document.getElementById(bookingID).remove();
-}
 
 function displayCustomerRooms(date) {
   fetchAllData();

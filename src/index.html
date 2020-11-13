@@ -8,13 +8,24 @@
   <body>
     <header>
       <p class="header-name">Overlook Hotel</p>
-      <section class="header-buttons">
-        <button type="button" class="header-button home-button">HOME</button>
-        <button type="button" class="header-button customer-directory-button">CUSTOMER DIRECTORY</button>
-        <button type="button" class="header-button signout-button">SIGN OUT</button>
+      <section class="header-info">
+        <section class="customer-header">
+          <h2 class="customer-welcome">LEATHA ULLRICH</h2>
+          <article class="customer-status">
+            <p class="gold"><b>GOLD LEVEL PREFERRED</b></p>
+          </article>
+        </section>
+        <section class="header-buttons">
+          <button type="button" class="header-button book-a-room">BOOK A ROOM</button>
+          <button type="button" class="header-button booking-history">YOUR BOOKING HISTORY</button>
+          <button type="button" class="header-button upcoming-bookings">UPCOMING BOOKINGS</button>
+          <button type="button" class="header-button home-button hidden">HOME</button>
+          <button type="button" class="header-button customer-directory-button hidden">CUSTOMER DIRECTORY</button>
+          <button type="button" class="header-button signout-button">SIGN OUT</button>
+        </section>
       </section>
     </header>
-    <section class="enter-credentials">
+    <section class="enter-credentials hidden">
         <h2>Please Log In</h2>
         <label for="username" class="credentials">Username</label>
         <input type="text" name="username" class="username login-info" aria-label="username">
@@ -87,11 +98,15 @@
         </div>
       </section>
       </section>
-    <section class="customer-view hidden">
-      <h2 class="customer-welcome">Welcome Back, Leatha Ullrich!</h2>
-      <article class="customer-status">
-      </article>
-      <aside class="view-available-rooms">
+
+
+
+
+
+
+    <section class="customer-view">
+
+      <aside class="view-available-rooms hidden">
         <section class="filter-rooms grow">
         <h3 class="filter-title">Filter Rooms</h3>
         <form id="filter-categories">

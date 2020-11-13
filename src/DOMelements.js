@@ -2,10 +2,17 @@ export let currentCustomerBookings = document.getElementById('current-customer-b
 export let customerDirectoryButton = document.querySelector('.customer-directory-button');
 export let customerBookingSearchBar = document.querySelector('.customer-booking-search-bar');
 export let customerNameInput = document.querySelector('.search-customer-name');
+export let customerStatus = document.querySelector('.customer-status');
+export let customerView = document.querySelector('.customer-view');
+export let customerWelcome = document.querySelector('.customer-welcome');
 export let updateCustomerBookings = document.getElementById('update-customer-bookings');
 export let dropDown = document.getElementById('customers');
 export let enterCredentials = document.querySelector('.enter-credentials');
 export let errorMessage = document.querySelector('.error-message');
+export let filterCategories = document.getElementById('filter-categories');
+export let filterRefreshButton = document.querySelector('.filter-status');
+export let filterSection = document.querySelector('.filter-rooms');
+export let filterSubmitButton = document.querySelector('.filter-button');
 export let gridColumn = document.getElementById('grid-column');
 export let homeButton = document.querySelector('.home-button');
 export let loginButton = document.querySelector('.login-button');
@@ -37,29 +44,13 @@ export let viewCustomerBookingsButton = document.getElementById('view-customer-b
 // export let bookRoomDate = document.querySelector('.book-room-date');
 // export let bookRoomHeader = document.querySelector('.book-room-header');
 // export let customerRooms = document.querySelector('.display-customer-rooms');
-// export let customerStatus = document.querySelector('.customer-status');
-// export let customerView = document.querySelector('.customer-view');
-// export let customerWelcome = document.querySelector('.customer-welcome');
 
 
-// export let filterCategories = document.getElementById('filter-categories');
-// export let filterRefreshButton = document.querySelector('.filter-status');
-// export let filterSection = document.querySelector('.filter-rooms');
-// export let filterSubmitButton = document.querySelector('.filter-button');
+
+
 // export let hotelOverviewDate = document.querySelector('.hotel-overview-date');
-
 // export let modalContent = document.querySelector('#modal-content');
 // export let modalDate = document.querySelector('.modal-date');
 // export let modalTitle = document.querySelector('.modal-title');
-
-
-
 // export let searchCustomerInput = document.querySelector('.search-customer-name');
-
-
-
-
-
-
-
 // export let gridContainer = document.querySelector('#customer-bookings');

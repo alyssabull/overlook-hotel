@@ -7,7 +7,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, customerNameInput, dropDown, enterCredentials, errorMessage, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, refreshCustomerButton, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
+import {currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, customerNameInput, customerStatus, customerView, customerWelcome, dropDown, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, refreshCustomerButton, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -34,7 +34,6 @@ searchCustomerNameDropDown.addEventListener('change', (event) => {
 managerBookRoomDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   let calendarDate = formatDate.join('/');
-  // updateBookingData()
   displayAvailableRooms(calendarDate);
 });
 
@@ -69,6 +68,11 @@ function validateCredentials() {
   if (usernameInput.value === 'manager' && passwordInput.value === 'overlook2020') {
     createUserDropDown();
     displayHotelOverview();
+    let todayDate = hotelService.getDashedTodayDate();
+    managerBookRoomDate.setAttribute('value', todayDate);
+    managerBookRoomDate.setAttribute('min', todayDate);
+    homeButton.classList.remove('hidden');
+    customerDirectoryButton.classList.remove('hidden');
     enterCredentials.classList.add('hidden');
     managerView.classList.remove('hidden');
     signOutButton.disabled = false;
@@ -79,11 +83,14 @@ function validateCredentials() {
     usernameInput.value = '';
     passwordInput.value = '';
   }
-  // else if (usernameInput.value.includes('customer') && passwordInput.value === 'overlook2020') {
-  //   let findUserID = usernameInput.value.split(/(\d+)/);
-  //   userID = findUserID[1];
-  //   loadUserPage();
-  // }
+  else if (usernameInput.value.includes('customer')
+  // && passwordInput.value === 'overlook2020'
+  ) {
+    signOutButton.disabled = false;
+    let findUserID = usernameInput.value.split(/(\d+)/);
+    userID = findUserID[1];
+    loadUserPage();
+  }
   else {
     alertLogInError();
   }
@@ -100,23 +107,44 @@ function clearErrorMessage() {
   errorMessage.innerText = '';
 }
 
-function signOut() {
-  signOutButton.disabled = true;
-  customerDirectoryButton.disabled = false;
-  // customerDirectoryButton.classList.add('hidden');
-  // homeButton.classList.add('hidden');
-  // customerStatus.innerHTML = '';
-  gridColumn.innerHTML = '';
-  customerNameInput.value = '';
-  managerView.classList.add('hidden');
-  viewAvailableRooms.classList.add('hidden');
-  customerBookingSearchBar.classList.add('hidden');
-  enterCredentials.classList.remove('hidden');
-  todayHotelBookings.classList.add('hidden');
-  clearErrorMessage();
-  // bookRoomHeader = 'Book a Room';
-  // backToBooking.innerHTML = '';
-  // customerRooms.innerHTML = '';
+function loadUserPage() {
+  hotelService.allUsers.forEach(user => {
+    if (user.id == userID) {
+      enterCredentials.classList.add('hidden');
+      customerView.classList.remove('hidden');
+      signOutButton.disabled = false;
+      filterCategories.classList.add('hidden');
+      filterSubmitButton.classList.add('hidden');
+      loadCustomerInfo();
+      usernameInput.value = '';
+      passwordInput.value = '';
+    } else {
+      alertLogInError();
+    }
+  })
+}
+
+function loadCustomerInfo() {
+  let status;
+  customerWelcome.innerText = `Welcome Back, ${hotelService.findUserName(userID)}!`
+  let totalSpent = hotelService.calculateTotalSpent(userID).toFixed(2);
+  if (totalSpent > 10000) {
+    status = 'Gold';
+  } else if (totalSpent < 10000 && totalSpent > 8000) {
+    status = 'Silver';
+  } else if (totalSpent < 8000 && totalSpent > 5000) {
+    status = 'Bronze';
+  } else {
+    status = 'Blue';
+  }
+  displayCustomerStats(status, totalSpent)
+}
+
+function displayCustomerStats(status, totalSpent) {
+  let statusInfo = `
+  <p class="${status}"><b>${status} Level Preferred</b></p>
+  <p>Total Spent: $${totalSpent}</p><button class="view-bookings-button customer-status">View Bookings</button>`;
+  customerStatus.insertAdjacentHTML('afterbegin', statusInfo);
 }
 
 function createUserDropDown() {
@@ -238,26 +266,6 @@ function displayAvailableRooms(date) {
   }
 }
 
-function bookARoom(event) {
-  if (event.target.classList.contains('book-room')) {
-    let roomNumber = event.target.classList[1];
-    let calendarDate = managerBookRoomDate.value;
-    let bookingDate = calendarDate.split('-').join('/');
-    let newBooking = hotelService.addNewBooking(userID, bookingDate, roomNumber);
-    postNewBooking(newBooking, roomNumber);
-  }
-}
-
-function postNewBooking(newBooking, roomNumber) {
-  let onSuccess = () => {
-    let bookedButton = document.getElementById(`button-${roomNumber}`)
-    bookedButton.innerText = 'BOOKED!';
-    bookedButton.disabled = true;
-    updateBookingData();
-  }
-  apiCalls.postData(newBooking, onSuccess);
-}
-
 function viewCustomerBookings() {
   refreshCustomerButton.disabled = false;
   let customerBookingsHeader = document.querySelector('.customer-bookings-header');
@@ -295,6 +303,26 @@ function displayCustomerBookingsSection() {
   viewAvailableRooms.classList.add('hidden');
 }
 
+function bookARoom(event) {
+  if (event.target.classList.contains('book-room')) {
+    let roomNumber = event.target.classList[1];
+    let calendarDate = managerBookRoomDate.value;
+    let bookingDate = calendarDate.split('-').join('/');
+    let newBooking = hotelService.addNewBooking(userID, bookingDate, roomNumber);
+    postNewBooking(newBooking, roomNumber);
+  }
+}
+
+function postNewBooking(newBooking, roomNumber) {
+  let onSuccess = () => {
+    let bookedButton = document.getElementById(`button-${roomNumber}`)
+    bookedButton.innerText = 'BOOKED!';
+    bookedButton.disabled = true;
+    updateBookingData();
+  }
+  apiCalls.postData(newBooking, onSuccess);
+}
+
 function deleteBooking(event) {
   let onSuccess = () => {
     updateDeletedBookings(event.target.classList[1]);
@@ -312,7 +340,6 @@ function deleteBooking(event) {
 }
 
 function updateDeletedBookings(bookingID) {
-  console.log('num bookings', hotelService.allBookings.length)
   fadeOutEffect(bookingID);
 }
 
@@ -329,4 +356,26 @@ function fadeOutEffect(bookingID) {
       document.getElementById(bookingID).remove();
     }
   }, 100);
+}
+
+function signOut() {
+  signOutButton.disabled = true;
+  customerDirectoryButton.disabled = false;
+  gridColumn.innerHTML = '';
+  customerNameInput.value = '';
+  managerView.classList.add('hidden');
+  viewAvailableRooms.classList.add('hidden');
+  customerBookingSearchBar.classList.add('hidden');
+  enterCredentials.classList.remove('hidden');
+  todayHotelBookings.classList.add('hidden');
+  homeButton.classList.add('hidden');
+  customerDirectoryButton.classList.add('hidden');
+  customerView.classList.add('hidden');
+  clearErrorMessage();
+  // customerDirectoryButton.classList.add('hidden');
+  // homeButton.classList.add('hidden');
+  // customerStatus.innerHTML = '';
+  // bookRoomHeader = 'Book a Room';
+  // backToBooking.innerHTML = '';
+  // customerRooms.innerHTML = '';
 }
