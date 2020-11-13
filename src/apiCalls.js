@@ -1,22 +1,42 @@
+let url = `https://fe-apps.herokuapp.com/api/v1/overlook/1904/`
+
 let apiCalls = {
-  fetchUserData() {
-    fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
+  fetchData(key) {
+    return fetch(`${url}${key}/${key}`)
       .then(response => response.json())
-      .then(data => data.users)
+      .then(data => data[key])
+      .catch(err => err)
+  },
+
+  postData(newPost, onSuccess) {
+    return fetch(`${url}bookings/bookings`, {
+      method: 'POST',
+      headers: {
+  	    'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newPost)
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json)
+        onSuccess();
+      })
       .catch(err => console.log(err))
   },
 
-  fetchRoomData() {
-    fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
+  deleteData(deleteRequest, onSuccess) {
+    return fetch(`${url}bookings/bookings`, {
+      method: 'DELETE',
+      headers: {
+  	    'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(deleteRequest)
+    })
       .then(response => response.json())
-      .then(data => data.rooms)
-      .catch(err => console.log(err))
-  },
-
-  fetchBookingData() {
-    fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
-      .then(response => response.json())
-      .then(data => data.bookings)
+      .then(json => {
+      console.log(json);
+      onSuccess();
+    })
       .catch(err => console.log(err))
   }
 }

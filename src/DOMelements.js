@@ -1,6 +1,7 @@
 export let currentCustomerBookings = document.getElementById('current-customer-bookings');
 export let customerDirectoryButton = document.querySelector('.customer-directory-button');
 export let customerBookingSearchBar = document.querySelector('.customer-booking-search-bar');
+export let updateCustomerBookings = document.getElementById('update-customer-bookings');
 export let dropDown = document.getElementById('customers');
 export let enterCredentials = document.querySelector('.enter-credentials');
 export let errorMessage = document.querySelector('.error-message');

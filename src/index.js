@@ -1,4 +1,5 @@
 import './css/base.scss';
+import apiCalls from './apiCalls';
 import HotelService from './Hotel-Service.js';
 
 window.onload = fetchAllData();
@@ -6,7 +7,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
+import {currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -19,7 +20,7 @@ searchCustomersForBookingButton.addEventListener('click', displayRoomSearch);
 viewAvailableRooms.addEventListener('click', bookARoom);
 homeButton.addEventListener('click', goHomeManagerView);
 viewCustomerBookingsButton.addEventListener('click', viewCustomerBookings);
-currentCustomerBookings.addEventListener('click', deleteBooking);
+// currentCustomerBookings.addEventListener('click', deleteBooking);
 
 searchCustomerNameDropDown.addEventListener('change', (event) => {
   viewCustomerBookingsButton.classList.remove('hidden');
@@ -31,47 +32,49 @@ searchCustomerNameDropDown.addEventListener('change', (event) => {
 managerBookRoomDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   let calendarDate = formatDate.join('/');
-  console.log('book a room date', calendarDate)
-  updateBookingData()
+  // updateBookingData()
   displayAvailableRooms(calendarDate);
 });
+
+
+
+//
+// managerSelectRoom.addEventListener('click', () => {
+//   managerBookRoom(event);
+// });
+// managerResultsContainer.addEventListener('click', () => {
+//   deleteBooking(event);
+// });
+// userAvailabilityContainer.addEventListener('click', () => {
+//   bookRoom(event);
+// });
+
+
+
+
+
 
 function fetchAllData() {
   if (managerView.classList.contains('hidden')) {
     signOutButton.disabled = true;
   }
-  let userPromise =
-  fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
-    .then(response => response.json())
-    .then(data => data.users)
-    .catch(err => console.log(err))
+  let roomsPromise = apiCalls.fetchData('rooms');
+  let bookingsPromise = apiCalls.fetchData('bookings');
+  let usersPromise = apiCalls.fetchData('users');
 
-  let roomPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
-    .then(response => response.json())
-    .then(data => data.rooms)
-    .catch(err => console.log(err))
-
-  let bookingPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
-    .then(response => response.json())
-    .then(data => data.bookings)
-    .catch(err => console.log(err))
-
-  Promise.all([userPromise, roomPromise, bookingPromise])
-    .then(data => hotelService = new HotelService(data[0], data[1], data[2]))
+  Promise.all([roomsPromise, bookingsPromise, usersPromise])
+    .then(data => hotelService = new HotelService(data[2], data[0], data[1]))
     .then(() => loadData())
     .catch(err => console.log(err))
 }
 
 function updateBookingData() {
-  let bookingPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
-    .then(response => response.json())
-    .then(data => data.bookings)
-    .catch(err => console.log(err))
-  Promise.all([bookingPromise])
+  let bookingsPromise = apiCalls.fetchData('bookings');
+
+  Promise.all([bookingsPromise])
     .then(data => hotelService.rawBookingData = data[0])
     .then(() => hotelService.addBookings())
     .catch(err => console.log(err))
-  console.log(hotelService.allBookings.length)
 }
 
 function loadData() {
@@ -142,7 +145,7 @@ function createUserDropDown() {
 }
 
 function goHomeManagerView() {
-  updateBookingData();
+  // updateBookingData();
   gridColumn.innerHTML = '';
   displayHotelOverview();
   homeButton.disabled = true;
@@ -206,6 +209,7 @@ function displayBookARoomView() {
 }
 
 function displayRoomSearch() {
+  updateCustomerBookings.innerHTML = '';
   viewCustomerBookingsButton.disabled = false;
   manageCustomerBookings.classList.add('hidden');
   let customerNameInput = document.querySelector('.search-customer-name');
@@ -216,14 +220,11 @@ function displayRoomSearch() {
 }
 
 function displayAvailableRooms(date) {
-  updateBookingData();
   viewAvailableRooms.classList.remove('hidden');
   manageCustomerBookings.classList.remove('hidden');
   let gridColumn = document.getElementById('grid-column');
   gridColumn.innerHTML = '';
-  console.log('display avail rooms date', date)
   let availableRooms = hotelService.findAvailableRooms(date);
-  console.log('available rooms', availableRooms)
   if (typeof availableRooms !== 'string') {
     let sortedAvailableRooms = hotelService.sortBookingsByDate(availableRooms);
     let allRooms = sortedAvailableRooms.map(room => {
@@ -256,44 +257,23 @@ function bookARoom(event) {
 
 function postNewBooking(newBooking, roomNumber) {
   let onSuccess = () => {
-    let bookingPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
-      .then(response => response.json())
-      .then(data => data.bookings)
-      .catch(err => console.log(err))
-    Promise.all([bookingPromise])
-      .then(data => hotelService.rawBookingData = data[0])
-      .then(() => hotelService.addBookings())
-      .catch(err => console.log(err))
     let bookedButton = document.getElementById(`button-${roomNumber}`)
     bookedButton.innerText = 'BOOKED!';
     bookedButton.disabled = true;
+    updateBookingData();
   }
-  return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newBooking)
-  })
-    .then(response => response.json())
-    .then(() => {
-      onSuccess();
-    })
-    .catch(err => console.log(err))
+  apiCalls.postData(newBooking, onSuccess);
 }
 
 function viewCustomerBookings() {
-  managerViewCustomerBookings.innerHTML = '';
-  viewCustomerBookingsButton.disabled = true;
-  searchCustomersForBookingButton.disabled = false;
-  manageCustomerBookings.classList.remove('hidden');
-  viewAvailableRooms.classList.add('hidden');
+  let customerBookingsHeader = document.querySelector('.customer-bookings-header');
   let username = searchCustomerNameDropDown.value;
+  customerBookingsHeader.innerText = `Bookings for ${username}`;
+  displayCustomerBookingsSection();
   let userID = hotelService.findUserId(username);
   let bookings = hotelService.findCustomerBookings(userID);
   let sortedBookings = hotelService.sortBookingsByDate(bookings);
-  let customerBookingsHeader = document.querySelector('.customer-bookings-header');
-  customerBookingsHeader.innerText = `Bookings for ${username}`;
+  (console.log('bookings num', sortedBookings.length))
   if (sortedBookings.length > 0) {
     let todaysBookingInfo = sortedBookings.map(booking => {
       return `
@@ -308,54 +288,55 @@ function viewCustomerBookings() {
         <div class="grid-item"><button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}" id="room-${booking.id}">DELETE BOOKING</button></div>
       </div>`
     }).join(' ')
-    currentCustomerBookings.insertAdjacentHTML('beforeend', todaysBookingInfo);
-    // formatCustomerInfo();
-  } else {
-    // searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-    // viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer ${searchCustomerInput.value}. Please enter another name and try again.</b></p>`;
+    updateCustomerBookings.insertAdjacentHTML('beforeend', todaysBookingInfo);
   }
 }
 
-function deleteBooking(event) {
-  let deleteBody;
-  if (event.target.classList[2] === 'number') {
-    deleteBody = {id: parseInt(event.target.classList[1])}
-  } else {
-    deleteBody = {id: event.target.classList[1]};
-  }
-  console.log('delete body', deleteBody);
-  if (event.target.classList.contains('delete-booking-button')) {
-    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(deleteBody)
-    })
-      .then(response => console.log(response.json()))
-      .then(() => updateDeletedBookings(event.target.classList[1]))
-      .catch(err => console.log(err))
-      let deleteButton = document.getElementById(`${deleteBody.id}`)
-      deleteButton.style.backgroundColor = 'red';
-  }
+function displayCustomerBookingsSection() {
+  updateCustomerBookings.innerHTML = `<div class="grid-container" id="current-customer-bookings">`;
+  viewCustomerBookingsButton.disabled = true;
+  searchCustomersForBookingButton.disabled = false;
+  manageCustomerBookings.classList.remove('hidden');
+  viewAvailableRooms.classList.add('hidden');
 }
 
-function updateDeletedBookings(bookingID) {
-  updateBookingData();
-  viewCustomerBookings();
-  fadeOutEffect(bookingID);
-}
+// function deleteBooking(event) {
+//   let deleteBody;
+//   if (event.target.classList[2] === 'number') {
+//     deleteBody = {id: parseInt(event.target.classList[1])}
+//   } else {
+//     deleteBody = {id: event.target.classList[1]};
+//   }
+//   if (event.target.classList.contains('delete-booking-button')) {
+//     return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(deleteBody)
+//     })
+//       .then(response => console.log(response.json()))
+//       .then(() => updateDeletedBookings(deleteBody.id))
+//       .catch(err => console.log(err))
+//   }
+// }
 
-function fadeOutEffect(bookingID) {
-  let fadeTarget = document.getElementById(bookingID);
-  let fadeEffect = setInterval(function () {
-    if (!fadeTarget.style.opacity) {
-      fadeTarget.style.opacity = 1;
-    }
-    if (fadeTarget.style.opacity > 0) {
-      fadeTarget.style.opacity -= 0.1;
-    } else {
-      clearInterval(fadeEffect);
-    }
-  }, 100);
-}
+// function updateDeletedBookings(bookingID) {
+//   console.log('num bookings', hotelService.allBookings.length)
+//   fadeOutEffect(bookingID);
+// }
+//
+// function fadeOutEffect(bookingID) {
+//   let fadeTarget = document.getElementById(bookingID);
+//   let fadeEffect = setInterval(function () {
+//     if (!fadeTarget.style.opacity) {
+//       fadeTarget.style.opacity = 1;
+//     }
+//     if (fadeTarget.style.opacity > 0) {
+//       fadeTarget.style.opacity -= 0.1;
+//     } else {
+//       clearInterval(fadeEffect);
+//       document.getElementById(bookingID).remove();
+//     }
+//   }, 100);
+// }

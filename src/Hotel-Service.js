@@ -33,6 +33,7 @@ export default class HotelService {
   }
 
   addBookings() {
+    this.allBookings = [];
     return this.rawBookingData.map(data => {
       let booking = new Booking(data);
       this.allBookings.push(booking);
