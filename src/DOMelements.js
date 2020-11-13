@@ -1,6 +1,7 @@
 export let currentCustomerBookings = document.getElementById('current-customer-bookings');
 export let customerDirectoryButton = document.querySelector('.customer-directory-button');
 export let customerBookingSearchBar = document.querySelector('.customer-booking-search-bar');
+export let customerNameInput = document.querySelector('.search-customer-name');
 export let updateCustomerBookings = document.getElementById('update-customer-bookings');
 export let dropDown = document.getElementById('customers');
 export let enterCredentials = document.querySelector('.enter-credentials');
@@ -16,6 +17,7 @@ export let managerViewCustomerBookings = document.getElementById('managerview-cu
 export let hotelOverviewInfo = document.querySelector('#hotel-overview-info');
 export let hotelOverviewTitle = document.querySelector('.hotel-overview-title');
 export let passwordInput = document.querySelector('.password');
+export let refreshCustomerButton = document.querySelector('.refresh-customers');
 export let searchCustomerNameDropDown = document.querySelector('.search-customer-name');
 export let searchCustomersForBookingButton = document.querySelector('.search-customers-forbooking-button');
 export let signOutButton = document.querySelector('.signout-button');

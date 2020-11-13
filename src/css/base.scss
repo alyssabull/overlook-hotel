@@ -212,7 +212,7 @@ header {
 
 .search-customer-name {
   width: 35%;
-  margin-left: 32%;
+  margin-left: 20%;
   margin-bottom: 5%;
 }
 
@@ -259,6 +259,27 @@ header {
   border-radius: 10px;
   margin: 0% 5% 5% 5%;
   width: 20%;
+  outline: none;
+  border: solid black 1px;
+}
+
+.refresh-customers {
+  font-family: 'Comfortaa', cursive;
+  width: 15%;
+  min-width: 120px;
+  margin: 0% 5% 5% 2%;
+  border-radius: 10px;
+  border: solid black 1px;
+  padding: 5px;
+  outline: none;
+}
+
+.refresh-customers:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+  border-radius: 10px;
+  margin: 0% 5% 5% 2%;
+  width: 15%;
   outline: none;
   border: solid black 1px;
 }
