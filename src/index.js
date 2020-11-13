@@ -24,6 +24,7 @@ searchCustomerNameDropDown.addEventListener('change', (event) => {
   viewCustomerBookingsButton.classList.remove('hidden');
   searchCustomersForBookingButton.classList.remove('hidden');
   searchCustomersForBookingButton.disabled = false;
+  viewCustomerBookingsButton.disabled = false;
   console.log(searchCustomerNameDropDown.value);
 })
 managerBookRoomDate.addEventListener('change', (event) => {
@@ -204,16 +205,19 @@ function displayBookARoomView() {
 }
 
 function displayRoomSearch() {
+  viewCustomerBookingsButton.disabled = false;
+  manageCustomerBookings.classList.add('hidden');
   let customerNameInput = document.querySelector('.search-customer-name');
   userID = hotelService.findUserId(customerNameInput.value);
   viewAvailableRooms.classList.remove('hidden');
-  managerBookRoomHeader.innerText = `Bookings for ${customerNameInput.value} on`;
-  searchCustomerNameDropDown.value = '';
+  managerBookRoomHeader.innerText = `Book a Room for ${customerNameInput.value} on`;
   searchCustomersForBookingButton.disabled = true;
 }
 
 function displayAvailableRooms(date) {
   updateBookingData();
+  viewAvailableRooms.classList.remove('hidden');
+  manageCustomerBookings.classList.remove('hidden');
   let gridColumn = document.getElementById('grid-column');
   gridColumn.innerHTML = '';
   console.log('display avail rooms date', date)
@@ -278,7 +282,10 @@ function postNewBooking(newBooking, roomNumber) {
 }
 
 function viewCustomerBookings() {
+  viewCustomerBookingsButton.disabled = true;
+  searchCustomersForBookingButton.disabled = false;
   manageCustomerBookings.classList.remove('hidden');
+  viewAvailableRooms.classList.add('hidden');
   let username = searchCustomerNameDropDown.value;
   let userID = hotelService.findUserId(username);
   let bookings = hotelService.findCustomerBookings(userID);
@@ -292,8 +299,8 @@ function viewCustomerBookings() {
         <div class="grid-item">${booking.date}</div>
         <div class="grid-item">${booking.id}</div>
         <div class="grid-item">${booking.roomType.toUpperCase()}</div>
-        <div class="grid-item">${booking.bedSize}</div>
-        <div class="grid-item">${booking.bidet}</div>
+        <div class="grid-item">${booking.bedSize.toUpperCase()}</div>
+        <div class="grid-item">${booking.bidet.toString().toUpperCase()}</div>
         <div class="grid-item">$${booking.costPerNight.toFixed(2)}</div>
         <div class="grid-item">DELETE BOOKING</div>
       </div>`

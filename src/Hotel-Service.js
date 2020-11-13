@@ -123,6 +123,8 @@ export default class HotelService {
           if (room.number === booking.roomNumber) {
             booking.roomType = room.roomType;
             booking.costPerNight = room.costPerNight;
+            booking.bidet = room.bidet;
+            booking.bedSize = room.bedSize;
           }
         })
         this.allUsers.forEach(user => {
