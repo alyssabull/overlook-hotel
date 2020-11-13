@@ -179,6 +179,19 @@ header {
   border-radius: 5px;
 }
 
+.delete-booking-button {
+  font-family: 'Comfortaa', cursive;
+  font-size: 11px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.delete-booking-button:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+  border-radius: 5px;
+}
+
 // Book a room
 
 .customer-booking-search-bar {

@@ -6,7 +6,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, passwordInput, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
+import {currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -19,6 +19,7 @@ searchCustomersForBookingButton.addEventListener('click', displayRoomSearch);
 viewAvailableRooms.addEventListener('click', bookARoom);
 homeButton.addEventListener('click', goHomeManagerView);
 viewCustomerBookingsButton.addEventListener('click', viewCustomerBookings);
+currentCustomerBookings.addEventListener('click', deleteBooking);
 
 searchCustomerNameDropDown.addEventListener('change', (event) => {
   viewCustomerBookingsButton.classList.remove('hidden');
@@ -282,6 +283,7 @@ function postNewBooking(newBooking, roomNumber) {
 }
 
 function viewCustomerBookings() {
+  managerViewCustomerBookings.innerHTML = '';
   viewCustomerBookingsButton.disabled = true;
   searchCustomersForBookingButton.disabled = false;
   manageCustomerBookings.classList.remove('hidden');
@@ -299,10 +301,11 @@ function viewCustomerBookings() {
         <div class="grid-item">${booking.date}</div>
         <div class="grid-item">${booking.id}</div>
         <div class="grid-item">${booking.roomType.toUpperCase()}</div>
+        <div class="grid-item">${booking.roomNumber}</div>
         <div class="grid-item">${booking.bedSize.toUpperCase()}</div>
         <div class="grid-item">${booking.bidet.toString().toUpperCase()}</div>
         <div class="grid-item">$${booking.costPerNight.toFixed(2)}</div>
-        <div class="grid-item">DELETE BOOKING</div>
+        <div class="grid-item"><button type="button" class="delete-booking-button ${booking.id} ${typeof booking.id}" id="room-${booking.id}">DELETE BOOKING</button></div>
       </div>`
     }).join(' ')
     currentCustomerBookings.insertAdjacentHTML('beforeend', todaysBookingInfo);
@@ -311,4 +314,48 @@ function viewCustomerBookings() {
     // searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
     // viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer ${searchCustomerInput.value}. Please enter another name and try again.</b></p>`;
   }
+}
+
+function deleteBooking(event) {
+  let deleteBody;
+  if (event.target.classList[2] === 'number') {
+    deleteBody = {id: parseInt(event.target.classList[1])}
+  } else {
+    deleteBody = {id: event.target.classList[1]};
+  }
+  console.log('delete body', deleteBody);
+  if (event.target.classList.contains('delete-booking-button')) {
+    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(deleteBody)
+    })
+      .then(response => console.log(response.json()))
+      .then(() => updateDeletedBookings(event.target.classList[1]))
+      .catch(err => console.log(err))
+      let deleteButton = document.getElementById(`${deleteBody.id}`)
+      deleteButton.style.backgroundColor = 'red';
+  }
+}
+
+function updateDeletedBookings(bookingID) {
+  updateBookingData();
+  viewCustomerBookings();
+  fadeOutEffect(bookingID);
+}
+
+function fadeOutEffect(bookingID) {
+  let fadeTarget = document.getElementById(bookingID);
+  let fadeEffect = setInterval(function () {
+    if (!fadeTarget.style.opacity) {
+      fadeTarget.style.opacity = 1;
+    }
+    if (fadeTarget.style.opacity > 0) {
+      fadeTarget.style.opacity -= 0.1;
+    } else {
+      clearInterval(fadeEffect);
+    }
+  }, 100);
 }

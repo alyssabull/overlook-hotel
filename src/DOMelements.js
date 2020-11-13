@@ -11,6 +11,7 @@ export let managerBookRoomDate = document.querySelector('#manager-book-room-date
 export let managerBookRoomHeader = document.querySelector('.manager-book-room-header');
 export let manageCustomerBookings = document.querySelector('.manage-customer-bookings');
 export let managerView = document.querySelector('.manager-view');
+export let managerViewCustomerBookings = document.getElementById('managerview-customer-bookings');
 export let hotelOverviewInfo = document.querySelector('#hotel-overview-info');
 export let hotelOverviewTitle = document.querySelector('.hotel-overview-title');
 export let passwordInput = document.querySelector('.password');

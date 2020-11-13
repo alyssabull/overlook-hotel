@@ -116,7 +116,7 @@ function displayBookARoom() {
 }
 
 function displayCustomerInfo() {
-  
+
 }
 
 function formatCustomerInfo() {
@@ -190,26 +190,7 @@ function handleModal(event) {
   }
 }
 
-function deleteBooking(event) {
-  let deleteBody;
-  if (event.target.classList[2] === 'number') {
-    deleteBody = {id: parseInt(event.target.classList[1])}
-  } else {
-    deleteBody = {id: event.target.classList[1]};
-  }
-  if (event.target.classList.contains('delete-booking-button')) {
-    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(deleteBody)
-    })
-      .then(response => console.log(response.json()))
-      .then(() => updateBookings(event.target.classList[1]))
-      .catch(err => console.log(err))
-  }
-}
+
 
 function updateBookings(id) {
   fetchAllData();
