@@ -1,12 +1,15 @@
+export let currentCustomerBookings = document.getElementById('current-customer-bookings');
 export let customerDirectoryButton = document.querySelector('.customer-directory-button');
 export let customerBookingSearchBar = document.querySelector('.customer-booking-search-bar');
 export let dropDown = document.getElementById('customers');
 export let enterCredentials = document.querySelector('.enter-credentials');
 export let errorMessage = document.querySelector('.error-message');
+export let gridColumn = document.getElementById('grid-column');
 export let homeButton = document.querySelector('.home-button');
 export let loginButton = document.querySelector('.login-button');
 export let managerBookRoomDate = document.querySelector('#manager-book-room-date');
 export let managerBookRoomHeader = document.querySelector('.manager-book-room-header');
+export let manageCustomerBookings = document.querySelector('.manage-customer-bookings');
 export let managerView = document.querySelector('.manager-view');
 export let hotelOverviewInfo = document.querySelector('#hotel-overview-info');
 export let hotelOverviewTitle = document.querySelector('.hotel-overview-title');

@@ -257,6 +257,28 @@ header {
   font-family: 'Comfortaa', cursive;
 }
 
+.manage-customer-bookings {
+  background-color: white;
+  margin: 2% 10% 0% 10%;
+  border-radius: 10px;
+  font-family: 'Comfortaa', cursive;
+}
+
+.customer-booking-grid {
+  padding-top: 2%;
+}
+
+.customer-bookings-header {
+  display: flex;
+  justify-content: center;
+  padding-top: 2%;
+}
+
+#current-customer-bookings {
+  display: flex;
+  flex-direction: column;
+}
+
 .bookings-for-title {
   display: flex;
   justify-content: center;
@@ -272,6 +294,10 @@ header {
 }
 
 #customer-bookings {
+  display: flex;
+}
+
+#managerview-customer-bookings {
   display: flex;
 }
 

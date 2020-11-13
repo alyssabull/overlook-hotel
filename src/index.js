@@ -6,7 +6,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, managerView, passwordInput, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
+import {currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, dropDown, enterCredentials, errorMessage, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, passwordInput, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -18,7 +18,7 @@ customerDirectoryButton.addEventListener('click', displayBookARoomView);
 searchCustomersForBookingButton.addEventListener('click', displayRoomSearch);
 viewAvailableRooms.addEventListener('click', bookARoom);
 homeButton.addEventListener('click', goHomeManagerView);
-// viewCustomerBookingsButton.addEventListener('click', viewCustomerBookings);
+viewCustomerBookingsButton.addEventListener('click', viewCustomerBookings);
 
 searchCustomerNameDropDown.addEventListener('change', (event) => {
   viewCustomerBookingsButton.classList.remove('hidden');
@@ -29,6 +29,8 @@ searchCustomerNameDropDown.addEventListener('change', (event) => {
 managerBookRoomDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
   let calendarDate = formatDate.join('/');
+  console.log('book a room date', calendarDate)
+  updateBookingData()
   displayAvailableRooms(calendarDate);
 });
 
@@ -56,6 +58,18 @@ function fetchAllData() {
     .then(data => hotelService = new HotelService(data[0], data[1], data[2]))
     .then(() => loadData())
     .catch(err => console.log(err))
+}
+
+function updateBookingData() {
+  let bookingPromise = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
+    .then(response => response.json())
+    .then(data => data.bookings)
+    .catch(err => console.log(err))
+  Promise.all([bookingPromise])
+    .then(data => hotelService.rawBookingData = data[0])
+    .then(() => hotelService.addBookings())
+    .catch(err => console.log(err))
+  console.log(hotelService.allBookings.length)
 }
 
 function loadData() {
@@ -99,9 +113,14 @@ function clearErrorMessage() {
 
 function signOut() {
   signOutButton.disabled = true;
+  customerDirectoryButton.disabled = false;
+  // customerDirectoryButton.classList.add('hidden');
+  // homeButton.classList.add('hidden');
   // customerStatus.innerHTML = '';
+  gridColumn.innerHTML = '';
   managerView.classList.add('hidden');
-  // customerView.classList.add('hidden');
+  viewAvailableRooms.classList.add('hidden');
+  customerBookingSearchBar.classList.add('hidden');
   enterCredentials.classList.remove('hidden');
   todayHotelBookings.classList.add('hidden');
   clearErrorMessage();
@@ -121,6 +140,9 @@ function createUserDropDown() {
 }
 
 function goHomeManagerView() {
+  updateBookingData();
+  gridColumn.innerHTML = '';
+  displayHotelOverview();
   homeButton.disabled = true;
   customerDirectoryButton.disabled = false;
   todayHotelOverview.classList.remove('hidden');
@@ -191,6 +213,7 @@ function displayRoomSearch() {
 }
 
 function displayAvailableRooms(date) {
+  updateBookingData();
   let gridColumn = document.getElementById('grid-column');
   gridColumn.innerHTML = '';
   console.log('display avail rooms date', date)
@@ -212,7 +235,7 @@ function displayAvailableRooms(date) {
     }).join(' ')
     gridColumn.insertAdjacentHTML('beforeend', allRooms);
   } else {
-    modalContent.innerHTML = `<h5 class="no-bookings">${availableRooms}</h5>`;
+    gridColumn.innerHTML = `<h5 class="no-bookings">${availableRooms}</h5>`;
   }
 }
 
@@ -252,4 +275,33 @@ function postNewBooking(newBooking, roomNumber) {
       onSuccess();
     })
     .catch(err => console.log(err))
+}
+
+function viewCustomerBookings() {
+  manageCustomerBookings.classList.remove('hidden');
+  let username = searchCustomerNameDropDown.value;
+  let userID = hotelService.findUserId(username);
+  let bookings = hotelService.findCustomerBookings(userID);
+  let sortedBookings = hotelService.sortBookingsByDate(bookings);
+  let customerBookingsHeader = document.querySelector('.customer-bookings-header');
+  customerBookingsHeader.innerText = `Bookings for ${username}`;
+  if (sortedBookings.length > 0) {
+    let todaysBookingInfo = sortedBookings.map(booking => {
+      return `
+      <div class="grid-row" id="${booking.id}">
+        <div class="grid-item">${booking.date}</div>
+        <div class="grid-item">${booking.id}</div>
+        <div class="grid-item">${booking.roomType.toUpperCase()}</div>
+        <div class="grid-item">${booking.bedSize}</div>
+        <div class="grid-item">${booking.bidet}</div>
+        <div class="grid-item">$${booking.costPerNight.toFixed(2)}</div>
+        <div class="grid-item">DELETE BOOKING</div>
+      </div>`
+    }).join(' ')
+    currentCustomerBookings.insertAdjacentHTML('beforeend', todaysBookingInfo);
+    // formatCustomerInfo();
+  } else {
+    // searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
+    // viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer ${searchCustomerInput.value}. Please enter another name and try again.</b></p>`;
+  }
 }

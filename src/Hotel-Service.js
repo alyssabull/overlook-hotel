@@ -105,7 +105,6 @@ export default class HotelService {
       roomsBooked.forEach(roomNum => {
         rooms.forEach(room => {
           if (roomNum === room.number) {
-            console.log('room match', room)
             let index = rooms.indexOf(room);
             rooms.splice(index, 1);
           }

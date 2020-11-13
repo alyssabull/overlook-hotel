@@ -116,32 +116,7 @@ function displayBookARoom() {
 }
 
 function displayCustomerInfo() {
-  userID = hotelService.findUserId(searchCustomerInput.value);
-  fetchAllData();
-  let bookings = hotelService.findCustomerBookings(userID);
-  let sortedBookings = hotelService.sortBookingsByDate(bookings);
-  console.log(sortedBookings)
-  if (sortedBookings.length > 0) {
-    let todaysBookingInfo = sortedBookings.map(booking => {
-      return `
-      <div class="grid-row" id="${booking.id}">
-        <div class="grid-item">${booking.date}</div>
-        <div class="grid-item">${booking.roomType.toUpperCase()}</div>
-        <div class="grid-item">${booking.roomNumber}</div>
-        <div class="grid-item">${booking.bedSize}</div>
-        <div class="grid-item">${booking.bidet}</div>
-        <div class="grid-item">$${booking.costPerNight.toFixed(2)}</div>
-        </section>
-          ${determineBookingDate(booking)}
-        </section>
-      </div>`
-    }).join(' ')
-    gridContainer.insertAdjacentHTML('beforeend', todaysBookingInfo);
-    formatCustomerInfo();
-  } else {
-    searchTitle.innerText = `Bookings for ${searchCustomerInput.value}`;
-    viewBookingInfo.innerHTML = `<p class="customer-error-message"><b>We have no information for the customer ${searchCustomerInput.value}. Please enter another name and try again.</b></p>`;
-  }
+  
 }
 
 function formatCustomerInfo() {
