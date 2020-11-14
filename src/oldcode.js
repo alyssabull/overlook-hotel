@@ -161,29 +161,8 @@ function displayCustomerRooms(date) {
   filterCategories.classList.remove('hidden');
   filterSubmitButton.classList.remove('hidden');
   bookRoomHeader.innerText = `All Available Rooms`;
-  let availableRooms = hotelService.findAvailableRooms(date);
-  if (typeof availableRooms !== 'string') {
-    let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
-    let allRooms = sortedAvailableCustRooms.map(room => {
-      return `
-        <article class="today-booking-card">
-          <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
-          <section class="booking-info">
-            <p class="room-type">${room.roomType}</p>
-            <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
-            <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
-            <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>
-          </section>
-          <section class="customer-booking">
-            <p class="customer-price">$${room.costPerNight.toFixed(2)}</p>
-            <button type="button" class="customer-book-button ${room.number}">BOOK ROOM</button>
-          </section>
-        </article>`
-    }).join(' ')
-    customerRooms.insertAdjacentHTML('afterbegin', allRooms);
-  } else {
-    customerRooms.innerText = `${availableRooms}`;
-  }
+
+  
 }
 
 function customerAddBookings(event) {

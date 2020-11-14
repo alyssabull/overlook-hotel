@@ -441,7 +441,7 @@ header {
 }
 
 .all-room-cards {
-  width: 70%;
+  width: 150%;
 }
 
 .room-booking-card {
@@ -449,6 +449,7 @@ header {
   border-radius: 5px;
   margin: 5%;
   box-shadow: 5px 8px lightgrey;
+  min-width: 700px;
 }
 
 .room-booking-card:hover {
@@ -461,7 +462,7 @@ header {
 .room-card-header {
   display: flex;
   align-items: center;
-  font-size: 30px;
+  font-size: 25px;
   margin: 0%;
   padding-left: 2%;
   height: 50px;

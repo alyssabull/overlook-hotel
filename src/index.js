@@ -7,7 +7,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, customerNameInput, customerStatus, customerView, customerWelcome, dropDown, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, refreshCustomerButton, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
+import {allRoomCards, bookARoomButton, customerBookRoomDate, currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, customerNameInput, customerStatus, customerView, customerWelcome, dropDown, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, refreshCustomerButton, searchRoomsButton, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -22,6 +22,8 @@ homeButton.addEventListener('click', goHomeManagerView);
 viewCustomerBookingsButton.addEventListener('click', viewCustomerBookings);
 manageCustomerBookings.addEventListener('click', deleteBooking);
 refreshCustomerButton.addEventListener('click', refreshCustomerDropDown);
+bookARoomButton.addEventListener('click', showBookRoomView);
+searchRoomsButton.addEventListener('click', displayAvailableRoomsForCustomer)
 
 searchCustomerNameDropDown.addEventListener('change', (event) => {
   viewCustomerBookingsButton.classList.remove('hidden');
@@ -29,7 +31,6 @@ searchCustomerNameDropDown.addEventListener('change', (event) => {
   searchCustomersForBookingButton.disabled = false;
   viewCustomerBookingsButton.disabled = false;
   refreshCustomerButton.disabled = false;
-  console.log(searchCustomerNameDropDown.value);
 })
 managerBookRoomDate.addEventListener('change', (event) => {
   let formatDate = `${event.target.value}`.split('-');
@@ -146,6 +147,87 @@ function displayCustomerStats(status, totalSpent) {
   <p>Total Spent: $${totalSpent}</p>`;
   customerStatus.insertAdjacentHTML('afterbegin', statusInfo);
 }
+
+function showBookRoomView() {
+  viewAvailableRooms.classList.remove('hidden');
+}
+
+function displayAvailableRoomsForCustomer() {
+  let date = customerBookRoomDate.value;
+  let bookRoomDate = date.split('-').join('/');
+  let availableRooms = hotelService.findAvailableRooms(bookRoomDate);
+  if (typeof availableRooms !== 'string') {
+    let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
+    let allRooms = sortedAvailableCustRooms.map(room => {
+      let bidetStatus;
+      if (room.bidet === true) {
+        bidetStatus = 'fa fa-check';
+      } else if (room.bidet === false) {
+        bidetStatus = 'fa fa-ban';
+      }
+      console.log(bidetStatus);
+      return `
+      <section class="room-booking-card">
+      <section class="room-card-header">
+        <p class="room-type">${room.roomType.toUpperCase()}</p>
+      </section>
+      <section class="room-card-body">
+        <article class="room-card-image">
+          <img src="./images/room2.jpg" alt="" class="room-image">
+        </article>
+        <article class="room-card-details">
+          <p class="room-info"><i class="fa fa-bed" aria-hidden="true"></i> ${room.numBeds} ${room.bedSize.toUpperCase()}</p>
+          <p class="room-info"><i class="${bidetStatus}" aria-hidden="true"></i> <b>BIDET</b></p>
+          <p class="room-info"><i class="fa fa-wifi" aria-hidden="true"></i> FREE WIFI</p>
+          <p class="room-info"><i class="fa fa-coffee" aria-hidden="true"></i> BREAKFAST FOR 2 </p>
+        </article>
+        <article class="room-card-price">
+          <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
+          <button type="button" class="customer-book-button">BOOK ROOM</button>
+          <p class="cancellation-policy">FREE CANCELLATION</p>
+        </article>
+      </section>
+      </section>`
+    }).join(' ')
+    allRoomCards.insertAdjacentHTML('afterbegin', allRooms);
+  } else {
+    allRoomCards.innerText = `${availableRooms}`;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function createUserDropDown() {
   let sortCustomerNames = hotelService.allUsers.sort((a, b) => {
