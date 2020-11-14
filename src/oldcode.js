@@ -162,7 +162,7 @@ function displayCustomerRooms(date) {
   filterSubmitButton.classList.remove('hidden');
   bookRoomHeader.innerText = `All Available Rooms`;
 
-  
+
 }
 
 function customerAddBookings(event) {
@@ -217,25 +217,11 @@ function backToCustomerBooking() {
 }
 
 function getFilterValue() {
-  let calendarDate = document.getElementById('book-room-date').value;
-  let formatCalendarDate = calendarDate.split('-').join('/');
-  let availableRooms = hotelService.findAvailableRooms(formatCalendarDate);
-  let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
-  customerRooms.innerHTML = '';
-  if (filterCategories.elements[0].value === 'residential') {
-    let residentialSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'residential suite');
-    formatFilteredView('Residential Suites', residentialSuites);
-  } else if (filterCategories.elements[1].value === 'suite') {
-    let suites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'suite');
-    formatFilteredView('Suites', suites);
-  } else if (filterCategories.elements[2].value === 'junior') {
-    let juniorSuites = hotelService.filterRoomByType(sortedAvailableCustRooms, 'junior suite');
-    formatFilteredView('Junior Suites', juniorSuites);
-  } else if (filterCategories.elements[3].value === 'single') {
-    let singleRooms = hotelService.filterRoomByType(sortedAvailableCustRooms, 'single room');
-    formatFilteredView('Single Rooms', singleRooms);
-  }
-  clearFormValues();
+
+
+
+
+
 }
 
 
@@ -247,16 +233,11 @@ function formatFilteredView(roomType, sortedRooms) {
   filterRefreshButton.classList.remove('hidden');
 }
 
-function clearFormValues() {
-  filterCategories.elements['residential'].checked = false;
-  filterCategories.elements['suite'].checked = false;
-  filterCategories.elements['junior'].checked = false;
-  filterCategories.elements['single'].checked = false;
-}
+
 
 function displayFilteredRooms(rooms) {
   customerRooms.innerText = '';
-  let sortedFilteredRooms = hotelService.sortBookingsByDate(rooms);
+
   let allRooms = sortedFilteredRooms.map(room => {
     return `<article class="today-booking-card">
     <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">

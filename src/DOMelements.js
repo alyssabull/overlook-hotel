@@ -1,6 +1,7 @@
 export let allRoomCards = document.getElementById('all-room-cards');
 export let bookARoomButton = document.querySelector('.book-a-room');
 export let customerBookRoomDate = document.getElementById('book-room-date');
+export let customerViewRooms = document.getElementById('customer-view-rooms');
 export let currentCustomerBookings = document.getElementById('current-customer-bookings');
 export let customerDirectoryButton = document.querySelector('.customer-directory-button');
 export let customerBookingSearchBar = document.querySelector('.customer-booking-search-bar');
@@ -13,7 +14,7 @@ export let dropDown = document.getElementById('customers');
 export let enterCredentials = document.querySelector('.enter-credentials');
 export let errorMessage = document.querySelector('.error-message');
 export let filterCategories = document.getElementById('filter-categories');
-export let filterRefreshButton = document.querySelector('.filter-status');
+export let filterRefreshButton = document.querySelector('.filter-button');
 export let filterSection = document.querySelector('.filter-rooms');
 export let filterSubmitButton = document.querySelector('.filter-button');
 export let gridColumn = document.getElementById('grid-column');
