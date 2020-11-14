@@ -10,23 +10,19 @@
     <header>
       <p class="header-name">Overlook Hotel</p>
       <section class="header-info">
-        <section class="customer-header">
-          <h2 class="customer-welcome">LEATHA ULLRICH</h2>
-          <article class="customer-status">
-            <p class="gold"><b>GOLD LEVEL PREFERRED</b></p>
-          </article>
+        <section class="customer-header hidden">
         </section>
         <section class="header-buttons">
-          <button type="button" class="header-button book-a-room">BOOK A ROOM</button>
-          <button type="button" class="header-button booking-history">YOUR BOOKING HISTORY</button>
-          <button type="button" class="header-button upcoming-bookings">UPCOMING BOOKINGS</button>
+          <button type="button" class="header-button book-a-room hidden">BOOK A ROOM</button>
+          <button type="button" class="header-button booking-history hidden">YOUR BOOKING HISTORY</button>
+          <button type="button" class="header-button upcoming-bookings hidden">UPCOMING BOOKINGS</button>
           <button type="button" class="header-button home-button hidden">HOME</button>
           <button type="button" class="header-button customer-directory-button hidden">CUSTOMER DIRECTORY</button>
           <button type="button" class="header-button signout-button">SIGN OUT</button>
         </section>
       </section>
     </header>
-    <section class="enter-credentials hidden">
+    <section class="enter-credentials">
         <h2>Please Log In</h2>
         <label for="username" class="credentials">Username</label>
         <input type="text" name="username" class="username login-info" aria-label="username">
@@ -105,7 +101,7 @@
 
 
 
-    <section class="customer-view">
+    <section class="customer-view hidden">
       <section class="customer-view-available-rooms view-available-rooms hidden" id="customer-view-rooms">
         <section class="book-a-room">
           <h2 class="book-a-room book-room-header">BOOK A ROOM</h2>
@@ -138,11 +134,20 @@
     </section>
   </section>
 
-  <section class="view-past-bookings">
+  <section class="view-past-bookings hidden">
     <section class="past-bookings">
       <h2 class="past-bookings-header">PAST BOOKINGS</h2>
       <p class="appreciation">We greatly appreciate your business!</p>
       <section id="past-bookings-display">
+      </section>
+    </section>
+  </section>
+
+  <section class="view-upcoming-bookings hidden">
+    <section class="upcoming-bookings">
+      <h2 class="upcoming-bookings-header">UPCOMING BOOKINGS</h2>
+      <p class="appreciation">Pack your bags!</p>
+      <section id="upcoming-bookings-display">
       </section>
     </section>
   </section>

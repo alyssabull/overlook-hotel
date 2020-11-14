@@ -5,6 +5,7 @@ export let customerBookRoomDate = document.getElementById('book-room-date');
 export let customerViewRooms = document.getElementById('customer-view-rooms');
 export let currentCustomerBookings = document.getElementById('current-customer-bookings');
 export let customerDirectoryButton = document.querySelector('.customer-directory-button');
+export let customerHeader = document.querySelector('.customer-header');
 export let customerBookingSearchBar = document.querySelector('.customer-booking-search-bar');
 export let customerNameInput = document.querySelector('.search-customer-name');
 export let customerStatus = document.querySelector('.customer-status');
@@ -39,9 +40,13 @@ export let todayHotelBookings = document.querySelector('.today-hotel-bookings');
 export let todayHotelBookingsTitle = document.querySelector('.today-hotel-bookings-title');
 export let todayHotelOverview = document.querySelector('.today-hotel-overview');
 export let usernameInput = document.querySelector('.username');
+export let upcomingBookingsButton = document.querySelector('.upcoming-bookings');
+export let upcomingBookingsDisplay = document.getElementById('upcoming-bookings-display');
 export let viewAvailableRooms = document.querySelector('.view-available-rooms');
 export let viewCustomerBookingsButton = document.getElementById('view-customer-bookings-button');
 export let viewPastBookings = document.querySelector('.view-past-bookings');
+export let viewUpcomingBookings =
+document.querySelector('.view-upcoming-bookings');
 
 
 

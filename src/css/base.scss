@@ -364,12 +364,16 @@ header {
   align-items: center;
   margin-left: 5%;
   margin-right: 6%;
-  margin-top: 1%;
+  margin-top: 2%;
 }
 
 .customer-welcome {
   font-size: 22px;
   margin-bottom: 2%;
+}
+
+.card-date {
+  font-size: 18px;
 }
 
 .gold {
@@ -599,6 +603,20 @@ input[type=radio]:checked + label {
   display: flex;
   justify-content: center;
   font-size: 12px;
+}
+
+.upcoming-bookings {
+  font-family: 'Comfortaa', cursive;
+  background-color: white;
+  border-radius: 10px;
+  padding-bottom: 1%;
+}
+
+.upcoming-bookings-header {
+  display: flex;
+  justify-content: center;
+  padding-top: 2%;
+  margin-bottom: 0%;
 }
 
 .hidden {

@@ -7,7 +7,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {allRoomCards, bookARoomButton, bookingHistoryButton, customerBookRoomDate, currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, customerNameInput, customerStatus, customerView, customerViewRooms, customerWelcome, dropDown, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, pastBookingsDisplay, refreshCustomerButton, searchRoomsButton, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, usernameInput, viewAvailableRooms, viewCustomerBookingsButton, viewPastBookings} from './DOMelements.js';
+import {allRoomCards, bookARoomButton, bookingHistoryButton, customerBookRoomDate, customerHeader, currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, customerNameInput, customerStatus, customerView, customerViewRooms, customerWelcome, dropDown, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, pastBookingsDisplay, refreshCustomerButton, searchRoomsButton, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, upcomingBookingsButton, usernameInput, upcomingBookingsDisplay, viewAvailableRooms, viewCustomerBookingsButton, viewPastBookings, viewUpcomingBookings} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -28,6 +28,7 @@ filterSection.addEventListener('click', filterRoomsByType);
 filterRefreshButton.addEventListener('click', clearFilter);
 allRoomCards.addEventListener('click', bookRoomCustomerView);
 bookingHistoryButton.addEventListener('click', viewCustomerBookingHistory);
+upcomingBookingsButton.addEventListener('click', viewCustomerUpcomingBookings);
 
 searchCustomerNameDropDown.addEventListener('change', (event) => {
   viewCustomerBookingsButton.classList.remove('hidden');
@@ -89,9 +90,14 @@ function validateCredentials() {
     passwordInput.value = '';
   }
   else if (usernameInput.value.includes('customer')
-  // && passwordInput.value === 'overlook2020'
+  && passwordInput.value === 'overlook2020'
   ) {
     signOutButton.disabled = false;
+    customerView.classList.remove('hidden');
+    bookARoomButton.classList.remove('hidden');
+    bookingHistoryButton.classList.remove('hidden');
+    upcomingBookingsButton.classList.remove('hidden');
+    customerHeader.classList.remove('hidden');
     let findUserID = usernameInput.value.split(/(\d+)/);
     userID = findUserID[1];
     loadUserPage();
@@ -131,25 +137,24 @@ function loadUserPage() {
 
 function loadCustomerInfo() {
   let status;
-  customerWelcome.innerText = `${hotelService.findUserName(userID).toUpperCase()}!`
+  customerHeader.innerHTML = `<h2 class="customer-welcome">${hotelService.findUserName(userID).toUpperCase()}</h2>`
   let totalSpent = hotelService.calculateTotalSpent(userID).toFixed(2);
   if (totalSpent > 10000) {
-    status = 'Gold';
+    status = 'gold';
   } else if (totalSpent < 10000 && totalSpent > 8000) {
-    status = 'Silver';
+    status = 'silver';
   } else if (totalSpent < 8000 && totalSpent > 5000) {
-    status = 'Bronze';
+    status = 'bronze';
   } else {
-    status = 'Blue';
+    status = 'blue';
   }
   displayCustomerStats(status, totalSpent)
 }
 
 function displayCustomerStats(status, totalSpent) {
   let statusInfo = `
-  <p class="${status}"><b>${status.toUpperCase} LEVEL PREFERRED</b></p>
-  <p>Total Spent: $${totalSpent}</p>`;
-  customerStatus.insertAdjacentHTML('afterbegin', statusInfo);
+  <p class="customer-status ${status}"><b>${status.toUpperCase()} LEVEL PREFERRED</b></p>`;
+  customerHeader.insertAdjacentHTML('beforeend', statusInfo);
 }
 
 function showBookRoomView() {
@@ -160,6 +165,9 @@ function showBookRoomView() {
   filterRefreshButton.disabled = true;
   customerViewRooms.classList.remove('hidden');
   bookingHistoryButton.disabled = false;
+  upcomingBookingsButton.disabled = false;
+  viewUpcomingBookings.classList.add('hidden');
+  viewPastBookings.classList.add('hidden');
 }
 
 function displayAvailableRoomsForCustomer() {
@@ -295,7 +303,6 @@ function bookRoomCustomerView(event) {
   let bookingDate = customerBookRoomDate.value.split('-').join('/');
   let roomNumber = event.target.classList[1];
   let newBooking = hotelService.addNewBooking(userID, bookingDate, roomNumber);
-  console.log('new booking', newBooking);
   postNewBooking(newBooking, roomNumber);
 }
 
@@ -304,7 +311,18 @@ function viewCustomerBookingHistory() {
   bookingHistoryButton.disabled = true;
   customerViewRooms.classList.add('hidden');
   viewPastBookings.classList.remove('hidden');
+  viewUpcomingBookings.classList.add('hidden');
   displayPastBookings();
+}
+
+function viewCustomerUpcomingBookings() {
+  bookARoomButton.disabled = false;
+  bookingHistoryButton.disabled = false;
+  upcomingBookingsButton.disabled = true;
+  customerViewRooms.classList.add('hidden');
+  viewPastBookings.classList.add('hidden');
+  viewUpcomingBookings.classList.remove('hidden');
+  displayUpcomingBookings();
 }
 
 function displayPastBookings() {
@@ -313,8 +331,8 @@ function displayPastBookings() {
   let filteredBookings = allBookings.filter(booking => {
     return booking.date < todayDate;
   })
-  let pastBookings = filteredBookings.map(room => {
-    console.log(room)
+  let sortedFilteredBookings = hotelService.sortBookingsByDate(filteredBookings);
+  let pastBookings = sortedFilteredBookings.map(room => {
     let bidetStatus;
     let roomPicture;
     if (room.bidet === true) {
@@ -334,7 +352,7 @@ function displayPastBookings() {
     return `
     <section class="room-booking-card">
     <section class="room-card-header">
-      <p class="room-type">${room.roomType.toUpperCase()}</p>
+      <p class="room-type">${room.roomType.toUpperCase()} <span class="card-date"> - ${room.date}</span></p>
     </section>
     <section class="room-card-body">
       <article class="room-card-image">
@@ -353,6 +371,58 @@ function displayPastBookings() {
     </section>`
   }).join('');
   pastBookingsDisplay.insertAdjacentHTML('afterbegin', pastBookings);
+}
+
+function displayUpcomingBookings() {
+  upcomingBookingsDisplay.innerHTML = '';
+  let todayDate = hotelService.getTodayDate();
+  let allBookings = hotelService.findCustomerBookings(userID);
+  let filteredBookings = allBookings.filter(booking => {
+    return booking.date >= todayDate;
+  })
+  if (filteredBookings.length > 0) {
+    let pastBookings = filteredBookings.map(room => {
+      let bidetStatus;
+      let roomPicture;
+      if (room.bidet === true) {
+        bidetStatus = 'fa fa-check';
+      } else if (room.bidet === false) {
+        bidetStatus = 'fa fa-ban';
+      }
+      if (room.roomType === 'residential suite') {
+        roomPicture = 'room1';
+      } else if (room.roomType === 'suite') {
+        roomPicture = 'room2';
+      } else if (room.roomType === 'junior suite') {
+        roomPicture = 'room5';
+      } else if (room.roomType === 'single room') {
+        roomPicture = 'room3';
+      }
+      return `
+      <section class="room-booking-card">
+      <section class="room-card-header">
+        <p class="room-type">${room.roomType.toUpperCase()}</p>
+      </section>
+      <section class="room-card-body">
+        <article class="room-card-image">
+          <img src="./images/${roomPicture}.jpg" alt="" class="room-image">
+        </article>
+        <article class="room-card-details">
+          <p class="room-info"><i class="fa fa-bed" aria-hidden="true"></i> ${room.numBeds} ${room.bedSize.toUpperCase()}</p>
+          <p class="room-info"><i class="${bidetStatus}" aria-hidden="true"></i> <b>BIDET</b></p>
+          <p class="room-info"><i class="fa fa-wifi" aria-hidden="true"></i> FREE WIFI</p>
+          <p class="room-info"><i class="fa fa-coffee" aria-hidden="true"></i> BREAKFAST FOR 2 </p>
+        </article>
+        <article class="room-card-price">
+          <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
+        </article>
+      </section>
+      </section>`
+    }).join('');
+    upcomingBookingsDisplay.insertAdjacentHTML('afterbegin', pastBookings);
+  } else {
+    upcomingBookingsDisplay.innerText = 'No upcoming bookings to display at this time.';
+  }
 }
 
 
