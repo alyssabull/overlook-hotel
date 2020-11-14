@@ -33,6 +33,7 @@ export default class HotelService {
   }
 
   addBookings() {
+    this.allBookings = [];
     return this.rawBookingData.map(data => {
       let booking = new Booking(data);
       this.allBookings.push(booking);
@@ -79,16 +80,14 @@ export default class HotelService {
   }
 
   calculateNumberAvailableRooms(date) {
-    if (typeof this.findAvailableRooms(date) === 'string') {
-      return 0;
-    } else {
-      return this.findAvailableRooms(date).length
-    }
+    let percent = this.calculatePercentageOccupied(date) / 100;
+    let occupiedRooms = percent * 25;
+    return 25 - occupiedRooms;
   }
 
   findAvailableRooms(date) {
     let roomsBooked = this.allBookings.reduce((roomNums, booking) => {
-      if (booking.date === date) {
+      if (booking.date === date && typeof booking.roomNumber === 'number') {
         roomNums.push(booking.roomNumber)
       }
       return roomNums;
@@ -104,7 +103,7 @@ export default class HotelService {
     })
 
     if (roomsBooked.length < rooms.length) {
-      rooms.forEach(roomNum => {
+      roomsBooked.forEach(roomNum => {
         rooms.forEach(room => {
           if (roomNum === room.number) {
             let index = rooms.indexOf(room);
@@ -125,6 +124,9 @@ export default class HotelService {
           if (room.number === booking.roomNumber) {
             booking.roomType = room.roomType;
             booking.costPerNight = room.costPerNight;
+            booking.bidet = room.bidet;
+            booking.bedSize = room.bedSize;
+            booking.numBeds = room.numBeds;
           }
         })
         this.allUsers.forEach(user => {
@@ -145,6 +147,8 @@ export default class HotelService {
           if (room.number == booking.roomNumber) {
             booking.roomType = room.roomType;
             booking.costPerNight = room.costPerNight;
+            booking.bedSize = room.bedSize;
+            booking.bidet = room.bidet;
           }
         })
         this.allUsers.forEach(user => {

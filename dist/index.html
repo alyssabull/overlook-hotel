@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<link href="https://fonts.googleapis.com/css2?family=Spectral+SC:wght@200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <head>
+    <title>Overlook Hotel</title>
+  </head>
+  <body>
+    <header>
+      <img src="https://i.etsystatic.com/18252946/r/il/dd8a9e/1629665033/il_570xN.1629665033_pyzn.jpg" alt="overlook hotel crest" class="hotel-crest">
+      <h1>Overlook Hotel</h1>
+      <button type="button" class="signout-button hidden">SIGN OUT</button>
+    </header>
+    <p class="hotel-info">1744 Aspen Drive, Spareeholm Sweden | +0157-8447132 | bookings@overlookhotel.net</p>
+    <section class="enter-credentials">
+        <h2>Please Log In</h2>
+        <label for="username" class="username-login">Username</label>
+        <input type="text" name="username" class="username login-info" aria-label="username">
+        <label for="password" class="password-login">Password</label>
+        <input type="password" name="password" class="password login-info" aria-label="password">
+        <button type="button" class="submit-button">ENTER</button>
+        <p class="error-message"></p>
+    </section>
+    <section class="manager-view hidden">
+      <article class="today-overview">
+        <p class="overview-title"><b>Hotel Overview for</b></p>
+        <input type="date" class="hotel-overview-date">
+          <p class="overview-default" id="overview-info">Please select a date.</p>
+          <section class="customer-search-bar">
+          <h3 class="search-customers">Search Customers</h3>
+          <form>
+            <input list="customers" name="browser" class="search-customer-name">
+            <datalist id="customers">
+            </datalist>
+          </form>
+          <input type="submit" class="search-button" id="search-customer-button">
+        </section>
+      </article>
+      <h5 class="search-title">Bookings for --</h5>
+      <ul class="customer-info-headers">
+        <li>Date</li>
+        <li>Room Type</li>
+        <li>Room #</li>
+        <li>Price</li>
+        <li>Confirmation</li>
+        <li>Delete</li>
+      </ul>
+      <section class="view-information">
+      </section>
+      <section class="footer">
+      </section>
+        <div class="modal hidden" id="add-booking-modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Available Rooms</h3>
+              <input type="date" class="modal-date">
+            </div>
+          <div id="modal-content" class="confirmation-message">
+          </div>
+          </div>
+          </div>
+      </section>
+    <section class="customer-view hidden">
+      <h2 class="customer-welcome">Welcome Back, Leatha Ullrich!</h2>
+      <article class="customer-status">
+      </article>
+      <aside class="view-available-rooms">
+        <section class="filter-rooms grow">
+        <h3 class="filter-title">Filter Rooms</h3>
+        <form id="filter-categories">
+          <span class="tag-row">
+            <input type="radio" name="filter" class="tag-button" value="residential suite" id="residential">
+            <label for="residential"><img src="https://www.raffles.com/assets/0/72/1930/1931/1956/58e252d1-f16e-48a5-915b-49d2ebf35d73.jpg" alt="residential suite" class="tag-image"></label>
+            <input type="radio" name="filter" class="tag-button" value="suite" id="suite">
+            <label for="suite"><img src="https://www.lonelyplanet.com/news/wp-content/uploads/2018/07/The-Plaza-A-Fairmont-Managed-Hotel-Plaza-Royal-Suite-1260625.jpg" alt="suite" class="tag-image"></label>
+          </span>
+          <span class="tag-name">
+            <li>Residential Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
+            <li>Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
+          </span>
+          <span class="tag-row">
+            <input type="radio" name="filter" class="tag-button" value="junior suite" id="junior">
+            <label for="junior"><img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="tag-image"></label>
+            <input type="radio" name="filter" class="tag-button" value="single room" id="single">
+            <label for="single"><img src="https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy" alt="single room" class="tag-image"></label>
+          </span>
+          <span class="tag-name">
+            <li>Junior Suite</li>
+            <li>Single Room</li>
+          </span>
+        </form>
+      <button type="button" class="filter-button">SEARCH</button>
+      <button class="filter-status hidden">REFRESH FILTER</button>
+    </section>
+      <section class="book-a-room">
+      <h2 class="book-a-room book-room-header">Book a Room</h2>
+      <input type="date" name="room date" class="book-room-date" id="book-room-date">
+      <section class="back-to-booking"></section>
+      <section class="display-customer-rooms">
+      </section>
+      </section>
+      </aside>
+    </section>
+  <script type="text/javascript" src="main.bundle.js"></script></body>
+</html>
