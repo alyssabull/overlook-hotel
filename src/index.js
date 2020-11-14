@@ -312,6 +312,7 @@ function viewCustomerBookingHistory() {
   customerViewRooms.classList.add('hidden');
   viewPastBookings.classList.remove('hidden');
   viewUpcomingBookings.classList.add('hidden');
+  upcomingBookingsButton.disabled = false;
   displayPastBookings();
 }
 
@@ -674,10 +675,8 @@ function signOut() {
   customerDirectoryButton.classList.add('hidden');
   customerView.classList.add('hidden');
   clearErrorMessage();
-  // customerDirectoryButton.classList.add('hidden');
-  // homeButton.classList.add('hidden');
-  // customerStatus.innerHTML = '';
-  // bookRoomHeader = 'Book a Room';
-  // backToBooking.innerHTML = '';
-  // customerRooms.innerHTML = '';
+  bookARoomButton.classList.add('hidden');
+  upcomingBookingsButton.classList.add('hidden');
+  customerHeader.classList.add('hidden');
+  bookingHistoryButton.classList.add('hidden');
 }
