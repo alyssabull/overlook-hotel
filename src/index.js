@@ -126,7 +126,7 @@ function loadUserPage() {
 
 function loadCustomerInfo() {
   let status;
-  customerWelcome.innerText = `Welcome Back, ${hotelService.findUserName(userID)}!`
+  customerWelcome.innerText = `${hotelService.findUserName(userID).toUpperCase()}!`
   let totalSpent = hotelService.calculateTotalSpent(userID).toFixed(2);
   if (totalSpent > 10000) {
     status = 'Gold';
@@ -142,8 +142,8 @@ function loadCustomerInfo() {
 
 function displayCustomerStats(status, totalSpent) {
   let statusInfo = `
-  <p class="${status}"><b>${status} Level Preferred</b></p>
-  <p>Total Spent: $${totalSpent}</p><button class="view-bookings-button customer-status">View Bookings</button>`;
+  <p class="${status}"><b>${status.toUpperCase} LEVEL PREFERRED</b></p>
+  <p>Total Spent: $${totalSpent}</p>`;
   customerStatus.insertAdjacentHTML('afterbegin', statusInfo);
 }
 

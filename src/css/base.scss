@@ -27,6 +27,7 @@ header {
 
 .header-buttons {
   display: flex;
+  height: 100%;
   align-items: center;
 }
 
@@ -372,6 +373,109 @@ header {
 
 .gold {
   font-size: 11px;
+  color: goldenrod;
+}
+
+.silver {
+  font-size: 11px;
+  color: lightgrey;
+}
+
+.bronze {
+  font-size: 11px;
+  color: sienna;
+}
+
+.blue {
+  font-size: 11px;
+  color: lightblue;
+}
+
+.view-available-rooms {
+  width: 100%;
+  margin: 0%;
+  padding-bottom: 5%;
+}
+
+.book-room-header {
+  display: flex;
+  justify-content: center;
+  padding-top: 1%;
+}
+
+.book-room-search {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2%;
+  border-bottom: solid darkgrey 1px;
+}
+
+.book-room-date {
+  margin-right: 2%;
+}
+
+.search-rooms-button {
+  font-family: 'Comfortaa', cursive;
+  border-radius: 10px;
+  border: solid black 1px;
+  width: 100px;
+  min-width: 75px;
+  background-color: lightblue;
+}
+
+.search-rooms-button:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+  border-radius: 10px;
+  outline: none;
+  border: solid black 1px;
+}
+
+.filter-rooms {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2%;
+}
+
+#filter-categories {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+  margin-bottom: 4%;
+  font-size: 13px;
+}
+
+.tag-button {
+  margin-bottom: 15%;
+}
+
+.tag-button:hover {
+  cursor: pointer;
+}
+
+input[type=radio]:checked + label {
+  color: lightgrey;
+  font-style: normal;
+}
+
+.filter-button {
+  font-family: 'Comfortaa', cursive;
+  border-radius: 10px;
+  border: solid black 1px;
+  outline: none;
+  width: 150px;
+  min-width: 120px;
+  padding: 2%;
+}
+
+.filter-button:hover {
+  cursor: pointer;
+  border-radius: 10px;
+  outline: none;
+  border: solid black 1px;
+  background-color: lightgrey;
 }
 
 .hidden {

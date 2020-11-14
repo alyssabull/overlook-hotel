@@ -105,42 +105,35 @@
 
 
     <section class="customer-view">
-
-      <aside class="view-available-rooms hidden">
+      <aside class="view-available-rooms">
+        <section class="book-a-room">
+          <h2 class="book-a-room book-room-header">BOOK A ROOM</h2>
+          <article class="book-room-search">
+            <input type="date" name="room date" class="book-room-date" id="book-room-date">
+            <button type="button" name="button" class="search-rooms-button">SEARCH</button>
+          </article>
+          <section class="back-to-booking"></section>
+          <section class="display-customer-rooms">
+          </section>
+        </section>
         <section class="filter-rooms grow">
-        <h3 class="filter-title">Filter Rooms</h3>
+        <h3 class="filter-title">FILTER BY ROOM TYPE</h3>
         <form id="filter-categories">
           <span class="tag-row">
             <input type="radio" name="filter" class="tag-button" value="residential suite" id="residential">
-            <label for="residential"><img src="https://www.raffles.com/assets/0/72/1930/1931/1956/58e252d1-f16e-48a5-915b-49d2ebf35d73.jpg" alt="residential suite" class="tag-image"></label>
+            <label for="residential">RESIDENTIAL SUITE</label><br>
             <input type="radio" name="filter" class="tag-button" value="suite" id="suite">
-            <label for="suite"><img src="https://www.lonelyplanet.com/news/wp-content/uploads/2018/07/The-Plaza-A-Fairmont-Managed-Hotel-Plaza-Royal-Suite-1260625.jpg" alt="suite" class="tag-image"></label>
-          </span>
-          <span class="tag-name">
-            <li>Residential Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
-            <li>Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
+            <label for="suite">SUITE</label>
           </span>
           <span class="tag-row">
             <input type="radio" name="filter" class="tag-button" value="junior suite" id="junior">
-            <label for="junior"><img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="tag-image"></label>
+            <label for="junior">JUNIOR SUITE</label><br>
             <input type="radio" name="filter" class="tag-button" value="single room" id="single">
-            <label for="single"><img src="https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy" alt="single room" class="tag-image"></label>
-          </span>
-          <span class="tag-name">
-            <li>Junior Suite</li>
-            <li>Single Room</li>
+            <label for="single">SINGLE ROOM</label>
           </span>
         </form>
-      <button type="button" class="filter-button">SEARCH</button>
-      <button class="filter-status hidden">REFRESH FILTER</button>
+      <button type="button" class="filter-button">CLEAR FILTER</button>
     </section>
-      <section class="book-a-room">
-      <h2 class="book-a-room book-room-header">Book a Room</h2>
-      <input type="date" name="room date" class="book-room-date" id="book-room-date">
-      <section class="back-to-booking"></section>
-      <section class="display-customer-rooms">
-      </section>
-      </section>
       </aside>
     </section>
   </body>
