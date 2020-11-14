@@ -1,5 +1,6 @@
 export let allRoomCards = document.getElementById('all-room-cards');
 export let bookARoomButton = document.querySelector('.book-a-room');
+export let bookingHistoryButton = document.querySelector('.booking-history');
 export let customerBookRoomDate = document.getElementById('book-room-date');
 export let customerViewRooms = document.getElementById('customer-view-rooms');
 export let currentCustomerBookings = document.getElementById('current-customer-bookings');
@@ -28,6 +29,7 @@ export let managerViewCustomerBookings = document.getElementById('managerview-cu
 export let hotelOverviewInfo = document.querySelector('#hotel-overview-info');
 export let hotelOverviewTitle = document.querySelector('.hotel-overview-title');
 export let passwordInput = document.querySelector('.password');
+export let pastBookingsDisplay = document.getElementById('past-bookings-display');
 export let refreshCustomerButton = document.querySelector('.refresh-customers');
 export let searchRoomsButton = document.querySelector('.search-rooms-button');
 export let searchCustomerNameDropDown = document.querySelector('.search-customer-name');
@@ -39,6 +41,7 @@ export let todayHotelOverview = document.querySelector('.today-hotel-overview');
 export let usernameInput = document.querySelector('.username');
 export let viewAvailableRooms = document.querySelector('.view-available-rooms');
 export let viewCustomerBookingsButton = document.getElementById('view-customer-bookings-button');
+export let viewPastBookings = document.querySelector('.view-past-bookings');
 
 
 

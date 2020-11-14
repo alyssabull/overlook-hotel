@@ -7,7 +7,7 @@ window.onload = fetchAllData();
 let hotelService;
 let userID;
 
-import {allRoomCards, bookARoomButton, customerBookRoomDate, currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, customerNameInput, customerStatus, customerView, customerViewRooms, customerWelcome, dropDown, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, refreshCustomerButton, searchRoomsButton, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, usernameInput, viewAvailableRooms, viewCustomerBookingsButton} from './DOMelements.js';
+import {allRoomCards, bookARoomButton, bookingHistoryButton, customerBookRoomDate, currentCustomerBookings, customerDirectoryButton, customerBookingSearchBar, customerNameInput, customerStatus, customerView, customerViewRooms, customerWelcome, dropDown, enterCredentials, errorMessage, filterCategories, filterRefreshButton, filterSection, filterSubmitButton, gridColumn, homeButton, hotelOverviewInfo, hotelOverviewTitle, loginButton, managerBookRoomDate, managerBookRoomHeader, manageCustomerBookings, managerView, managerViewCustomerBookings, passwordInput, pastBookingsDisplay, refreshCustomerButton, searchRoomsButton, searchCustomersForBookingButton, searchCustomerNameDropDown, signOutButton, todayHotelBookings, todayHotelBookingsTitle, todayHotelOverview, updateCustomerBookings, usernameInput, viewAvailableRooms, viewCustomerBookingsButton, viewPastBookings} from './DOMelements.js';
 
 //make header buttons hidden after they work
 
@@ -24,7 +24,10 @@ manageCustomerBookings.addEventListener('click', deleteBooking);
 refreshCustomerButton.addEventListener('click', refreshCustomerDropDown);
 bookARoomButton.addEventListener('click', showBookRoomView);
 searchRoomsButton.addEventListener('click', displayAvailableRoomsForCustomer);
-filterSection.addEventListener('click', filterRoomsByType)
+filterSection.addEventListener('click', filterRoomsByType);
+filterRefreshButton.addEventListener('click', clearFilter);
+allRoomCards.addEventListener('click', bookRoomCustomerView);
+bookingHistoryButton.addEventListener('click', viewCustomerBookingHistory);
 
 searchCustomerNameDropDown.addEventListener('change', (event) => {
   viewCustomerBookingsButton.classList.remove('hidden');
@@ -156,6 +159,7 @@ function showBookRoomView() {
   bookARoomButton.disabled = true;
   filterRefreshButton.disabled = true;
   customerViewRooms.classList.remove('hidden');
+  bookingHistoryButton.disabled = false;
 }
 
 function displayAvailableRoomsForCustomer() {
@@ -199,7 +203,7 @@ function displayAvailableRoomsForCustomer() {
         </article>
         <article class="room-card-price">
           <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
-          <button type="button" class="customer-book-button">BOOK ROOM</button>
+          <button type="button" class="customer-book-button ${room.number}" id="button-${room.number}">BOOK ROOM</button>
           <p class="cancellation-policy">FREE CANCELLATION</p>
         </article>
       </section>
@@ -230,11 +234,9 @@ function filterRoomsByType(event) {
     let singleRooms = hotelService.filterRoomByType(sortedAvailableCustRooms, 'single room');
     displayFilteredRooms(singleRooms);
   }
-  // clearFormValues();
 }
 
 function displayFilteredRooms(rooms) {
-  console.log(rooms)
   allRoomCards.innerHTML = '';
   let sortedFilteredRooms = hotelService.sortBookingsByDate(rooms);
   let allRooms = sortedFilteredRooms.map(room => {
@@ -271,7 +273,7 @@ function displayFilteredRooms(rooms) {
       </article>
       <article class="room-card-price">
         <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
-        <button type="button" class="customer-book-button">BOOK ROOM</button>
+        <button type="button" class="customer-book-button ${room.number}" id="button-${room.number}">BOOK ROOM</button>
         <p class="cancellation-policy">FREE CANCELLATION</p>
       </article>
     </section>
@@ -281,17 +283,77 @@ function displayFilteredRooms(rooms) {
 }
 
 
-function clearFormValues() {
+function clearFilter() {
   filterCategories.elements['residential'].checked = false;
   filterCategories.elements['suite'].checked = false;
   filterCategories.elements['junior'].checked = false;
   filterCategories.elements['single'].checked = false;
+  displayAvailableRoomsForCustomer();
 }
 
+function bookRoomCustomerView(event) {
+  let bookingDate = customerBookRoomDate.value.split('-').join('/');
+  let roomNumber = event.target.classList[1];
+  let newBooking = hotelService.addNewBooking(userID, bookingDate, roomNumber);
+  console.log('new booking', newBooking);
+  postNewBooking(newBooking, roomNumber);
+}
 
+function viewCustomerBookingHistory() {
+  bookARoomButton.disabled = false;
+  bookingHistoryButton.disabled = true;
+  customerViewRooms.classList.add('hidden');
+  viewPastBookings.classList.remove('hidden');
+  displayPastBookings();
+}
 
-
-
+function displayPastBookings() {
+  let todayDate = hotelService.getTodayDate();
+  let allBookings = hotelService.findCustomerBookings(1);
+  let filteredBookings = allBookings.filter(booking => {
+    return booking.date < todayDate;
+  })
+  let pastBookings = filteredBookings.map(room => {
+    console.log(room)
+    let bidetStatus;
+    let roomPicture;
+    if (room.bidet === true) {
+      bidetStatus = 'fa fa-check';
+    } else if (room.bidet === false) {
+      bidetStatus = 'fa fa-ban';
+    }
+    if (room.roomType === 'residential suite') {
+      roomPicture = 'room1';
+    } else if (room.roomType === 'suite') {
+      roomPicture = 'room2';
+    } else if (room.roomType === 'junior suite') {
+      roomPicture = 'room5';
+    } else if (room.roomType === 'single room') {
+      roomPicture = 'room3';
+    }
+    return `
+    <section class="room-booking-card">
+    <section class="room-card-header">
+      <p class="room-type">${room.roomType.toUpperCase()}</p>
+    </section>
+    <section class="room-card-body">
+      <article class="room-card-image">
+        <img src="./images/${roomPicture}.jpg" alt="" class="room-image">
+      </article>
+      <article class="room-card-details">
+        <p class="room-info"><i class="fa fa-bed" aria-hidden="true"></i> ${room.numBeds} ${room.bedSize.toUpperCase()}</p>
+        <p class="room-info"><i class="${bidetStatus}" aria-hidden="true"></i> <b>BIDET</b></p>
+        <p class="room-info"><i class="fa fa-wifi" aria-hidden="true"></i> FREE WIFI</p>
+        <p class="room-info"><i class="fa fa-coffee" aria-hidden="true"></i> BREAKFAST FOR 2 </p>
+      </article>
+      <article class="room-card-price">
+        <p class="room-price">$${room.costPerNight.toFixed(2)}</p>
+      </article>
+    </section>
+    </section>`
+  }).join('');
+  pastBookingsDisplay.insertAdjacentHTML('afterbegin', pastBookings);
+}
 
 
 
