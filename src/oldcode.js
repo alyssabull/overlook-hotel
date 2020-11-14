@@ -170,7 +170,6 @@ function displayCustomerRooms(date) {
           <img src="./images/room${getRandomIndex()}.jpg" alt="room picture" class="booking-card-img">
           <section class="booking-info">
             <p class="room-type">${room.roomType}</p>
-            <p class="room-number"><b>Room Number:</b> ${room.number}</p>
             <p class="stay-date"><b>Bidet:</b> ${room.bidet}</p>
             <p class="customer-name"><b>Bed Type:</b> ${room.bedSize}</p>
             <p class="customer-name"><b>Number of Beds: </b> ${room.numBeds}</p>

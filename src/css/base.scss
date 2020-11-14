@@ -397,6 +397,11 @@ header {
   padding-bottom: 5%;
 }
 
+.filter-rooms {
+  display: flex;
+
+}
+
 .book-room-header {
   display: flex;
   justify-content: center;
@@ -429,6 +434,101 @@ header {
   border-radius: 10px;
   outline: none;
   border: solid black 1px;
+}
+
+.customer-room-search {
+  display: flex;
+}
+
+.all-room-cards {
+  width: 70%;
+}
+
+.room-booking-card {
+  border: solid black 1px;
+  border-radius: 5px;
+  margin: 5%;
+  box-shadow: 5px 8px lightgrey;
+}
+
+.room-booking-card:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+  transition: 1s ease;
+}
+
+.room-card-header {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  margin: 0%;
+  padding-left: 2%;
+  height: 50px;
+  border-bottom: solid black 1px;
+}
+
+.room-type {
+  margin: 1% 0% 1% 0%;
+}
+
+.room-card-body {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2%;
+  margin-top: 0%;
+}
+
+.room-image {
+  height: 160px;
+  width: 220px;
+  margin: 10% 0% 0% 10%;
+  border-radius: 5px;
+}
+
+.room-card-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 13px;
+  margin-top: 1%;
+}
+
+.room-card-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5%;
+  margin-bottom: 4%;
+}
+
+.room-price {
+  font-size: 25px;
+}
+
+.customer-book-button {
+  font-family: 'Comfortaa', cursive;
+  border-radius: 10px;
+  border: solid black 1px;
+  width: 175px;
+  min-width: 120px;
+  padding: 5px;
+  background-color: lightgrey;
+}
+
+.customer-book-button:hover {
+  cursor: pointer;
+  background-color: lightblue;
+  border-radius: 10px;
+  outline: none;
+  padding: 5px;
+  border: solid black 1px;
+}
+
+.cancellation-policy {
+  font-size: 8px;
+  margin-top: 10%;
 }
 
 .filter-rooms {
