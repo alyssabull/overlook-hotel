@@ -1,105 +1,156 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<link href="https://fonts.googleapis.com/css2?family=Spectral+SC:wght@200&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <head>
     <title>Overlook Hotel</title>
   </head>
   <body>
     <header>
-      <img src="https://i.etsystatic.com/18252946/r/il/dd8a9e/1629665033/il_570xN.1629665033_pyzn.jpg" alt="overlook hotel crest" class="hotel-crest">
-      <h1>Overlook Hotel</h1>
-      <button type="button" class="signout-button hidden">SIGN OUT</button>
+      <p class="header-name">Overlook Hotel</p>
+      <section class="header-info">
+        <section class="customer-header hidden">
+        </section>
+        <section class="header-buttons">
+          <button type="button" class="header-button book-a-room hidden">BOOK A ROOM</button>
+          <button type="button" class="header-button booking-history hidden">YOUR BOOKING HISTORY</button>
+          <button type="button" class="header-button upcoming-bookings hidden">UPCOMING BOOKINGS</button>
+          <button type="button" class="header-button home-button hidden">HOME</button>
+          <button type="button" class="header-button customer-directory-button hidden">CUSTOMER DIRECTORY</button>
+          <button type="button" class="header-button signout-button">SIGN OUT</button>
+        </section>
+      </section>
     </header>
-    <p class="hotel-info">1744 Aspen Drive, Spareeholm Sweden | +0157-8447132 | bookings@overlookhotel.net</p>
     <section class="enter-credentials">
         <h2>Please Log In</h2>
-        <label for="username" class="username-login">Username</label>
+        <label for="username" class="credentials">Username</label>
         <input type="text" name="username" class="username login-info" aria-label="username">
-        <label for="password" class="password-login">Password</label>
+        <label for="password" class="credentials">Password</label>
         <input type="password" name="password" class="password login-info" aria-label="password">
-        <button type="button" class="submit-button">ENTER</button>
+        <button type="button" class="login-button">ENTER</button>
         <p class="error-message"></p>
     </section>
     <section class="manager-view hidden">
-      <article class="today-overview">
-        <p class="overview-title"><b>Hotel Overview for</b></p>
-        <input type="date" class="hotel-overview-date">
-          <p class="overview-default" id="overview-info">Please select a date.</p>
-          <section class="customer-search-bar">
-          <h3 class="search-customers">Search Customers</h3>
-          <form>
-            <input list="customers" name="browser" class="search-customer-name">
-            <datalist id="customers">
-            </datalist>
-          </form>
-          <input type="submit" class="search-button" id="search-customer-button">
-        </section>
+      <article class="today-hotel-overview hidden">
+        <h4 class="hotel-overview-title"></h4>
+        <section class="overview-default" id="hotel-overview-info"></section>
       </article>
-      <h5 class="search-title">Bookings for --</h5>
-      <ul class="customer-info-headers">
-        <li>Date</li>
-        <li>Room Type</li>
-        <li>Room #</li>
-        <li>Price</li>
-        <li>Confirmation</li>
-        <li>Delete</li>
-      </ul>
-      <section class="view-information">
+    </section>
+      <section class="today-hotel-bookings hidden">
+        <h5 class="today-hotel-bookings-title">Bookings for --</h5>
+        <div class="grid-container">
+          <div class="grid-header"><u>Date</u></div>
+          <div class="grid-header"><u>Guest Name</u></div>
+          <div class="grid-header"><u>Room Type</u></div>
+          <div class="grid-header"><u>Room #</u></div>
+          <div class="grid-header"><u>Bed Size</u></div>
+          <div class="grid-header"><u>Cost</u></div>
+          <div class="grid-header"><u>Confirmation</u></div>
+        </div>
       </section>
-      <section class="footer">
-      </section>
-        <div class="modal hidden" id="add-booking-modal">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title">Available Rooms</h3>
-              <input type="date" class="modal-date">
-            </div>
-          <div id="modal-content" class="confirmation-message">
-          </div>
-          </div>
-          </div>
-      </section>
-    <section class="customer-view hidden">
-      <h2 class="customer-welcome">Welcome Back, Leatha Ullrich!</h2>
-      <article class="customer-status">
-      </article>
-      <aside class="view-available-rooms">
-        <section class="filter-rooms grow">
-        <h3 class="filter-title">Filter Rooms</h3>
-        <form id="filter-categories">
-          <span class="tag-row">
-            <input type="radio" name="filter" class="tag-button" value="residential suite" id="residential">
-            <label for="residential"><img src="https://www.raffles.com/assets/0/72/1930/1931/1956/58e252d1-f16e-48a5-915b-49d2ebf35d73.jpg" alt="residential suite" class="tag-image"></label>
-            <input type="radio" name="filter" class="tag-button" value="suite" id="suite">
-            <label for="suite"><img src="https://www.lonelyplanet.com/news/wp-content/uploads/2018/07/The-Plaza-A-Fairmont-Managed-Hotel-Plaza-Royal-Suite-1260625.jpg" alt="suite" class="tag-image"></label>
-          </span>
-          <span class="tag-name">
-            <li>Residential Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
-            <li>Suite &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
-          </span>
-          <span class="tag-row">
-            <input type="radio" name="filter" class="tag-button" value="junior suite" id="junior">
-            <label for="junior"><img src="https://pix10.agoda.net/hotelImages/5668227/0/7542736b26b0676a0e9e3c4aab831241.jpg?s=1024x768" alt="junior-suite" class="tag-image"></label>
-            <input type="radio" name="filter" class="tag-button" value="single room" id="single">
-            <label for="single"><img src="https://webbox.imgix.net/images/owvecfmxulwbfvxm/c56a0c0d-8454-431a-9b3e-f420c72e82e3.jpg?auto=format,compress&fit=crop&crop=entropy" alt="single room" class="tag-image"></label>
-          </span>
-          <span class="tag-name">
-            <li>Junior Suite</li>
-            <li>Single Room</li>
-          </span>
+      <section class="customer-booking-search-bar hidden">
+        <h3 class="search-customers">SELECT A CUSTOMER</h3>
+        <form>
+          <input list="customers" name="browser" class="search-customer-name">
+          <datalist id="customers">
+            <option value=""></option>
+          </datalist>
+          <button type="button" name="button" class="refresh-customers">REFRESH</button>
         </form>
-      <button type="button" class="filter-button">SEARCH</button>
-      <button class="filter-status hidden">REFRESH FILTER</button>
-    </section>
-      <section class="book-a-room">
-      <h2 class="book-a-room book-room-header">Book a Room</h2>
-      <input type="date" name="room date" class="book-room-date" id="book-room-date">
-      <section class="back-to-booking"></section>
-      <section class="display-customer-rooms">
+        <section class="customer-view-buttons">
+          <button type="submit" class="search-customers-forbooking-button" id="search-customer-button">BOOK A ROOM</button>
+          <button type="submit" class="manager-viewbookings-button" id="view-customer-bookings-button">VIEW CUSTOMER BOOKINGS</button>
+        </section>
+      </section>
+      <section class="view-available-rooms hidden">
+        <article class="bookings-for-title">
+          <h3 class="manager-book-room-header"></h3>
+          <input type="date" id="manager-book-room-date">
+        </article>
+        <div class="grid-container" id="customer-bookings">
+          <div class="grid-header"><u>Room Type</u></div>
+          <div class="grid-header"><u>Room #</u></div>
+          <div class="grid-header"><u>Bed Size</u></div>
+          <div class="grid-header"><u>Bidet</u></div>
+          <div class="grid-header"><u>Cost</u></div>
+          <div class="grid-header"><u>Book Room</u></div>
+        </div>
+        <div id="grid-column">
+        </div>
+      </section>
+      <section class="manage-customer-bookings hidden">
+        <h3 class="customer-bookings-header"></h3>
+        <div class="grid-container customer-booking-grid" id="managerview-customer-bookings">
+          <div class="grid-header"><u>Date</u></div>
+          <div class="grid-header"><u>Confirmation #</u></div>
+          <div class="grid-header"><u>Room Type</u></div>
+          <div class="grid-header"><u>Room #</u></div>
+          <div class="grid-header"><u>Bed Size</u></div>
+          <div class="grid-header"><u>Bidet</u></div>
+          <div class="grid-header"><u>Cost</u></div>
+          <div class="grid-header"><u>Delete Booking</u></div>
+        </div>
+        <section id="update-customer-bookings">
+        </div>
       </section>
       </section>
-      </aside>
+
+
+
+
+
+
+    <section class="customer-view hidden">
+      <section class="customer-view-available-rooms view-available-rooms hidden" id="customer-view-rooms">
+        <section class="book-a-room">
+          <h2 class="book-a-room book-room-header">BOOK A ROOM</h2>
+          <article class="book-room-search">
+            <input type="date" name="room date" class="book-room-date" id="book-room-date">
+            <button type="button" name="button" class="search-rooms-button">SEARCH</button>
+          </article>
+        </section>
+      <section class="customer-room-search">
+        <section class="filter-rooms grow">
+          <h3 class="filter-title">FILTER <i class="fa fa-filter" aria-hidden="true"></i></h3>
+          <form id="filter-categories">
+            <span class="tag-row">
+              <input type="radio" name="filter" class="tag-button" value="residential" id="residential">
+              <label for="residential">RESIDENTIAL SUITE</label><br>
+              <input type="radio" name="filter" class="tag-button" value="suite" id="suite">
+              <label for="suite">SUITE</label>
+            </span>
+            <span class="tag-row">
+              <input type="radio" name="filter" class="tag-button" value="junior" id="junior">
+              <label for="junior">JUNIOR SUITE</label><br>
+              <input type="radio" name="filter" class="tag-button" value="single" id="single">
+              <label for="single">SINGLE ROOM</label>
+            </span>
+          </form>
+          <button type="button" class="filter-button">CLEAR FILTER</button>
+        </section>
+      <section id="all-room-cards">
+      </section>
     </section>
+  </section>
+
+  <section class="view-past-bookings hidden">
+    <section class="past-bookings">
+      <h2 class="past-bookings-header">PAST BOOKINGS</h2>
+      <p class="appreciation">We greatly appreciate your business!</p>
+      <section id="past-bookings-display">
+      </section>
+    </section>
+  </section>
+
+  <section class="view-upcoming-bookings hidden">
+    <section class="upcoming-bookings">
+      <h2 class="upcoming-bookings-header">UPCOMING BOOKINGS</h2>
+      <p class="appreciation">Pack your bags!</p>
+      <section id="upcoming-bookings-display">
+      </section>
+    </section>
+  </section>
+</section>
   <script type="text/javascript" src="main.bundle.js"></script></body>
 </html>
