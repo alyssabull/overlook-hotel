@@ -160,12 +160,21 @@ function displayAvailableRoomsForCustomer() {
     let sortedAvailableCustRooms = hotelService.sortBookingsByDate(availableRooms);
     let allRooms = sortedAvailableCustRooms.map(room => {
       let bidetStatus;
+      let roomPicture;
       if (room.bidet === true) {
         bidetStatus = 'fa fa-check';
       } else if (room.bidet === false) {
         bidetStatus = 'fa fa-ban';
       }
-      console.log(bidetStatus);
+      if (room.roomType === 'residential suite') {
+        roomPicture = 'room1';
+      } else if (room.roomType === 'suite') {
+        roomPicture = 'room2';
+      } else if (room.roomType === 'junior suite') {
+        roomPicture = 'room5';
+      } else if (room.roomType === 'single room') {
+        roomPicture = 'room3';
+      }
       return `
       <section class="room-booking-card">
       <section class="room-card-header">
@@ -173,7 +182,7 @@ function displayAvailableRoomsForCustomer() {
       </section>
       <section class="room-card-body">
         <article class="room-card-image">
-          <img src="./images/room2.jpg" alt="" class="room-image">
+          <img src="./images/${roomPicture}.jpg" alt="" class="room-image">
         </article>
         <article class="room-card-details">
           <p class="room-info"><i class="fa fa-bed" aria-hidden="true"></i> ${room.numBeds} ${room.bedSize.toUpperCase()}</p>
